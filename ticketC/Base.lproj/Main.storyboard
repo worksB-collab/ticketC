@@ -157,20 +157,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bamboo-sticks-spa-ornament" translatesAutoresizingMaskIntoConstraints="NO" id="xGs-LV-p75">
-                                <rect key="frame" x="132" y="253.66666666666663" width="150" height="150"/>
+                                <rect key="frame" x="167" y="212" width="80" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="8HB-hp-wVl"/>
-                                    <constraint firstAttribute="width" constant="150" id="YHV-Gv-a7V"/>
+                                    <constraint firstAttribute="height" constant="80" id="8HB-hp-wVl"/>
+                                    <constraint firstAttribute="width" constant="80" id="YHV-Gv-a7V"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Billyの最愛" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKA-yy-8d0">
-                                <rect key="frame" x="137" y="453.66666666666669" width="140" height="40"/>
+                                <rect key="frame" x="152" y="317" width="110" height="40"/>
                                 <color key="backgroundColor" systemColor="systemIndigoColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="VPN-gA-fls"/>
+                                    <constraint firstAttribute="width" constant="110" id="VPN-gA-fls"/>
                                     <constraint firstAttribute="height" constant="40" id="a99-r0-gFF"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -181,8 +181,8 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提示" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwm-UD-ybk">
-                                <rect key="frame" x="131.66666666666669" y="144" width="150.66666666666669" height="89.666666666666686"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="75"/>
+                                <rect key="frame" x="166.66666666666666" y="144" width="80.666666666666657" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" systemColor="systemIndigoColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -190,7 +190,7 @@
                         <viewLayoutGuide key="safeArea" id="LiA-RH-MGP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="DKA-yy-8d0" firstAttribute="top" secondItem="xGs-LV-p75" secondAttribute="bottom" constant="50" id="8JV-l8-1hJ"/>
+                            <constraint firstItem="DKA-yy-8d0" firstAttribute="top" secondItem="xGs-LV-p75" secondAttribute="bottom" constant="25" id="8JV-l8-1hJ"/>
                             <constraint firstItem="pwm-UD-ybk" firstAttribute="centerX" secondItem="LiA-RH-MGP" secondAttribute="centerX" id="BnJ-Wn-XI8"/>
                             <constraint firstItem="pwm-UD-ybk" firstAttribute="top" secondItem="LiA-RH-MGP" secondAttribute="top" constant="100" id="TYx-dP-M8I"/>
                             <constraint firstItem="xGs-LV-p75" firstAttribute="top" secondItem="pwm-UD-ybk" secondAttribute="bottom" constant="20" id="eSf-Qz-7xr"/>
@@ -202,7 +202,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqN-cq-573" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-910.14492753623199" y="850.44642857142856"/>
+            <point key="canvasLocation" x="0.0" y="785"/>
         </scene>
         <!--兌換券-->
         <scene sceneID="up9-q7-FJD">
