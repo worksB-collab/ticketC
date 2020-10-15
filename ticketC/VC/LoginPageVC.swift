@@ -21,8 +21,7 @@ class LoginPageVC: UIViewController, UITextFieldDelegate {
     }
     @IBAction func btn_confirm(_ sender: UIButton) {
         if tf_name.text != "" {
-            let input = tf_name.text?.split(separator: " ")[0]
-            if (input! == validName){
+            if (tf_name.text! == validName || tf_name.text! == validName + " "){
                 checkedLogin = true
                 saveData()
                 goToNextPage()
@@ -43,7 +42,6 @@ class LoginPageVC: UIViewController, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
             target: self,
             action: #selector(dismissMyKeyboard))
-        //Add this tap gesture recognizer to the parent view
         view.addGestureRecognizer(tap)
         getData()
         
@@ -128,8 +126,5 @@ class LoginPageVC: UIViewController, UITextFieldDelegate {
         }else{
             present(vc,animated: true,completion: nil)
         }
-        
     }
-    
-    
 }

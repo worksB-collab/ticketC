@@ -31,6 +31,13 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="還有幾張呢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jC9-Y6-YUO">
+                                <rect key="frame" x="327.66666666666669" y="114.33333333333333" width="66.333333333333314" height="15.666666666666671"/>
+                                <color key="tintColor" systemColor="systemIndigoColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" systemColor="systemIndigoColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <activityIndicatorView opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Yzx-nb-fFZ">
                                 <rect key="frame" x="0.0" y="27" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -42,8 +49,10 @@
                         <constraints>
                             <constraint firstItem="f0o-dD-JK1" firstAttribute="trailing" secondItem="Yzx-nb-fFZ" secondAttribute="trailing" id="1zq-kN-maa"/>
                             <constraint firstItem="Yzx-nb-fFZ" firstAttribute="centerY" secondItem="f0o-dD-JK1" secondAttribute="centerY" id="CMk-GG-IUa"/>
+                            <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="jC9-Y6-YUO" secondAttribute="bottom" constant="8" symbolic="YES" id="Iwo-pc-ir3"/>
                             <constraint firstItem="cdt-ab-frf" firstAttribute="centerX" secondItem="f0o-dD-JK1" secondAttribute="centerX" id="KIc-G2-UHY"/>
                             <constraint firstItem="f0o-dD-JK1" firstAttribute="trailing" secondItem="cdt-ab-frf" secondAttribute="trailing" id="OD9-fl-pjb"/>
+                            <constraint firstItem="f0o-dD-JK1" firstAttribute="trailing" secondItem="jC9-Y6-YUO" secondAttribute="trailing" constant="20" id="T2i-Ws-oOs"/>
                             <constraint firstItem="Yzx-nb-fFZ" firstAttribute="leading" secondItem="f0o-dD-JK1" secondAttribute="leading" id="b0P-YL-XP1"/>
                             <constraint firstItem="Yzx-nb-fFZ" firstAttribute="height" secondItem="cDx-xy-g1Q" secondAttribute="height" id="cTt-VX-40m"/>
                             <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="f0o-dD-JK1" secondAttribute="top" constant="50" id="dEv-LJ-fVp"/>
@@ -54,6 +63,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="RFE-HJ-KLQ"/>
                     <navigationItem key="navigationItem" title="寶貝的兌換券" largeTitleDisplayMode="always" id="FqZ-5x-hkG"/>
                     <connections>
+                        <outlet property="label_ticket_quota" destination="jC9-Y6-YUO" id="Luk-rQ-C9N"/>
                         <outlet property="loader" destination="Yzx-nb-fFZ" id="3AS-C5-ase"/>
                         <outlet property="tableView" destination="cdt-ab-frf" id="5HV-Rr-Ghy"/>
                     </connections>
@@ -157,14 +167,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bamboo-sticks-spa-ornament" translatesAutoresizingMaskIntoConstraints="NO" id="xGs-LV-p75">
-                                <rect key="frame" x="167" y="212" width="80" height="80"/>
+                                <rect key="frame" x="167" y="312" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="8HB-hp-wVl"/>
                                     <constraint firstAttribute="width" constant="80" id="YHV-Gv-a7V"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Billyの最愛" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKA-yy-8d0">
-                                <rect key="frame" x="152" y="317" width="110" height="40"/>
+                                <rect key="frame" x="152" y="422" width="110" height="40"/>
                                 <color key="backgroundColor" systemColor="systemIndigoColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="VPN-gA-fls"/>
@@ -181,7 +191,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提示" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwm-UD-ybk">
-                                <rect key="frame" x="166.66666666666666" y="144" width="80.666666666666657" height="48"/>
+                                <rect key="frame" x="166.66666666666666" y="244" width="80.666666666666657" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" systemColor="systemIndigoColor"/>
                                 <nil key="highlightedColor"/>
@@ -190,9 +200,9 @@
                         <viewLayoutGuide key="safeArea" id="LiA-RH-MGP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="DKA-yy-8d0" firstAttribute="top" secondItem="xGs-LV-p75" secondAttribute="bottom" constant="25" id="8JV-l8-1hJ"/>
+                            <constraint firstItem="DKA-yy-8d0" firstAttribute="top" secondItem="xGs-LV-p75" secondAttribute="bottom" constant="30" id="8JV-l8-1hJ"/>
                             <constraint firstItem="pwm-UD-ybk" firstAttribute="centerX" secondItem="LiA-RH-MGP" secondAttribute="centerX" id="BnJ-Wn-XI8"/>
-                            <constraint firstItem="pwm-UD-ybk" firstAttribute="top" secondItem="LiA-RH-MGP" secondAttribute="top" constant="100" id="TYx-dP-M8I"/>
+                            <constraint firstItem="pwm-UD-ybk" firstAttribute="top" secondItem="LiA-RH-MGP" secondAttribute="top" constant="200" id="TYx-dP-M8I"/>
                             <constraint firstItem="xGs-LV-p75" firstAttribute="top" secondItem="pwm-UD-ybk" secondAttribute="bottom" constant="20" id="eSf-Qz-7xr"/>
                             <constraint firstItem="DKA-yy-8d0" firstAttribute="centerX" secondItem="xGs-LV-p75" secondAttribute="centerX" id="fQJ-Sy-KHs"/>
                             <constraint firstItem="xGs-LV-p75" firstAttribute="centerX" secondItem="LiA-RH-MGP" secondAttribute="centerX" id="nnr-mJ-AC7"/>

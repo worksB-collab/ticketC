@@ -17,7 +17,9 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     var ticketSerialNumber = 0
     var newTicketName = ""
     var maxTicketNum = 3
+    var quota = 0
     
+    @IBOutlet weak var label_ticket_quota: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     private var userDefaults = UserDefaults.standard
@@ -73,6 +75,16 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         refreshControl.endRefreshing()
     }
     
+    func updateQuota(){
+        quota = maxTicketNum - upcomingTicketList.count - postTicketList.count
+        if quota == 0{
+            label_ticket_quota.isHidden = true
+        }else{
+            label_ticket_quota.isHidden = false
+            label_ticket_quota.text = "還有"+"\(quota)"+"張可以填寫唷"
+        }
+    }
+    
     @objc func getTicketData(){
         loader.isHidden = false
         postTicketList.removeAll()
@@ -124,6 +136,7 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
                 }
             }
             tableView.reloadData()
+            updateQuota()
             hideLoader()
             }else{
                 loader.isHidden = true
@@ -149,6 +162,7 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
                                         self.ticketSerialNumber += 1
                                         upcomingTicketList.append(newTicket)
                                         tableView.reloadData()
+                                        updateQuota()
                                         
                                         saveData()
                                         loader.isHidden = true
@@ -178,6 +192,7 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
                                         postTicketList.append(PostTicket(name: upcomingTicketList[index].name!, date: dateFormatter.string(from: today)))
                                         upcomingTicketList.remove(at: index)
                                         tableView.reloadData()
+                                        updateQuota()
                                         
                                         saveData()
                                         loader.isHidden = true
@@ -203,6 +218,7 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
                                         print("deleted")
                                         upcomingTicketList.remove(at: index)
                                         tableView.reloadData()
+                                        updateQuota()
                                         loader.isHidden = true
                                         saveData()
                                     }else{
@@ -227,6 +243,7 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(okAction)
         controller.addAction(cancelAction)
+        controller.view.tintColor = UIColor.systemIndigo
         present(controller, animated: true, completion: nil)
         
     }
@@ -235,6 +252,7 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         let controller = UIAlertController(title: "錯誤", message: "網路不穩定或無法獲取資料，建議重新載入，或重新開網路連線再嘗試喔！", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "好喔！", style: .default, handler: nil)
         controller.addAction(okAction)
+        controller.view.tintColor = UIColor.systemIndigo
         present(controller, animated: true, completion: nil)
     }
     
@@ -254,11 +272,13 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
             let cancelAction = UIAlertAction(title: "痾...算了", style: .cancel, handler: nil)
             controller.addAction(okAction)
             controller.addAction(cancelAction)
+            controller.view.tintColor = UIColor.systemIndigo
             present(controller, animated: true, completion: nil)
         }else{
             let controller = UIAlertController(title: "確認使用：" + upcomingTicketList[sender.tag].name! + "嗎？", message: "一張兌換券僅能使用一次，請謹慎使用唷！", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "就是要用！", style: .default, handler: { [self] _ in
                 
+                loader.isHidden = false
                 for i in 0 ..< upcomingTicketList.count{
                     if upcomingTicketList[i].index == sender.tag{
                         checkTicket(index: upcomingTicketList[i].index!, ticketSerialNumber: "\(upcomingTicketList[i].id!)")
@@ -271,6 +291,7 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
             let cancelAction = UIAlertAction(title: "沒有！開玩笑的啦", style: .cancel, handler: nil)
             controller.addAction(okAction)
             controller.addAction(cancelAction)
+            controller.view.tintColor = UIColor.systemIndigo
             present(controller, animated: true, completion: nil)
         }
     }
@@ -287,6 +308,7 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         }
         let okAction = UIAlertAction(title: "好喔！", style: .default, handler: nil)
         controller.addAction(okAction)
+        controller.view.tintColor = UIColor.systemIndigo
         present(controller, animated: true, completion: nil)
     }
     
@@ -420,6 +442,7 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
                         let controller = UIAlertController(title: "ah?", message: "尼確定要刪掉新增兌換券的機會嗎？", preferredStyle: .alert)
                         let okAction = UIAlertAction(title: "偶按錯了！哇哈哈哈", style: .default, handler: nil)
                         controller.addAction(okAction)
+                        controller.view.tintColor = UIColor.systemIndigo
                         present(controller, animated: true, completion: nil)
                         break
                     }
@@ -432,10 +455,13 @@ class ListPageVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
                 let controller = UIAlertController(title: "尼要刪掉 " + newTicketName+"？", message: "這是我們的回憶阿尼怎麼忍心", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "偶錯了", style: .default, handler: nil)
                 controller.addAction(okAction)
+                controller.view.tintColor = UIColor.systemIndigo
                 present(controller, animated: true, completion: nil)
             default:
                 print("no such row")
             }
+        } else if editingStyle == .none{
+            print("???")
         }
     }
     

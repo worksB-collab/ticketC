@@ -46,7 +46,7 @@
                     <constraint firstItem="yaq-Y1-jrz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="WT2-tJ-7Kv"/>
                     <constraint firstItem="yaq-Y1-jrz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="lIq-zy-bdv"/>
                     <constraint firstAttribute="bottom" secondItem="1fC-dg-fwv" secondAttribute="bottom" constant="10" id="vWN-rQ-Tgw"/>
-                    <constraint firstAttribute="trailing" secondItem="1fC-dg-fwv" secondAttribute="trailing" constant="20" symbolic="YES" id="wBf-3X-RCV"/>
+                    <constraint firstAttribute="trailing" secondItem="1fC-dg-fwv" secondAttribute="trailing" constant="20" id="wBf-3X-RCV"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
