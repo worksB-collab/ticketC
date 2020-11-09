@@ -7,12 +7,11 @@
 
 import UIKit
 
-class LoginPageVC: UIViewController, UITextFieldDelegate {
+class LoginPageVC: BaseVC, UITextFieldDelegate {
     
-    private var userDefaults = UserDefaults.standard
-    
-    var validName : String = "Christina"
-    var checkedLogin : Bool = false
+    private var validName : String = "Christina"
+    private var checkedLogin : Bool = false
+    private var loginPageVM = LoginPageVM()
     
     @IBOutlet weak var tf_name: UITextField!
     @IBOutlet weak var btn_confirm: UIButton!
@@ -23,7 +22,7 @@ class LoginPageVC: UIViewController, UITextFieldDelegate {
         if tf_name.text != "" {
             if (tf_name.text! == validName || tf_name.text! == validName + " "){
                 checkedLogin = true
-                saveData()
+                saveData(name: "checkedLogin", data: checkedLogin)
                 goToNextPage()
                 print("go to next page")
             }else{
@@ -43,7 +42,10 @@ class LoginPageVC: UIViewController, UITextFieldDelegate {
             target: self,
             action: #selector(dismissMyKeyboard))
         view.addGestureRecognizer(tap)
-        getData()
+        if getCheckedLogin(){
+            goToNextPage()
+            print("auto go to next page")
+        }
         
     }
     
@@ -61,39 +63,13 @@ class LoginPageVC: UIViewController, UITextFieldDelegate {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    func getData(){
-        do {
-            if let data =  userDefaults.data(forKey:"checkedLogin") {
-                let res = try JSONDecoder().decode(Bool.self,from:data)
-                checkedLogin = res
-                if checkedLogin{
-                    goToNextPage()
-                    print("auto go to next page")
-                }
-            } else {
-                print("No data")
-            }
-        }
-        catch { print(error) }
+    func getCheckedLogin() -> Bool{
+        return loginPageVM.getCheckedLogin()
     }
     
-    func saveData(){
-        do {
-            let res = try JSONEncoder().encode(checkedLogin)
-            userDefaults.set(res,forKey: "checkedLogin")
-        }
-        catch { print(error) }
+    func saveData(name: String, data: Bool){
+        loginPageVM.saveData(name: "checkedLogin", data: checkedLogin)
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-//    }
     
     @objc func dismissMyKeyboard(){
         //endEditing causes the view (or one of its embedded text fields) to resign the first responder status.

@@ -28,6 +28,13 @@
 		046BC1032522EF5A00D3959D /* LoginPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046BC1022522EF5A00D3959D /* LoginPageVC.swift */; };
 		046BC1152523405E00D3959D /* InstructionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046BC1142523405E00D3959D /* InstructionVC.swift */; };
 		046BC11A2523424800D3959D /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046BC1192523424800D3959D /* TabBarVC.swift */; };
+		04EA7EFE2558F36100450DC7 /* LoginPageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA7EFD2558F36100450DC7 /* LoginPageVM.swift */; };
+		04EA7F032558F37700450DC7 /* ListPageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA7F022558F37700450DC7 /* ListPageVM.swift */; };
+		04EA7F082558F4EF00450DC7 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA7F072558F4EF00450DC7 /* BaseVM.swift */; };
+		04EA7F0D2558F52F00450DC7 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA7F0C2558F52F00450DC7 /* BaseVC.swift */; };
+		04EA7F162558F81500450DC7 /* ListPageM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA7F152558F81500450DC7 /* ListPageM.swift */; };
+		04EA7F1F2558F82400450DC7 /* BaseM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA7F1E2558F82400450DC7 /* BaseM.swift */; };
+		04EA7F2425591D3700450DC7 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA7F2325591D3700450DC7 /* Config.swift */; };
 		0C7C2A79D6453B4BDC381CDE /* libPods-ticketC-ticketCUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D447D88FC6C14EE826CA7C /* libPods-ticketC-ticketCUITests.a */; };
 		47DF49C1D71558A5A1482933 /* libPods-ticketC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED3067F33A09C93354D5839 /* libPods-ticketC.a */; };
 		8BD6A55328C78B3656C978F0 /* libPods-ticketCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B949B0ECA67D714EB10FC1 /* libPods-ticketCTests.a */; };
@@ -78,6 +85,13 @@
 		046BC1022522EF5A00D3959D /* LoginPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageVC.swift; sourceTree = "<group>"; };
 		046BC1142523405E00D3959D /* InstructionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionVC.swift; sourceTree = "<group>"; };
 		046BC1192523424800D3959D /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
+		04EA7EFD2558F36100450DC7 /* LoginPageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageVM.swift; sourceTree = "<group>"; };
+		04EA7F022558F37700450DC7 /* ListPageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPageVM.swift; sourceTree = "<group>"; };
+		04EA7F072558F4EF00450DC7 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
+		04EA7F0C2558F52F00450DC7 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		04EA7F152558F81500450DC7 /* ListPageM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPageM.swift; sourceTree = "<group>"; };
+		04EA7F1E2558F82400450DC7 /* BaseM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseM.swift; sourceTree = "<group>"; };
+		04EA7F2325591D3700450DC7 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		21664E39692103488E244B5C /* Pods-ticketC-ticketCUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketC-ticketCUITests.release.xcconfig"; path = "Target Support Files/Pods-ticketC-ticketCUITests/Pods-ticketC-ticketCUITests.release.xcconfig"; sourceTree = "<group>"; };
 		24B949B0ECA67D714EB10FC1 /* libPods-ticketCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ticketCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A2404E056901295C9326BF /* Pods-ticketC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketC.debug.xcconfig"; path = "Target Support Files/Pods-ticketC/Pods-ticketC.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,17 +156,16 @@
 		046BC0942521885500D3959D /* ticketC */ = {
 			isa = PBXGroup;
 			children = (
-				046BC10C252310D300D3959D /* VC */,
 				046BC0952521885500D3959D /* AppDelegate.swift */,
 				046BC0972521885500D3959D /* SceneDelegate.swift */,
 				046BC09B2521885500D3959D /* Main.storyboard */,
 				046BC09E2521885600D3959D /* Assets.xcassets */,
 				046BC0A02521885600D3959D /* LaunchScreen.storyboard */,
 				046BC0A32521885600D3959D /* Info.plist */,
-				046BC108252310CA00D3959D /* TVC */,
-				046BC107252310BA00D3959D /* xib */,
-				046BC110252310E700D3959D /* customClass */,
-				045D7AC7252EE72300152FBB /* NetworkController.swift */,
+				046BC10C252310D300D3959D /* VC */,
+				04EA7F112558F80400450DC7 /* VM */,
+				04EA7F1A2558F81800450DC7 /* M */,
+				04EA7F282559203D00450DC7 /* Utility */,
 			);
 			path = ticketC;
 			sourceTree = "<group>";
@@ -198,22 +211,46 @@
 		046BC10C252310D300D3959D /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				04EA7F0C2558F52F00450DC7 /* BaseVC.swift */,
 				046BC1022522EF5A00D3959D /* LoginPageVC.swift */,
 				046BC0992521885500D3959D /* ListPageVC.swift */,
 				046BC1142523405E00D3959D /* InstructionVC.swift */,
 				046BC1192523424800D3959D /* TabBarVC.swift */,
+				046BC108252310CA00D3959D /* TVC */,
+				046BC107252310BA00D3959D /* xib */,
 			);
 			path = VC;
 			sourceTree = "<group>";
 		};
-		046BC110252310E700D3959D /* customClass */ = {
+		04EA7F112558F80400450DC7 /* VM */ = {
+			isa = PBXGroup;
+			children = (
+				04EA7EFD2558F36100450DC7 /* LoginPageVM.swift */,
+				04EA7F022558F37700450DC7 /* ListPageVM.swift */,
+				04EA7F072558F4EF00450DC7 /* BaseVM.swift */,
+			);
+			path = VM;
+			sourceTree = "<group>";
+		};
+		04EA7F1A2558F81800450DC7 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				04EA7F152558F81500450DC7 /* ListPageM.swift */,
+				04EA7F1E2558F82400450DC7 /* BaseM.swift */,
+				04EA7F2325591D3700450DC7 /* Config.swift */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		04EA7F282559203D00450DC7 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				046BC0E925221E6E00D3959D /* BaseTicket.swift */,
 				046BC0FA2522E83B00D3959D /* Tools.swift */,
 				045D7ACC252F653A00152FBB /* RoundButton.swift */,
+				045D7AC7252EE72300152FBB /* NetworkController.swift */,
 			);
-			path = customClass;
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		646D67225964A047043B1ED5 /* Frameworks */ = {
@@ -444,17 +481,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04EA7F162558F81500450DC7 /* ListPageM.swift in Sources */,
 				046BC0DA252217EC00D3959D /* UpcomingTVC.swift in Sources */,
+				04EA7F0D2558F52F00450DC7 /* BaseVC.swift in Sources */,
 				046BC0EA25221E6E00D3959D /* BaseTicket.swift in Sources */,
+				04EA7F1F2558F82400450DC7 /* BaseM.swift in Sources */,
 				046BC0E12522197000D3959D /* PostTVC2.swift in Sources */,
 				046BC09A2521885500D3959D /* ListPageVC.swift in Sources */,
+				04EA7F032558F37700450DC7 /* ListPageVM.swift in Sources */,
+				04EA7F082558F4EF00450DC7 /* BaseVM.swift in Sources */,
 				046BC0D32522167700D3959D /* NewTicketTVC.swift in Sources */,
 				046BC0962521885500D3959D /* AppDelegate.swift in Sources */,
 				045D7ACD252F653A00152FBB /* RoundButton.swift in Sources */,
+				04EA7EFE2558F36100450DC7 /* LoginPageVM.swift in Sources */,
 				046BC0982521885500D3959D /* SceneDelegate.swift in Sources */,
 				046BC1152523405E00D3959D /* InstructionVC.swift in Sources */,
 				045D7AC8252EE72300152FBB /* NetworkController.swift in Sources */,
 				046BC11A2523424800D3959D /* TabBarVC.swift in Sources */,
+				04EA7F2425591D3700450DC7 /* Config.swift in Sources */,
 				046BC0FB2522E83B00D3959D /* Tools.swift in Sources */,
 				046BC1032522EF5A00D3959D /* LoginPageVC.swift in Sources */,
 			);
@@ -634,13 +678,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z5XXRK9WUQ;
+				DEVELOPMENT_TEAM = R9E2LGS6VB;
 				INFOPLIST_FILE = ticketC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = billywork.ticketC;
+				PRODUCT_BUNDLE_IDENTIFIER = billywork.ticket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -654,13 +698,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z5XXRK9WUQ;
+				DEVELOPMENT_TEAM = R9E2LGS6VB;
 				INFOPLIST_FILE = ticketC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = billywork.ticketC;
+				PRODUCT_BUNDLE_IDENTIFIER = billywork.ticket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
