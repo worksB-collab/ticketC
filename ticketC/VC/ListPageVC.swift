@@ -47,21 +47,21 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     }
     
     func setObserver(){
-        listPageVM.observe_postTicketList{ [self] (data) in
+        listPageVM.postTicketList.observe{ [self] (data) in
             postTicketList = data
             tableView.reloadData()
             updateQuota()
             hideLoader()
             saveData()
         }
-        listPageVM.observe_upcomingTicketList{ [self] (data) in
+        listPageVM.upcomingTicketList.observe{ [self] (data) in
             upcomingTicketList = data
             tableView.reloadData()
             updateQuota()
             hideLoader()
             saveData()
         }
-        listPageVM.observe_getDataSuccessful{ [self] (isSuccessful) in
+        listPageVM.getDataSuccessful.observe{ [self] (isSuccessful) in
             if !isSuccessful{
                 loader.isHidden = true
                 errorDialog()

@@ -11,42 +11,9 @@ class ListPageVM: BaseVM {
     private let dateFormatter = DateFormatter()
     private let networkController = NetworkController()
     private var listPageM = ListPageM()
-    public var postTicketList = [PostTicket](){
-        didSet {
-            postTicketListListener?(postTicketList)
-        }
-    }
-    typealias PostTicketListListener = ([PostTicket]) -> Void
-    var postTicketListListener: PostTicketListListener?
-    func observe_postTicketList(listener: PostTicketListListener?) {
-        self.postTicketListListener = listener
-        listener?(postTicketList)
-    }
-    
-    public var upcomingTicketList = [UpcomingTicket](){
-        didSet {
-            upcomingTicketListListener?(upcomingTicketList)
-        }
-    }
-    typealias UpcomingTicketListListener = ([UpcomingTicket]) -> Void
-    var upcomingTicketListListener: UpcomingTicketListListener?
-    func observe_upcomingTicketList(listener: UpcomingTicketListListener?) {
-        self.upcomingTicketListListener = listener
-        listener?(upcomingTicketList)
-    }
-    
-    public var getDataSuccessful : Bool = true{
-        didSet {
-            getDataSuccessfulListener?(getDataSuccessful)
-        }
-    }
-    typealias GetDataSuccessfulListener = (Bool) -> Void
-    var getDataSuccessfulListener: GetDataSuccessfulListener?
-    func observe_getDataSuccessful(listener: GetDataSuccessfulListener?) {
-        self.getDataSuccessfulListener = listener
-        listener?(getDataSuccessful)
-    }
-    
+    public var postTicketList : LiveData<[PostTicket]> = LiveData([])
+    public var upcomingTicketList : LiveData<[UpcomingTicket]> = LiveData([])
+    public var getDataSuccessful : LiveData<Bool> = LiveData(true)
     override init(){
         super.init()
         setObserver()
@@ -55,10 +22,10 @@ class ListPageVM: BaseVM {
     
     func setObserver(){
         listPageM.observe_postTicketList{ [self] (data) in
-            postTicketList = data
+            postTicketList.value = data
         }
         listPageM.observe_upcomingTicketList{ [self] (data) in
-            upcomingTicketList = data
+            upcomingTicketList.value = data
         }
     }
     
@@ -123,7 +90,7 @@ class ListPageVM: BaseVM {
                 }
             }
             }else{
-                getDataSuccessful = false
+                getDataSuccessful.value = false
                 print("error", jsonData?.debugDescription)
             }
         })
@@ -143,14 +110,14 @@ class ListPageVM: BaseVM {
                                         let newTicket = UpcomingTicket(name: ticketName, date:dateFormatter.string(from: Config.today))
                                         newTicket.id = listPageM.ticketSerialNumber
                                         listPageM.ticketSerialNumber += 1
-                                        upcomingTicketList.append(newTicket)
+                                        upcomingTicketList.value.append(newTicket)
                                         
                                     }else{
-                                        getDataSuccessful = false
+                                        getDataSuccessful.value = false
                                         print("cannot add it", jsonData?.debugDescription)
                                     }
                                 }else{
-                                    getDataSuccessful = false
+                                    getDataSuccessful.value = false
                                     print("cannot add it", jsonData?.debugDescription)
                                 }
                                })
@@ -165,14 +132,14 @@ class ListPageVM: BaseVM {
                                     if jsonData!["status"].int == 200{
                                         print("checked")
                                         
-                                        postTicketList.append(PostTicket(name: upcomingTicketList[index].name!, date: dateFormatter.string(from: Config.today)))
-                                        upcomingTicketList.remove(at: index)
+                                        postTicketList.value.append(PostTicket(name: upcomingTicketList.value[index].name!, date: dateFormatter.string(from: Config.today)))
+                                        upcomingTicketList.value.remove(at: index)
                                     }else{
-                                        getDataSuccessful = false
+                                        getDataSuccessful.value = false
                                         print("cannot check it", jsonData?.debugDescription)
                                     }
                                 }else{
-                                    getDataSuccessful = false
+                                    getDataSuccessful.value = false
                                     print("cannot check it", jsonData?.debugDescription)
                                 }        })
     }
@@ -185,13 +152,13 @@ class ListPageVM: BaseVM {
                                 if jsonData != nil{
                                     if jsonData!["status"].int == 200{
                                         print("deleted")
-                                        upcomingTicketList.remove(at: index)
+                                        upcomingTicketList.value.remove(at: index)
                                     }else{
-                                        getDataSuccessful = false
+                                        getDataSuccessful.value = false
                                         print("cannot delete it", jsonData?.debugDescription)
                                     }
                                 }else{
-                                    getDataSuccessful = false
+                                    getDataSuccessful.value = false
                                     print("cannot delete it", jsonData?.debugDescription)
                                 }        })
     }
@@ -200,7 +167,7 @@ class ListPageVM: BaseVM {
         do {
             if let data =  Config.userDefaults.data(forKey:"postTicketList") {
                 let res = try JSONDecoder().decode([PostTicket].self,from:data)
-                postTicketList = res
+                postTicketList.value = res
             } else {
                 print("No postTicketList")
             }
@@ -210,7 +177,7 @@ class ListPageVM: BaseVM {
         do {
             if let data =  Config.userDefaults.data(forKey:"upcomingTicketList") {
                 let res = try JSONDecoder().decode([UpcomingTicket].self,from:data)
-                upcomingTicketList = res
+                upcomingTicketList.value = res
             } else {
                 print("No upcomingTicketList")
             }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0459152725668CCB0086B3C8 /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459152625668CCB0086B3C8 /* LiveData.swift */; };
 		045D7AB225283D5600152FBB /* PostTVC2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045D7AA525283A4F00152FBB /* PostTVC2.xib */; };
 		045D7AC8252EE72300152FBB /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D7AC7252EE72300152FBB /* NetworkController.swift */; };
 		045D7ACD252F653A00152FBB /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D7ACC252F653A00152FBB /* RoundButton.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0459152625668CCB0086B3C8 /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
 		045D7AA525283A4F00152FBB /* PostTVC2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTVC2.xib; sourceTree = "<group>"; };
 		045D7AC7252EE72300152FBB /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		045D7ACC252F653A00152FBB /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				046BC0FA2522E83B00D3959D /* Tools.swift */,
 				045D7ACC252F653A00152FBB /* RoundButton.swift */,
 				045D7AC7252EE72300152FBB /* NetworkController.swift */,
+				0459152625668CCB0086B3C8 /* LiveData.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				045D7ACD252F653A00152FBB /* RoundButton.swift in Sources */,
 				04EA7EFE2558F36100450DC7 /* LoginPageVM.swift in Sources */,
 				046BC0982521885500D3959D /* SceneDelegate.swift in Sources */,
+				0459152725668CCB0086B3C8 /* LiveData.swift in Sources */,
 				046BC1152523405E00D3959D /* InstructionVC.swift in Sources */,
 				045D7AC8252EE72300152FBB /* NetworkController.swift in Sources */,
 				046BC11A2523424800D3959D /* TabBarVC.swift in Sources */,
