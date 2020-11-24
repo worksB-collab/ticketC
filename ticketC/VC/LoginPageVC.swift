@@ -13,11 +13,10 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     private var checkedLogin : Bool = false
     private var loginPageVM = LoginPageVM()
     
+    @IBOutlet weak var img_icon: UIImageView!
+    @IBOutlet weak var lb_title: UILabel!
     @IBOutlet weak var tf_name: UITextField!
     @IBOutlet weak var btn_confirm: UIButton!
-    @IBAction func btnInstruction(_ sender: UIButton) {
-        goToInstructionPage()
-    }
     @IBAction func btn_confirm(_ sender: UIButton) {
         if tf_name.text != "" {
             if (tf_name.text! == validName || tf_name.text! == validName + " "){
@@ -46,29 +45,65 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
             goToNextPage()
             print("auto go to next page")
         }
-        
+        setObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         // Hide the navigation bar on the this view controller
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        setStyle()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
         // Show the navigation bar on other view controllers
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    override func setStyle(){
+        switch config.currentStyle.value {
+        case .defaultStyle:
+            self.view.backgroundColor = config.styleColor?.backgroundColor
+            img_icon.image = UIImage(named: "pandaB")
+            lb_title.textColor = config.styleColor?.titleColor
+            tf_name.backgroundColor = UIColor.clear
+            tf_name.layer.borderWidth = 0.0
+            tf_name.layer.cornerRadius = 5
+            tf_name.textColor = config.styleColor?.mainColor
+            btn_confirm.layer.borderWidth = 0.0
+            btn_confirm.backgroundColor = config.styleColor?.mainColor
+            btn_confirm.setTitleColor(config.styleColor?.secondColor, for: .normal)
+        case .xmasStyle:
+            self.view.backgroundColor = config.styleColor?.backgroundColor
+            img_icon.image = UIImage(named: "christmas-wreath")
+            lb_title.textColor = config.styleColor?.titleColor
+            tf_name.backgroundColor = UIColor.clear
+            tf_name.layer.borderWidth = 1.0;
+            tf_name.layer.cornerRadius = 5
+            tf_name.layer.borderColor = config.styleColor?.titleColor.cgColor
+            tf_name.textColor = config.styleColor?.titleColor
+            btn_confirm.backgroundColor = UIColor.clear
+            btn_confirm.layer.borderWidth = 1.0
+            btn_confirm.layer.borderColor = config.styleColor?.titleColor.cgColor
+            btn_confirm.setTitleColor(config.styleColor?.secondColor, for: .normal)
+            print("xmas")
+        case .none:
+            print("cannot set color")
+        }
+        snowFlicking()
+    }
+    
     func getCheckedLogin() -> Bool{
-        return loginPageVM.getCheckedLogin()
+        let result = loginPageVM.getCheckedLogin()
+        if result != nil{
+            return result!
+        }
+        return false
     }
     
     func saveData(name: String, data: Bool){
-        loginPageVM.saveData(name: "checkedLogin", data: checkedLogin)
+        loginPageVM.saveCheckedLogin(data: checkedLogin)
     }
     
     @objc func dismissMyKeyboard(){
@@ -93,14 +128,24 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     }
     
     func goToNextPage() {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "navListPageVC") as! UINavigationController
+//
+//        if navigationController != nil{
+//            let vc = storyboard.instantiateViewController(withIdentifier: "ListPageVC") as! UIViewController
+//            navigationController?.pushViewController(vc, animated: true)
+//        }else{
+//            present(vc,animated: true,completion: nil)
+//        }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "navListPageVC") as! UINavigationController
+        let vc = storyboard.instantiateViewController(withIdentifier: "TBC") as! UITabBarController
         
-        if navigationController != nil{
-            let vc = storyboard.instantiateViewController(withIdentifier: "ListPageVC") as! UIViewController
-            navigationController?.pushViewController(vc, animated: true)
-        }else{
+//        if navigationController != nil{
+//            let vc = storyboard.instantiateViewController(withIdentifier: "ListPageVC") as! UIViewController
+//            navigationController?.pushViewController(vc, animated: true)
+//        }else{
+        vc.modalPresentationStyle = .fullScreen
             present(vc,animated: true,completion: nil)
-        }
+//        }
     }
 }

@@ -20,7 +20,6 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     
-    
     private var postTicketList = [PostTicket]()
     private var upcomingTicketList = [UpcomingTicket]()
     
@@ -33,6 +32,16 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     
     override func viewWillAppear(_ animated: Bool) {
         getTicketData()
+        setStyle()
+    }
+    
+    override func setStyle(){
+        view.backgroundColor = config.styleColor?.backgroundColor
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
+        label_ticket_quota.textColor = config.styleColor?.titleColor
+        tableView.backgroundColor = config.styleColor?.backgroundColor
+        tabBarController?.tabBar.barTintColor = config.styleColor?.titleColor
+        tabBarController?.tabBar.tintColor = config.styleColor?.secondColor
     }
     
     func initData(){
@@ -46,26 +55,27 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         setDismissKeyboardListener()
     }
     
-    func setObserver(){
+    override func setObserver(){
         listPageVM.postTicketList.observe{ [self] (data) in
             postTicketList = data
             tableView.reloadData()
             updateQuota()
             hideLoader()
-            saveData()
         }
         listPageVM.upcomingTicketList.observe{ [self] (data) in
             upcomingTicketList = data
             tableView.reloadData()
             updateQuota()
             hideLoader()
-            saveData()
         }
         listPageVM.getDataSuccessful.observe{ [self] (isSuccessful) in
             if !isSuccessful{
                 loader.isHidden = true
                 errorDialog()
             }
+        }
+        config.currentStyle.observe{ [self] _ in
+            setStyle()
         }
     }
     
@@ -110,19 +120,17 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         listPageVM.getTicketData()
     }
     
-    
-    
     @objc func showAddDialog(_ sender : UIButton){
         let controller = UIAlertController(title: "確定新增" + newTicketName + "嗎？", message: "一但新增將無法修改，確定新增嗎？", preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "新增", style: .default, handler: { [self] _ in
             loader.isHidden = false
-            listPageVM.postNewTicket(ticketName: newTicketName, ticketDate: dateFormatter.string(from: Config.today))
+            listPageVM.postNewTicket(ticketName: newTicketName, ticketDate: dateFormatter.string(from: today))
         })
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(okAction)
         controller.addAction(cancelAction)
-        controller.view.tintColor = UIColor.systemIndigo
+        controller.view.tintColor = config.styleColor?.mainColor
         present(controller, animated: true, completion: nil)
         
     }
@@ -131,7 +139,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         let controller = UIAlertController(title: "錯誤", message: "網路不穩定或無法獲取資料，建議重新載入，或重新開網路連線再嘗試喔！", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "好喔！", style: .default, handler: nil)
         controller.addAction(okAction)
-        controller.view.tintColor = UIColor.systemIndigo
+        controller.view.tintColor = config.styleColor?.mainColor
         present(controller, animated: true, completion: nil)
     }
     
@@ -151,7 +159,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
             let cancelAction = UIAlertAction(title: "痾...算了", style: .cancel, handler: nil)
             controller.addAction(okAction)
             controller.addAction(cancelAction)
-            controller.view.tintColor = UIColor.systemIndigo
+            controller.view.tintColor = config.styleColor?.mainColor
             present(controller, animated: true, completion: nil)
         }else{
             let controller = UIAlertController(title: "確認使用：" + upcomingTicketList[sender.tag].name! + "嗎？", message: "一張兌換券僅能使用一次，請謹慎使用唷！", preferredStyle: .alert)
@@ -170,7 +178,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
             let cancelAction = UIAlertAction(title: "沒有！開玩笑的啦", style: .cancel, handler: nil)
             controller.addAction(okAction)
             controller.addAction(cancelAction)
-            controller.view.tintColor = UIColor.systemIndigo
+            controller.view.tintColor = config.styleColor?.mainColor
             present(controller, animated: true, completion: nil)
         }
     }
@@ -187,7 +195,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         }
         let okAction = UIAlertAction(title: "好喔！", style: .default, handler: nil)
         controller.addAction(okAction)
-        controller.view.tintColor = UIColor.systemIndigo
+        controller.view.tintColor = config.styleColor?.mainColor
         present(controller, animated: true, completion: nil)
     }
     
@@ -216,13 +224,13 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     //change the style of header section
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.textLabel?.textColor = UIColor.white
+        header.textLabel?.textColor = config.styleColor?.secondColor
         header.textLabel?.font = UIFont(name: "SFProDisplay-Medium", size: 25)
         header.textLabel?.frame = header.frame
         header.layer.borderWidth = 0.5
         header.layer.borderColor = UIColor.white.cgColor
         header.layer.borderColor = UIColor(named: "main tone")?.cgColor
-        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColor.systemIndigo
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = config.styleColor?.titleColor
         header.textLabel?.textAlignment = .left
     }
     
@@ -257,6 +265,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 //                cell.delegate = self
                 cell.btn_confirm.addTarget(self, action: #selector(showAddDialog(_:)), for: .touchDown)
                 cell.tf_ticket_name.addTarget(self, action: #selector(newTicketNameChanged(_:)), for: .editingChanged)
+                cell.setStyle()
                 return cell
             }else if indexPath.row != 0 && lessThanMaxTicketNum()
             {
@@ -267,6 +276,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 cell.ticket_name.text = upcomingTicketList[indexPath.row-1].name
                 cell.added_date.text = upcomingTicketList[indexPath.row-1].date?.description
                 cell.btn_check.addTarget(self, action: #selector(showCheckDialog(_:)), for: .touchDown)
+                cell.setStyle()
                 return cell
             }else if upcomingTicketList.count + postTicketList.count >= listPageVM.getMaxTicketNum(){
                 let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingTVC", for: indexPath) as! UpcomingTVC
@@ -277,12 +287,14 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 cell.ticket_name.text = upcomingTicketList[indexPath.row].name
                 cell.added_date.text = upcomingTicketList[indexPath.row].date?.description
                 cell.btn_check.addTarget(self, action: #selector(showCheckDialog(_:)), for: .touchUpInside)
+                cell.setStyle()
                 return cell
             }
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PostTVC2", for: indexPath) as! PostTVC2
             cell.ticket_name.text = postTicketList[indexPath.row].name
             cell.added_date.text = postTicketList[indexPath.row].date?.description
+            cell.setStyle()
             return cell
         default:
             print("no such section in tableView")
@@ -319,7 +331,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                         let controller = UIAlertController(title: "ah?", message: "尼確定要刪掉新增兌換券的機會嗎？", preferredStyle: .alert)
                         let okAction = UIAlertAction(title: "偶按錯了！哇哈哈哈", style: .default, handler: nil)
                         controller.addAction(okAction)
-                        controller.view.tintColor = UIColor.systemIndigo
+                        controller.view.tintColor = config.styleColor?.mainColor
                         present(controller, animated: true, completion: nil)
                         break
                     }
@@ -332,7 +344,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 let controller = UIAlertController(title: "尼要刪掉 " + newTicketName+"？", message: "這是我們的回憶阿尼怎麼忍心", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "偶錯了", style: .default, handler: nil)
                 controller.addAction(okAction)
-                controller.view.tintColor = UIColor.systemIndigo
+                controller.view.tintColor = config.styleColor?.mainColor
                 present(controller, animated: true, completion: nil)
             default:
                 print("no such row")
@@ -342,14 +354,18 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         }
     }
     
-    func getDataFromUserDefault(){
-        listPageVM.getDataFromUserDefault()
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
     
-    func saveData(){
-        listPageVM.saveData()
-        
-    }
+//    func getDataFromUserDefault(){
+//        listPageVM.getDataFromUserDefault()
+//    }
+//
+//    func saveData(){
+//        listPageVM.saveData()
+//
+//    }
     
     func lessThanMaxTicketNum() -> Bool{
         return upcomingTicketList.count + postTicketList.count < listPageVM.getMaxTicketNum()

@@ -7,27 +7,43 @@
 
 import UIKit
 
-class InstructionVC: UIViewController {
-
+class InstructionVC: BaseVC {
+    
+    private let instructionVM = InstructionVM()
+    @IBOutlet weak var lb_about: UILabel!
+    @IBOutlet weak var img_icon: UIImageView!
+    @IBOutlet weak var lb_info: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setStyle()
+        instructionVM.getInfoText()
+        setObserver()
         // Do any additional setup after loading the view.
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        // Hide the navigation bar on the this view controller
-//        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//
-//        // Show the navigation bar on other view controllers
-//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-//    }
+    override func setObserver(){
+        config.currentStyle.observe{ [self] _ in
+            setStyle()
+        }
+        instructionVM.infoText.observe{
+            [self] (data) in
+            lb_info.text = data
+        }
+    }
     
+    override func setStyle(){
+        view.backgroundColor = config.styleColor?.secondColor
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
+        lb_about.textColor = config.styleColor?.infoTextColor
+        lb_info.textColor = config.styleColor?.infoTextColor
+        switch config.currentStyle.value {
+        case .defaultStyle:
+            img_icon.image = UIImage(named: "bamboo-sticks-spa-ornament")
+        case .xmasStyle:
+            img_icon.image = UIImage(named: "hohoho")
+        case .none:
+            print("no such style for icon")
+        }
+    }
     
 }

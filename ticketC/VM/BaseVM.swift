@@ -7,4 +7,7 @@
 
 import Foundation
 class BaseVM: NSObject {
+    public let tools = Tools.sharedInstance
+    public let networkController = NetworkController.sharedInstance
+    public let today = Date()
 }

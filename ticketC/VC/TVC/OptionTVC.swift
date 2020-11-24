@@ -1,43 +1,41 @@
 //
-//  PostTVC.swift
+//  OptionTVC.swift
 //  ticketC
 //
-//  Created by Billy W on 2020/9/28.
+//  Created by Billy W on 2020/11/23.
 //
 
 import UIKit
 
-class PostTVC2: BaseTVC {
+class OptionTVC: BaseTVC {
 
+    @IBOutlet weak var lb_name: UILabel!
     @IBOutlet weak var img_icon: UIImageView!
-    @IBOutlet weak var ticket_name: UILabel!
-    @IBOutlet weak var added_date: UILabel!
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+
         // Configure the view for the selected state
     }
     
     override func setStyle(){
         switch config.currentStyle.value{
         case .defaultStyle:
-            img_icon.image = UIImage(named: "fat_panda")
+            img_icon.image = UIImage(named: "pandaA")
         case .xmasStyle:
-            img_icon.image = UIImage(named: "gift-box")
+            img_icon.image = UIImage(named: "candy-cane")
         case .none:
             break
         }
-        ticket_name.textColor = config.styleColor?.titleColor
-        added_date.textColor = config.styleColor?.infoTextColor
+        lb_name.textColor = config.styleColor?.titleColor
         contentView.backgroundColor = config.styleColor?.backgroundColor
     }
     
-    class var nibName: String {
-        return "PostTVC2"
+    class var reuseIdentifier: String {
+        return "OptionTVC"
     }
     
-    
+    class var nibName: String {
+        return "OptionTVC"
+    }
 }
-
-

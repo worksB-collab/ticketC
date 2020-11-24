@@ -11,6 +11,7 @@ import Alamofire
 
 class NetworkController : NSObject{
     
+    static let sharedInstance = NetworkController()
     let url = "https://script.google.com/macros/s/AKfycbymy1zuwcuPkconHCCRsD5h8UOun2tofuTHh5SAQZD3F4CTxeM/exec"
     var alamofireManager : Alamofire.Session!
     

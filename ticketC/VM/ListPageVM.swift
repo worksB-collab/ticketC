@@ -9,7 +9,6 @@ import Foundation
 class ListPageVM: BaseVM {
     
     private let dateFormatter = DateFormatter()
-    private let networkController = NetworkController()
     private var listPageM = ListPageM()
     public var postTicketList : LiveData<[PostTicket]> = LiveData([])
     public var upcomingTicketList : LiveData<[UpcomingTicket]> = LiveData([])
@@ -107,7 +106,7 @@ class ListPageVM: BaseVM {
                                     if jsonData!["status"].int == 200{
                                         print("added")
                                         
-                                        let newTicket = UpcomingTicket(name: ticketName, date:dateFormatter.string(from: Config.today))
+                                        let newTicket = UpcomingTicket(name: ticketName, date:dateFormatter.string(from: today))
                                         newTicket.id = listPageM.ticketSerialNumber
                                         listPageM.ticketSerialNumber += 1
                                         upcomingTicketList.value.append(newTicket)
@@ -132,7 +131,7 @@ class ListPageVM: BaseVM {
                                     if jsonData!["status"].int == 200{
                                         print("checked")
                                         
-                                        postTicketList.value.append(PostTicket(name: upcomingTicketList.value[index].name!, date: dateFormatter.string(from: Config.today)))
+                                        postTicketList.value.append(PostTicket(name: upcomingTicketList.value[index].name!, date: dateFormatter.string(from: today)))
                                         upcomingTicketList.value.remove(at: index)
                                     }else{
                                         getDataSuccessful.value = false
@@ -163,74 +162,74 @@ class ListPageVM: BaseVM {
                                 }        })
     }
     
-    func getDataFromUserDefault(){
-        do {
-            if let data =  Config.userDefaults.data(forKey:"postTicketList") {
-                let res = try JSONDecoder().decode([PostTicket].self,from:data)
-                postTicketList.value = res
-            } else {
-                print("No postTicketList")
-            }
-        }
-        catch { print(error) }
-        
-        do {
-            if let data =  Config.userDefaults.data(forKey:"upcomingTicketList") {
-                let res = try JSONDecoder().decode([UpcomingTicket].self,from:data)
-                upcomingTicketList.value = res
-            } else {
-                print("No upcomingTicketList")
-            }
-        }
-        catch { print(error) }
-        
-        do {
-            if let data =  Config.userDefaults.data(forKey:"maxTicketNum") {
-                let res = try JSONDecoder().decode(Int.self,from:data)
-                listPageM.maxTicketNum = res
-            } else {
-                print("No maxTicketNum")
-            }
-        }
-        catch { print(error) }
-        
-        do {
-            if let data =  Config.userDefaults.data(forKey:"ticketSerialNumber") {
-                let res = try JSONDecoder().decode(Int.self,from:data)
-                listPageM.ticketSerialNumber = res
-            } else {
-                print("No ticketSerialNumber")
-            }
-        }
-        catch { print(error) }
-            
-    }
-    
-    func saveData(){
-        do {
-            let res = try JSONEncoder().encode(listPageM.postTicketList)
-            Config.userDefaults.set(res,forKey: "postTicketList")
-        }
-        catch { print(error) }
-        
-        do {
-            let res = try JSONEncoder().encode(listPageM.upcomingTicketList)
-            Config.userDefaults.set(res,forKey: "upcomingTicketList")
-        }
-        catch { print(error) }
-        
-        do {
-            let res = try JSONEncoder().encode(listPageM.maxTicketNum)
-            Config.userDefaults.set(res,forKey: "maxTicketNum")
-        }
-        catch { print(error) }
-        
-        
-        do {
-            let res = try JSONEncoder().encode(listPageM.ticketSerialNumber)
-            Config.userDefaults.set(res,forKey: "ticketSerialNumber")
-        }
-        catch { print(error) }
-        
-    }
+//    func getDataFromUserDefault(){
+//        do {
+//            if let data =  userDefaults.data(forKey:"postTicketList") {
+//                let res = try JSONDecoder().decode([PostTicket].self,from:data)
+//                postTicketList.value = res
+//            } else {
+//                print("No postTicketList")
+//            }
+//        }
+//        catch { print(error) }
+//
+//        do {
+//            if let data =  Config.userDefaults.data(forKey:"upcomingTicketList") {
+//                let res = try JSONDecoder().decode([UpcomingTicket].self,from:data)
+//                upcomingTicketList.value = res
+//            } else {
+//                print("No upcomingTicketList")
+//            }
+//        }
+//        catch { print(error) }
+//
+//        do {
+//            if let data =  Config.userDefaults.data(forKey:"maxTicketNum") {
+//                let res = try JSONDecoder().decode(Int.self,from:data)
+//                listPageM.maxTicketNum = res
+//            } else {
+//                print("No maxTicketNum")
+//            }
+//        }
+//        catch { print(error) }
+//
+//        do {
+//            if let data =  Config.userDefaults.data(forKey:"ticketSerialNumber") {
+//                let res = try JSONDecoder().decode(Int.self,from:data)
+//                listPageM.ticketSerialNumber = res
+//            } else {
+//                print("No ticketSerialNumber")
+//            }
+//        }
+//        catch { print(error) }
+//
+//    }
+//
+//    func saveData(){
+//        do {
+//            let res = try JSONEncoder().encode(listPageM.postTicketList)
+//            Config.userDefaults.set(res,forKey: "postTicketList")
+//        }
+//        catch { print(error) }
+//
+//        do {
+//            let res = try JSONEncoder().encode(listPageM.upcomingTicketList)
+//            Config.userDefaults.set(res,forKey: "upcomingTicketList")
+//        }
+//        catch { print(error) }
+//
+//        do {
+//            let res = try JSONEncoder().encode(listPageM.maxTicketNum)
+//            Config.userDefaults.set(res,forKey: "maxTicketNum")
+//        }
+//        catch { print(error) }
+//
+//
+//        do {
+//            let res = try JSONEncoder().encode(listPageM.ticketSerialNumber)
+//            Config.userDefaults.set(res,forKey: "ticketSerialNumber")
+//        }
+//        catch { print(error) }
+//
+//    }
 }
