@@ -15,6 +15,8 @@ enum Style : Int, Codable{
 
 class Config : NSObject{
     
+    public static let ERROR_NO_DATA = 1
+    public static let ERROR_NO_CONNECTION = 2
     public static let sharedInstance = Config()
     public var currentStyle : LiveData<Style> = LiveData(.none)
     public let tools = Tools.sharedInstance

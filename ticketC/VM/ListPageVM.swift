@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 class ListPageVM: BaseVM {
     
     private let dateFormatter = DateFormatter()
@@ -13,6 +14,7 @@ class ListPageVM: BaseVM {
     public var postTicketList : LiveData<[PostTicket]> = LiveData([])
     public var upcomingTicketList : LiveData<[UpcomingTicket]> = LiveData([])
     public var getDataSuccessful : LiveData<Bool> = LiveData(true)
+    public var connectionError : LiveData<Int?> = LiveData(nil)
     override init(){
         super.init()
         setObserver()
@@ -40,72 +42,128 @@ class ListPageVM: BaseVM {
         return listPageM.maxTicketNum
     }
     
+    func isDatabaseAlive()->Bool{
+        if let _ = networkController.isDatabaseAlive{
+            if networkController.isDatabaseAlive!{
+                return true
+            }else{
+                return false
+            }
+        }else{
+            connectionError.value = Config.ERROR_NO_DATA
+            return false
+        }
+    }
     
     func getTicketData(){
         listPageM.removeTicktList()
-        networkController.post(params: ["command": "getTickets"], callBack: { [self]
-            (jsonData) in
-            if jsonData!["status"].int == 200{
-            if jsonData != nil{
-                let data = jsonData!["data"]
-                if data["ticketNum"].string == nil{
-                    listPageM.maxTicketNum = data["ticketNum"].int!
+        if isDatabaseAlive(){
+            networkController.getFromDataBase(api: "getQuota", callBack: {
+                [self] (jsonData) in
+                listPageM.maxTicketNum = jsonData![0]["quota"].int!
+            })
+            networkController.getFromDataBase(api: "getTickets", callBack: {
+                [self] (jsonData) in
+                structureTicketsFromDatabase(jsonData : jsonData)
+            })
+        }else{
+            networkController.postToSheet(params: ["command": "getTickets"], callBack: { [self]
+                (jsonData) in
+                if jsonData!["status"].int == 200{
+                    structureTicketsFromSheet(jsonData : jsonData)
                 }else{
-                    listPageM.maxTicketNum = Int(data["ticketNum"].string!)!
+                    getDataSuccessful.value = false
+                    print("error", jsonData?.debugDescription)
                 }
-                let tickets = data["tickets"].array
-                if !tickets!.isEmpty{
-                    listPageM.ticketSerialNumber = tickets!.count
-                    for i in 0..<tickets!.count{
-                        let ticketDeleted = tickets![i]["ticketDeleted"].bool
-                        if ticketDeleted!{
-                            continue
-                        }
-                        var ticketSerialNumber = tickets![i]["ticketSerialNumber"].int
-                        if ticketSerialNumber == nil{
-                            ticketSerialNumber = Int(tickets![i]["ticketSerialNumber"].string!)
-                        }
-                        var ticketName : String?
-                        if tickets![i]["ticketName"].string == nil{
-                            ticketName = "\(tickets![i]["ticketName"].int)"
-                        }else{
-                            ticketName = tickets![i]["ticketName"].string
-                        }
-                        
-                        let ticketDateArr = tickets![i]["ticketDate"].string!.split(separator: "T")
-                        let ticketDate = ticketDateArr[0]
-                        let ticketChecked = tickets![i]["ticketChecked"].bool
-                        
-                        if ticketChecked!{
-                            let ticket = PostTicket(name: ticketName!, date: String(ticketDate))
-                            ticket.id = ticketSerialNumber!
-                            listPageM.postTicketList.append(ticket)
-                        }else{
-                            let ticket = UpcomingTicket(name: ticketName!, date: String(ticketDate))
-                            ticket.id = ticketSerialNumber!
-                            listPageM.upcomingTicketList.append(ticket)
-                        }
+            })
+        }
+    }
+    
+    func structureTicketsFromDatabase(jsonData : JSON?){
+        let data = jsonData?.array
+        for i in data!{
+            if i["deleted"].bool!{
+                continue
+            }
+            let id = i["id"].int
+            let name = i["content"].string
+            let data = i["create_at"].string!.split(separator: "T")[0]
+            let checked = i["checked"].bool
+            if checked!{
+                let ticket = PostTicket(name: name!, date: String(data))
+                ticket.id = id!
+                listPageM.postTicketList.insert(ticket, at: 0)
+            }else{
+                let ticket = UpcomingTicket(name: name!, date: String(data))
+                ticket.id = id!
+                listPageM.upcomingTicketList.insert(ticket, at: 0)
+            }
+        }
+    }
+    
+    func structureTicketsFromSheet(jsonData : JSON?){
+        if jsonData != nil{
+            let data = jsonData!["data"]
+            if data["ticketNum"].string == nil{
+                listPageM.maxTicketNum = data["ticketNum"].int!
+            }else{
+                listPageM.maxTicketNum = Int(data["ticketNum"].string!)!
+            }
+            let tickets = data["tickets"].array
+            if !tickets!.isEmpty{
+                listPageM.ticketSerialNumber = tickets!.count
+                for i in 0..<tickets!.count{
+                    let ticketDeleted = tickets![i]["ticketDeleted"].bool
+                    if ticketDeleted!{
+                        continue
+                    }
+                    var ticketSerialNumber = tickets![i]["ticketSerialNumber"].int
+                    if ticketSerialNumber == nil{
+                        ticketSerialNumber = Int(tickets![i]["ticketSerialNumber"].string!)
+                    }
+                    var ticketName : String?
+                    if tickets![i]["ticketName"].string == nil{
+                        ticketName = "\(tickets![i]["ticketName"].int)"
+                    }else{
+                        ticketName = tickets![i]["ticketName"].string
+                    }
+                    
+                    let ticketDateArr = tickets![i]["ticketDate"].string!.split(separator: "T")
+                    let ticketDate = ticketDateArr[0]
+                    let ticketChecked = tickets![i]["ticketChecked"].bool
+                    
+                    if ticketChecked!{
+                        let ticket = PostTicket(name: ticketName!, date: String(ticketDate))
+                        ticket.id = ticketSerialNumber!
+                        listPageM.postTicketList.insert(ticket, at: 0)
+                    }else{
+                        let ticket = UpcomingTicket(name: ticketName!, date: String(ticketDate))
+                        ticket.id = ticketSerialNumber!
+                        listPageM.upcomingTicketList.insert(ticket, at: 0)
                     }
                 }
             }
-            }else{
-                getDataSuccessful.value = false
-                print("error", jsonData?.debugDescription)
-            }
-        })
+        }
     }
     
-    func postNewTicket(ticketName : String, ticketDate : String){
-        networkController.post(params: ["command": "postNewTicket",
+    func postNewTicket(ticketName : String){
+        if isDatabaseAlive(){
+            postNewTicketToDatabase(ticketName : ticketName)
+        }else{
+            postNewTicketToSheet(ticketName : ticketName)
+        }
+    }
+    
+    func postNewTicketToSheet(ticketName : String){
+        networkController.postToSheet(params: ["command": "postNewTicket",
                                         "ticketSerialNumber" :"\(listPageM.ticketSerialNumber)",
                                         "ticketName": ticketName,
-                                        "ticketDate": ticketDate],
+                                        "ticketDate": today],
                                callBack: { [self]
                                 (jsonData) in
                                 if jsonData != nil{
                                     if jsonData!["status"].int == 200{
                                         print("added")
-                                        
                                         let newTicket = UpcomingTicket(name: ticketName, date:dateFormatter.string(from: today))
                                         newTicket.id = listPageM.ticketSerialNumber
                                         listPageM.ticketSerialNumber += 1
@@ -122,15 +180,33 @@ class ListPageVM: BaseVM {
                                })
     }
     
+    func postNewTicketToDatabase(ticketName : String){
+        networkController.postToDatabase(api: "postNewTicket",
+                                         params: ["ticketName": ticketName],
+                                         callBack: { [self] (jsonData) in
+                                            print("added")
+                                            let newTicket = UpcomingTicket(name: ticketName, date:dateFormatter.string(from: today))
+                                            newTicket.id = listPageM.ticketSerialNumber
+                                            listPageM.ticketSerialNumber += 1
+                                            upcomingTicketList.value.append(newTicket)
+                                         })
+    }
+    
     func checkTicket(index : Int, ticketSerialNumber : String){
-        networkController.post(params: ["command" : "checkTicket",
+        if isDatabaseAlive(){
+            checkTicketFromSheet(index : index, ticketSerialNumber : ticketSerialNumber)
+        }else{
+            checkTicketFromDatabase(index : index, ticketSerialNumber : ticketSerialNumber)
+        }
+    }
+    
+    func checkTicketFromSheet(index : Int, ticketSerialNumber : String){
+        networkController.postToSheet(params: ["command" : "checkTicket",
                                         "ticketSerialNumber" : ticketSerialNumber],
-                               callBack: { [self]
-                                (jsonData) in
+                               callBack: { [self] (jsonData) in
                                 if jsonData != nil{
                                     if jsonData!["status"].int == 200{
                                         print("checked")
-                                        
                                         postTicketList.value.append(PostTicket(name: upcomingTicketList.value[index].name!, date: dateFormatter.string(from: today)))
                                         upcomingTicketList.value.remove(at: index)
                                     }else{
@@ -143,11 +219,28 @@ class ListPageVM: BaseVM {
                                 }        })
     }
     
+    func checkTicketFromDatabase(index : Int, ticketSerialNumber : String){
+        networkController.postToDatabase(api: "checkTicket",
+                                         params: ["ticketSerialNumber" : ticketSerialNumber],
+                                         callBack: { [self] (jsonData) in
+                                            print("checked")
+                                            postTicketList.value.append(PostTicket(name: upcomingTicketList.value[index].name!, date: dateFormatter.string(from: today)))
+                                            upcomingTicketList.value.remove(at: index)
+                                         })
+    }
+    
     func deleteTicket(ticketSerialNumber : String, index : Int){
-        networkController.post(params: ["command" : "deleteTicket",
+        if isDatabaseAlive(){
+            deleteTicketFromSheet(ticketSerialNumber : ticketSerialNumber, index : index)
+        }else{
+            deleteTicketFromDatabase(ticketSerialNumber : ticketSerialNumber, index : index)
+        }
+    }
+    
+    func deleteTicketFromSheet(ticketSerialNumber : String, index : Int){
+        networkController.postToSheet(params: ["command" : "deleteTicket",
                                         "ticketSerialNumber" : ticketSerialNumber],
-                               callBack: { [self]
-                                (jsonData) in
+                               callBack: { [self] (jsonData) in
                                 if jsonData != nil{
                                     if jsonData!["status"].int == 200{
                                         print("deleted")
@@ -162,74 +255,11 @@ class ListPageVM: BaseVM {
                                 }        })
     }
     
-//    func getDataFromUserDefault(){
-//        do {
-//            if let data =  userDefaults.data(forKey:"postTicketList") {
-//                let res = try JSONDecoder().decode([PostTicket].self,from:data)
-//                postTicketList.value = res
-//            } else {
-//                print("No postTicketList")
-//            }
-//        }
-//        catch { print(error) }
-//
-//        do {
-//            if let data =  Config.userDefaults.data(forKey:"upcomingTicketList") {
-//                let res = try JSONDecoder().decode([UpcomingTicket].self,from:data)
-//                upcomingTicketList.value = res
-//            } else {
-//                print("No upcomingTicketList")
-//            }
-//        }
-//        catch { print(error) }
-//
-//        do {
-//            if let data =  Config.userDefaults.data(forKey:"maxTicketNum") {
-//                let res = try JSONDecoder().decode(Int.self,from:data)
-//                listPageM.maxTicketNum = res
-//            } else {
-//                print("No maxTicketNum")
-//            }
-//        }
-//        catch { print(error) }
-//
-//        do {
-//            if let data =  Config.userDefaults.data(forKey:"ticketSerialNumber") {
-//                let res = try JSONDecoder().decode(Int.self,from:data)
-//                listPageM.ticketSerialNumber = res
-//            } else {
-//                print("No ticketSerialNumber")
-//            }
-//        }
-//        catch { print(error) }
-//
-//    }
-//
-//    func saveData(){
-//        do {
-//            let res = try JSONEncoder().encode(listPageM.postTicketList)
-//            Config.userDefaults.set(res,forKey: "postTicketList")
-//        }
-//        catch { print(error) }
-//
-//        do {
-//            let res = try JSONEncoder().encode(listPageM.upcomingTicketList)
-//            Config.userDefaults.set(res,forKey: "upcomingTicketList")
-//        }
-//        catch { print(error) }
-//
-//        do {
-//            let res = try JSONEncoder().encode(listPageM.maxTicketNum)
-//            Config.userDefaults.set(res,forKey: "maxTicketNum")
-//        }
-//        catch { print(error) }
-//
-//
-//        do {
-//            let res = try JSONEncoder().encode(listPageM.ticketSerialNumber)
-//            Config.userDefaults.set(res,forKey: "ticketSerialNumber")
-//        }
-//        catch { print(error) }
-//
-//    }
+    func deleteTicketFromDatabase(ticketSerialNumber : String, index : Int){
+        networkController.postToDatabase(api: "deleteTicket",
+                                         params: ["ticketSerialNumber" : ticketSerialNumber],
+                                         callBack: { [self] (jsonData) in
+                                            upcomingTicketList.value.remove(at: index)
+                                         })
+    }
 }

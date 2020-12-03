@@ -61,6 +61,7 @@ class BaseVC: UIViewController {
 
     @objc func secondTimerFunc(){
         secondCount += 1
+        if config.currentStyle.value == .xmasStyle{
         if getRandomNum(min: 0, max: 10) > 9{
             generateCircle()
         }
@@ -69,6 +70,10 @@ class BaseVC: UIViewController {
             if i.position.y >= view.frame.height {
                 i.removeFromSuperlayer()
             }
+        }
+        }else{
+            stopSecondTimer()
+            removeSnow()
         }
 
     }
@@ -80,6 +85,11 @@ class BaseVC: UIViewController {
         }
     }
     
+    func removeSnow(){
+        for i in snowArr{
+            i.removeFromSuperlayer()
+        }
+    }
     
     func setStyle(){}
 }

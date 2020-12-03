@@ -46,6 +46,12 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
             print("auto go to next page")
         }
         setObserver()
+        
+        
+        img_icon.isUserInteractionEnabled = true
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+        longPressRecognizer.minimumPressDuration = 2.0
+        img_icon.addGestureRecognizer(longPressRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +74,8 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
             img_icon.image = UIImage(named: "pandaB")
             lb_title.textColor = config.styleColor?.titleColor
             tf_name.backgroundColor = UIColor.clear
-            tf_name.layer.borderWidth = 0.0
+            tf_name.layer.borderColor = config.styleColor?.mainColor.cgColor
+            tf_name.layer.borderWidth = 1.0
             tf_name.layer.cornerRadius = 5
             tf_name.textColor = config.styleColor?.mainColor
             btn_confirm.layer.borderWidth = 0.0
@@ -92,6 +99,18 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
             print("cannot set color")
         }
         snowFlicking()
+    }
+    
+    @objc func longPressed(sender: UILongPressGestureRecognizer) {
+        let controller = UIAlertController(title: "已解鎖 1/27 DLC", message: "專屬於吳太太的更新已安裝完成", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "太好啦！", style: .default, handler: nil)
+        controller.addAction(okAction)
+        controller.view.tintColor = config.styleColor?.mainColor
+        present(controller, animated: true, completion: nil)
+    }
+    
+    func unlockEmbargo(){
+        loginPageVM.unlockEmbargo()
     }
     
     func getCheckedLogin() -> Bool{

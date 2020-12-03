@@ -24,7 +24,7 @@ class InstructionVM : BaseVM {
     }
     
     func getInfoText(){
-        networkController.post(params: ["command" : "getInfoText"], callBack: {
+        networkController.postToSheet(params: ["command" : "getInfoText"], callBack: {
             [self] (jsonData) in
             if jsonData!["status"].int == 200{
                 let data = jsonData!["data"]["infoText"].string

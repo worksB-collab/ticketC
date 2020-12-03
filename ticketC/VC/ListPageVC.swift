@@ -77,6 +77,16 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         config.currentStyle.observe{ [self] _ in
             setStyle()
         }
+        listPageVM.connectionError.observe{ [self] (error) in
+            switch error{
+            case 1:
+                errorDialog()
+            case 2:
+                errorDialog()
+            default:
+                errorDialog()
+            }
+        }
     }
     
     func registerNib(){
@@ -164,7 +174,6 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         }else{
             let controller = UIAlertController(title: "確認使用：" + upcomingTicketList[sender.tag].name! + "嗎？", message: "一張兌換券僅能使用一次，請謹慎使用唷！", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "就是要用！", style: .default, handler: { [self] _ in
-                
                 loader.isHidden = false
                 for i in 0 ..< upcomingTicketList.count{
                     if upcomingTicketList[i].index == sender.tag{
