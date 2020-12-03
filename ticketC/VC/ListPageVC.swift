@@ -72,6 +72,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
             if !isSuccessful{
                 loader.isHidden = true
                 errorDialog()
+                print("isSuccessful")
             }
         }
         config.currentStyle.observe{ [self] _ in
@@ -81,10 +82,12 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
             switch error{
             case 1:
                 errorDialog()
+                print("error1")
             case 2:
                 errorDialog()
+                print("error2")
             default:
-                errorDialog()
+                break
             }
         }
     }
@@ -134,7 +137,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         let controller = UIAlertController(title: "確定新增" + newTicketName + "嗎？", message: "一但新增將無法修改，確定新增嗎？", preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "新增", style: .default, handler: { [self] _ in
             loader.isHidden = false
-            listPageVM.postNewTicket(ticketName: newTicketName, ticketDate: dateFormatter.string(from: today))
+            listPageVM.postNewTicket(ticketName: newTicketName)
         })
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)

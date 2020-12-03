@@ -36,7 +36,7 @@ class TabBarC: UITabBarController {
     
     
     func generateCircle(){
-        let circleSize = getRandomNum(min: 0, max: 6)
+        let circleSize = getRandomNum(min: 0, max: 5)
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: Int(getRandomNum(min: 0, max: Float(view.frame.width))), y: -10),
                                       radius: CGFloat(circleSize),
                                       startAngle: CGFloat(0),
@@ -49,9 +49,9 @@ class TabBarC: UITabBarController {
         // Change the fill color
         shapeLayer.fillColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
         // You can change the stroke color
-        shapeLayer.strokeColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
+//        shapeLayer.strokeColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
         // You can change the line width
-        shapeLayer.lineWidth = CGFloat(circleSize/getRandomNum(min: 3, max: 5))
+//        shapeLayer.lineWidth = CGFloat(circleSize/getRandomNum(min: 0, max: 1))
             
         view.layer.addSublayer(shapeLayer)
         snowArr.append(shapeLayer)
@@ -75,7 +75,8 @@ class TabBarC: UITabBarController {
                 generateCircle()
             }
             for i in snowArr{
-                i.position = CGPoint(x: Int(i.position.x) - Int(getRandomNum(min: -3, max: 3)), y: Int(i.position.y) + 4)
+                let horizontalMove = Int(getRandomNum(min: -3, max: 3))
+                i.position = CGPoint(x: Int(i.position.x) - horizontalMove, y: (Int(i.position.y) + 4) + Int(i.lineWidth) - abs(horizontalMove))
                 if i.position.y >= view.frame.height + 10 {
                     i.removeFromSuperlayer()
                 }

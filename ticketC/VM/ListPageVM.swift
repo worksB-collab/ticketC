@@ -14,7 +14,6 @@ class ListPageVM: BaseVM {
     public var postTicketList : LiveData<[PostTicket]> = LiveData([])
     public var upcomingTicketList : LiveData<[UpcomingTicket]> = LiveData([])
     public var getDataSuccessful : LiveData<Bool> = LiveData(true)
-    public var connectionError : LiveData<Int?> = LiveData(nil)
     override init(){
         super.init()
         setObserver()
@@ -45,12 +44,14 @@ class ListPageVM: BaseVM {
     func isDatabaseAlive()->Bool{
         if let _ = networkController.isDatabaseAlive{
             if networkController.isDatabaseAlive!{
+                print("alive")
                 return true
             }else{
+                print("not alive1")
                 return false
             }
         }else{
-            connectionError.value = Config.ERROR_NO_DATA
+            print("not alive 2")
             return false
         }
     }
@@ -58,11 +59,11 @@ class ListPageVM: BaseVM {
     func getTicketData(){
         listPageM.removeTicktList()
         if isDatabaseAlive(){
-            networkController.getFromDataBase(api: "getQuota", callBack: {
+            networkController.getFromDatabase(api: "getQuota", callBack: {
                 [self] (jsonData) in
                 listPageM.maxTicketNum = jsonData![0]["quota"].int!
             })
-            networkController.getFromDataBase(api: "getTickets", callBack: {
+            networkController.getFromDatabase(api: "getTickets", callBack: {
                 [self] (jsonData) in
                 structureTicketsFromDatabase(jsonData : jsonData)
             })
@@ -82,14 +83,14 @@ class ListPageVM: BaseVM {
     func structureTicketsFromDatabase(jsonData : JSON?){
         let data = jsonData?.array
         for i in data!{
-            if i["deleted"].bool!{
+            if i["deleted"].int! == 1{
                 continue
             }
             let id = i["id"].int
             let name = i["content"].string
             let data = i["create_at"].string!.split(separator: "T")[0]
-            let checked = i["checked"].bool
-            if checked!{
+            let checked = i["checked"].int
+            if checked! == 1{
                 let ticket = PostTicket(name: name!, date: String(data))
                 ticket.id = id!
                 listPageM.postTicketList.insert(ticket, at: 0)

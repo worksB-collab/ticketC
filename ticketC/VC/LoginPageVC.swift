@@ -41,10 +41,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
             target: self,
             action: #selector(dismissMyKeyboard))
         view.addGestureRecognizer(tap)
-        if getCheckedLogin(){
-            goToNextPage()
-            print("auto go to next page")
-        }
+        setSecondTimer()
         setObserver()
         
         
@@ -107,6 +104,16 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         controller.addAction(okAction)
         controller.view.tintColor = config.styleColor?.mainColor
         present(controller, animated: true, completion: nil)
+    }
+    
+    override func secondTimerFunc() {
+        if loginPageVM.isDatabaseChecked() != nil{
+            if getCheckedLogin(){
+                goToNextPage()
+                print("auto go to next page")
+                stopSecondTimer()
+            }
+        }
     }
     
     func unlockEmbargo(){

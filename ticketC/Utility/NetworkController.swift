@@ -25,7 +25,7 @@ class NetworkController : NSObject{
     }
     
     
-    func getFromDataBase(api: String, callBack:((JSON?) -> ())?){
+    func getFromDatabase(api: String, callBack:((JSON?) -> ())?){
         alamofireManager.request(urlDatabase + api, method: .get, headers: [:])
             .validate().validate(statusCode: 200 ..< 500).responseJSON{
                 (response) in
@@ -35,9 +35,10 @@ class NetworkController : NSObject{
                         print("no data")
                     }
                     let jsonData = try! JSON(data: response.data!)
+                    print("connection successful", response.result)
                     callBack?(jsonData)
                 case .failure(_):
-                    print(response.result)
+                    print("connection failure", response.result)
                     callBack?(nil)
                     
                 }

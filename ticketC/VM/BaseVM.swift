@@ -11,6 +11,7 @@ class BaseVM: NSObject {
     public let config = Config.sharedInstance
     public let networkController = NetworkController.sharedInstance
     public let today = Date()
+    public var connectionError : LiveData<Int?> = LiveData(nil)
     
     func isKeepUsingDatabase()->Bool{
         var alive : Bool? = tools.read(name: "database")
