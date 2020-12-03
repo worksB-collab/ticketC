@@ -76,29 +76,22 @@ app.get('/getQuota', (req, res) => {
 
 app.get('/getTickets', (req, res) => {
     conn.query('SELECT * FROM tickets;', function(err, result, fields) {
-            if (err) throw err;
-            console.log(result);
-            res.json(result);
-        })
-        // res.json(result);
-
-    // });
-});
-
-app.post('/postNewTicket', jsonParser, (req, res) => {
-    var name = req.body.ticketName; //var是全域變數
-    conn.query('INSERT INTO tickets () VALUES ();', function(err, result, fields) {
         if (err) throw err;
         console.log(result);
         res.json(result);
     })
+});
 
-    conn.query('SELECT (id) FROM tickets WHERE content = ${name};', function(err, result, fields) {
-            if (err) throw err;
-            console.log(result);
-            res.json(result);
-        })
-        // res.json(result);
+app.post('/postNewTicket', jsonParser, (req, res) => {
+    var name = req.body.ticketName; //var是全域變數
+    conn.query(`INSERT INTO tickets (content) VALUES ("` + name + `") ;`, function(err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+    })
 
-    // });
+    conn.query(`SELECT (id) FROM tickets WHERE content = "` + name + `" LIMIT 1;`, function(err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+    })
 });
