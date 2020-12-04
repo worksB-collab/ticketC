@@ -112,6 +112,8 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
                 goToNextPage()
                 print("auto go to next page")
                 stopSecondTimer()
+            }else{
+                stopSecondTimer()
             }
         }
     }

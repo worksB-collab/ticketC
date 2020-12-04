@@ -222,7 +222,7 @@ class ListPageVM: BaseVM {
     
     func checkTicketFromDatabase(index : Int, ticketSerialNumber : String){
         networkController.postToDatabase(api: "checkTicket",
-                                         params: ["ticketSerialNumber" : ticketSerialNumber],
+                                         params: ["id" : ticketSerialNumber],
                                          callBack: { [self] (jsonData) in
                                             print("checked")
                                             postTicketList.value.append(PostTicket(name: upcomingTicketList.value[index].name!, date: dateFormatter.string(from: today)))

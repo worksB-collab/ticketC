@@ -26,7 +26,11 @@ class InstructionVM : BaseVM {
     func getInfoText(){
         if let _ = networkController.isDatabaseAlive{
             if networkController.isDatabaseAlive!{
-                
+                networkController.getFromDatabase(api: "getInfoText", callBack: {
+                    [self] (jsonData) in
+                    let data = jsonData!["content"].string
+                    instructionM.infoText.value = data ?? "no info"
+                })
             }else{
                 networkController.postToSheet(params: ["command" : "getInfoText"], callBack: {
                     [self] (jsonData) in
