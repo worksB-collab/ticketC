@@ -95,3 +95,38 @@ app.post('/postNewTicket', jsonParser, (req, res) => {
         res.json(result);
     })
 });
+
+
+app.post('/checkTicket', jsonParser, (req, res) => {
+    var id = req.body.id; //var是全域變數
+    conn.query(
+        `UPDATE tickets
+        SET checked = true
+        WHERE id = ` + id,
+        function(err, result, fields) {
+            if (err) throw err;
+            console.log(result);
+            res.json(result);
+        })
+});
+
+app.post('/deleteTicket', jsonParser, (req, res) => {
+    var id = req.body.id; //var是全域變數
+    conn.query(
+        `UPDATE tickets
+        SET deleted = true
+        WHERE id = ` + id,
+        function(err, result, fields) {
+            if (err) throw err;
+            console.log(result);
+            res.json(result);
+        })
+});
+
+app.get('/getInfoText', (req, res) => {
+    conn.query('SELECT (content, create_at) FROM articles WHERE title = "info";', function(err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+    })
+});
