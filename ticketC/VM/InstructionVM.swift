@@ -28,7 +28,7 @@ class InstructionVM : BaseVM {
             if networkController.isDatabaseAlive!{
                 networkController.getFromDatabase(api: "getInfoText", callBack: {
                     [self] (jsonData) in
-                    let data = jsonData!["content"].string
+                    let data = jsonData![0]["content"].string
                     instructionM.infoText.value = data ?? "no info"
                 })
             }else{
@@ -45,6 +45,7 @@ class InstructionVM : BaseVM {
         }else{
             connectionError.value = Config.ERROR_NO_DATA
         }
+        print("info text: ", instructionM.infoText.value)
         
     }
 }

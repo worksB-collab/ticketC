@@ -12,6 +12,10 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     private var validName : String = "Christina"
     private var checkedLogin : Bool = false
     private var loginPageVM = LoginPageVM()
+    private var secondTimer : Timer?
+    private var secondCount : Int = 0
+    private var snowArr : [CAShapeLayer] = []
+    private var initLoginCheck = true
     
     @IBOutlet weak var img_icon: UIImageView!
     @IBOutlet weak var lb_title: UILabel!
@@ -49,6 +53,85 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
         longPressRecognizer.minimumPressDuration = 2.0
         img_icon.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    func generateCircle(){
+        let circleSize = getRandomNum(min: 0, max: 5)
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: Int(getRandomNum(min: 0, max: Float(view.frame.width))), y: -10),
+                                      radius: CGFloat(circleSize),
+                                      startAngle: CGFloat(0),
+                                      endAngle: CGFloat(Double.pi * 2),
+                                      clockwise: true)
+            
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = circlePath.cgPath
+            
+        // Change the fill color
+        shapeLayer.fillColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
+        // You can change the stroke color
+//        shapeLayer.strokeColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
+        // You can change the line width
+//        shapeLayer.lineWidth = CGFloat(circleSize/getRandomNum(min: 0, max: 1))
+            
+//        view.layer.addSublayer(shapeLayer)
+        let index = UInt32(getRandomNum(min: 0, max: 2))
+        view.layer.insertSublayer(shapeLayer, at: index)
+        snowArr.append(shapeLayer)
+    }
+
+    func getRandomNum(min : Float, max : Float) -> Float{
+        return Float.random(in: min...max)
+    }
+
+    //timer
+    override func setSecondTimer(){
+        if secondTimer == nil {
+            secondTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.secondTimerFunc), userInfo: nil, repeats: true)
+        }
+    }
+
+    @objc override func secondTimerFunc(){
+        secondCount += 1
+        if config.currentStyle.value == .xmasStyle{
+            if getRandomNum(min: 0, max: 10) > 9{
+                generateCircle()
+            }
+            for i in snowArr{
+                let horizontalMove = Int(getRandomNum(min: -3, max: 3))
+                i.position = CGPoint(x: Int(i.position.x) - horizontalMove, y: (Int(i.position.y) + 4) + Int(i.lineWidth) - abs(horizontalMove))
+                if i.position.y >= view.frame.height + 10 {
+                    i.removeFromSuperlayer()
+                }
+            }
+        }else{
+            stopSecondTimer()
+            removeSnow()
+        }
+        
+        if loginPageVM.isDatabaseChecked() != nil{
+            if initLoginCheck{
+                if getCheckedLogin(){
+                    goToNextPage()
+                    print("auto go to next page")
+                    stopSecondTimer()
+                }else{
+                    initLoginCheck = false
+                }
+            }
+        }
+    }
+
+    override func stopSecondTimer(){
+        if secondTimer != nil{
+            secondTimer?.invalidate()
+            secondTimer = nil
+        }
+    }
+    
+    func removeSnow(){
+        for i in snowArr{
+            i.removeFromSuperlayer()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,7 +178,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         case .none:
             print("cannot set color")
         }
-        snowFlicking()
+        setSecondTimer()
     }
     
     @objc func longPressed(sender: UILongPressGestureRecognizer) {
@@ -104,18 +187,6 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         controller.addAction(okAction)
         controller.view.tintColor = config.styleColor?.mainColor
         present(controller, animated: true, completion: nil)
-    }
-    
-    override func secondTimerFunc() {
-        if loginPageVM.isDatabaseChecked() != nil{
-            if getCheckedLogin(){
-                goToNextPage()
-                print("auto go to next page")
-                stopSecondTimer()
-            }else{
-                stopSecondTimer()
-            }
-        }
     }
     
     func unlockEmbargo(){

@@ -27,6 +27,9 @@ class ListPageVM: BaseVM {
         listPageM.observe_upcomingTicketList{ [self] (data) in
             upcomingTicketList.value = data
         }
+        networkController.connectionError.observe{ [self] (error) in
+            connectionError.value = error
+        }
     }
     
     func getQuota() -> Int{
@@ -185,19 +188,22 @@ class ListPageVM: BaseVM {
         networkController.postToDatabase(api: "postNewTicket",
                                          params: ["ticketName": ticketName],
                                          callBack: { [self] (jsonData) in
-                                            print("added")
-                                            let newTicket = UpcomingTicket(name: ticketName, date:dateFormatter.string(from: today))
-                                            newTicket.id = listPageM.ticketSerialNumber
-                                            listPageM.ticketSerialNumber += 1
-                                            upcomingTicketList.value.append(newTicket)
+                                            let id = jsonData![0]["id"].int
+                                            let name = jsonData![0]["content"].string
+                                            let date = jsonData![0]["create_at"].string!.split(separator: "T")[0]
+                                            print("added", ticketName)
+                                            let newTicket = UpcomingTicket(name: name!, date: String(date))
+                                            newTicket.id = id!
+//                                            listPageM.ticketSerialNumber += 1
+                                            upcomingTicketList.value.insert(newTicket, at : 0)
                                          })
     }
     
     func checkTicket(index : Int, ticketSerialNumber : String){
         if isDatabaseAlive(){
-            checkTicketFromSheet(index : index, ticketSerialNumber : ticketSerialNumber)
-        }else{
             checkTicketFromDatabase(index : index, ticketSerialNumber : ticketSerialNumber)
+        }else{
+            checkTicketFromSheet(index : index, ticketSerialNumber : ticketSerialNumber)
         }
     }
     
@@ -208,7 +214,7 @@ class ListPageVM: BaseVM {
                                 if jsonData != nil{
                                     if jsonData!["status"].int == 200{
                                         print("checked")
-                                        postTicketList.value.append(PostTicket(name: upcomingTicketList.value[index].name!, date: dateFormatter.string(from: today)))
+                                        postTicketList.value.insert(PostTicket(name: upcomingTicketList.value[index].name!, date: dateFormatter.string(from: today)), at: 0)
                                         upcomingTicketList.value.remove(at: index)
                                     }else{
                                         getDataSuccessful.value = false
@@ -224,17 +230,19 @@ class ListPageVM: BaseVM {
         networkController.postToDatabase(api: "checkTicket",
                                          params: ["id" : ticketSerialNumber],
                                          callBack: { [self] (jsonData) in
-                                            print("checked")
-                                            postTicketList.value.append(PostTicket(name: upcomingTicketList.value[index].name!, date: dateFormatter.string(from: today)))
+                                            print("checked id", ticketSerialNumber)
+                                            let name = jsonData![0]["content"].string
+                                            let date = jsonData![0]["create_at"].string!.split(separator: "T")[0]
+                                            postTicketList.value.insert(PostTicket(name: name!, date: String(date)), at: 0)
                                             upcomingTicketList.value.remove(at: index)
                                          })
     }
     
     func deleteTicket(ticketSerialNumber : String, index : Int){
         if isDatabaseAlive(){
-            deleteTicketFromSheet(ticketSerialNumber : ticketSerialNumber, index : index)
-        }else{
             deleteTicketFromDatabase(ticketSerialNumber : ticketSerialNumber, index : index)
+        }else{
+            deleteTicketFromSheet(ticketSerialNumber : ticketSerialNumber, index : index)
         }
     }
     
@@ -258,7 +266,7 @@ class ListPageVM: BaseVM {
     
     func deleteTicketFromDatabase(ticketSerialNumber : String, index : Int){
         networkController.postToDatabase(api: "deleteTicket",
-                                         params: ["ticketSerialNumber" : ticketSerialNumber],
+                                         params: ["id" : ticketSerialNumber],
                                          callBack: { [self] (jsonData) in
                                             upcomingTicketList.value.remove(at: index)
                                          })

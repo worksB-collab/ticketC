@@ -15,6 +15,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     private let refreshControl = UIRefreshControl()
     private let listPageVM = ListPageVM()
     private var newTicketName = ""
+    private var secondCount = 0
     
     @IBOutlet weak var label_ticket_quota: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -80,15 +81,29 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         }
         listPageVM.connectionError.observe{ [self] (error) in
             switch error{
-            case 1:
+            case Config.NO_ERROR:
+                break
+            case Config.ERROR_NO_DATA:
                 errorDialog()
                 print("error1")
-            case 2:
+            case Config.ERROR_NO_CONNECTION:
                 errorDialog()
                 print("error2")
+            case Config.WAITING_FOR_CONNECTION:
+                setSecondTimer()
+                print("error3")
             default:
                 break
             }
+        }
+    }
+    
+    @objc override func secondTimerFunc(){
+        secondCount += 1
+        if connectionError == Config.WAITING_FOR_CONNECTION && secondCount == 50{
+            errorDialog()
+            stopSecondTimer()
+            secondCount = 0
         }
     }
     

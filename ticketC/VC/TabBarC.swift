@@ -53,7 +53,8 @@ class TabBarC: UITabBarController {
         // You can change the line width
 //        shapeLayer.lineWidth = CGFloat(circleSize/getRandomNum(min: 0, max: 1))
             
-        view.layer.addSublayer(shapeLayer)
+//        view.layer.addSublayer(shapeLayer)
+        view.layer.insertSublayer(shapeLayer, at: 1)
         snowArr.append(shapeLayer)
     }
     

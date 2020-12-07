@@ -159,6 +159,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
                 break
             }
         }
+        tableView.reloadData()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
