@@ -2,6 +2,9 @@ const express = require('express'); //如同Java import套件
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 //而JavaScript中，所有的插件都是一個物件(沒有類別的概念，一導入就是實體，需要用變數接住)
 const mysql = require('mysql'); //Import mysql套件
 const port = process.env.PORT || 3000; //const是區域變數，不可改(類似java final)
@@ -83,13 +86,13 @@ app.get('/getTickets', (req, res) => {
 });
 
 app.post('/postNewTicket', jsonParser, (req, res) => {
-    var name = req.body.ticketName; //var是全域變數
+    let name = req.body.ticketName;
+    console.log("new ticket:", name);
     conn.query(`INSERT INTO tickets (content) VALUES ("` + name + `") ;`, function(err, result, fields) {
         if (err) throw err;
-        console.log(result);
     })
 
-    conn.query(`SELECT (id) FROM tickets WHERE content = "` + name + `" LIMIT 1;`, function(err, result, fields) {
+    conn.query(`SELECT * FROM tickets WHERE content = "` + name + `" LIMIT 1;`, function(err, result, fields) {
         if (err) throw err;
         console.log(result);
         res.json(result);
@@ -98,33 +101,33 @@ app.post('/postNewTicket', jsonParser, (req, res) => {
 
 
 app.post('/checkTicket', jsonParser, (req, res) => {
+    // res.status(404).send("hello??? 404");
     var id = req.body.id; //var是全域變數
-    conn.query(
-        `UPDATE tickets
-        SET checked = true
-        WHERE id = ` + id,
-        function(err, result, fields) {
+    console.log("test", id)
+    conn.query(`UPDATE tickets SET checked = true WHERE id = ` + id, function(err, result, fields) {
+        if (err) throw err;
+        conn.query(`SELECT * FROM tickets WHERE id = ` + id + `;`, function(err, result, fields) {
             if (err) throw err;
             console.log(result);
             res.json(result);
-        })
+        });
+    })
 });
 
 app.post('/deleteTicket', jsonParser, (req, res) => {
     var id = req.body.id; //var是全域變數
-    conn.query(
-        `UPDATE tickets
-        SET deleted = true
-        WHERE id = ` + id,
-        function(err, result, fields) {
+    conn.query(`UPDATE tickets SET deleted = true WHERE id = ` + id, function(err, result, fields) {
+        if (err) throw err;
+        conn.query(`SELECT * FROM tickets WHERE id = ` + id + `;`, function(err, result, fields) {
             if (err) throw err;
             console.log(result);
             res.json(result);
-        })
+        });
+    })
 });
 
 app.get('/getInfoText', (req, res) => {
-    conn.query('SELECT (content, create_at) FROM articles WHERE title = "info";', function(err, result, fields) {
+    conn.query('SELECT content, create_at FROM articles WHERE title = "info";', function(err, result, fields) {
         if (err) throw err;
         console.log(result);
         res.json(result);
