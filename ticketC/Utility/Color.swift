@@ -36,6 +36,16 @@ class XmasStyleColor : BaseStyleColor{
     var btnTextColor = UIColor(rgb: 0xFFFFFF)
 }
 
+class BirthdayStyleColor : BaseStyleColor{
+    //test
+    var mainColor = UIColor(rgb: 0xF2CD5E)
+    var secondColor = UIColor(rgb: 0x1B618C)
+    var backgroundColor = UIColor(rgb: 0xFFFFFF)
+    var titleColor = UIColor(rgb: 0xF2CD5E)
+    var infoTextColor = UIColor(rgb: 0x1B618C)
+    var btnTextColor = UIColor(rgb: 0xFFFFFF)
+}
+
 extension UIColor {
    convenience init(red: Int, green: Int, blue: Int) {
        assert(red >= 0 && red <= 255, "Invalid red component")

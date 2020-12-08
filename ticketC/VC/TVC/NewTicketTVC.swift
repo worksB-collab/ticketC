@@ -40,28 +40,15 @@ class NewTicketTVC: BaseTVC, UITextFieldDelegate {
         tf_ticket_name.backgroundColor = config.styleColor?.backgroundColor
         btn_confirm.setTitleColor(config.styleColor?.titleColor, for: .normal)
         contentView.backgroundColor = config.styleColor?.backgroundColor
-        switch config.currentStyle.value {
-        case .defaultStyle:
-            btn_confirm.backgroundColor = UIColor.clear
-            btn_confirm.layer.borderWidth = 1.0
-            btn_confirm.layer.cornerRadius = 5
-            btn_confirm.layer.borderColor = config.styleColor?.titleColor.cgColor
-            tf_ticket_name.backgroundColor = UIColor.clear
-            tf_ticket_name.layer.borderWidth = 1.0
-            tf_ticket_name.layer.cornerRadius = 5
-            tf_ticket_name.layer.borderColor = config.styleColor?.titleColor.cgColor
-        case .xmasStyle:
-            btn_confirm.backgroundColor = UIColor.clear
-            btn_confirm.layer.borderWidth = 1.0;
-            btn_confirm.layer.cornerRadius = 5
-            btn_confirm.layer.borderColor = config.styleColor?.titleColor.cgColor
-            tf_ticket_name.backgroundColor = UIColor.clear
-            tf_ticket_name.layer.borderWidth = 1.0
-            tf_ticket_name.layer.cornerRadius = 5
-            tf_ticket_name.layer.borderColor = config.styleColor?.titleColor.cgColor
-        case .none:
-            print("cannot set color")
-        }
+        btn_confirm.backgroundColor = UIColor.clear
+        btn_confirm.layer.borderWidth = 1.0
+        btn_confirm.layer.cornerRadius = 5
+        btn_confirm.layer.borderColor = config.styleColor?.titleColor.cgColor
+        tf_ticket_name.backgroundColor = UIColor.clear
+        tf_ticket_name.layer.borderWidth = 1.0
+        tf_ticket_name.layer.cornerRadius = 5
+        tf_ticket_name.layer.borderColor = config.styleColor?.titleColor.cgColor
+        
     }
     
     class var reuseIdentifier: String {

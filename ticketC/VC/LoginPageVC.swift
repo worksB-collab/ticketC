@@ -104,7 +104,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
                 }
             }
         }else{
-            stopSecondTimer()
+//            stopSecondTimer()
             removeSnow()
         }
         
@@ -148,33 +148,33 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     }
     
     override func setStyle(){
+        self.view.backgroundColor = config.styleColor?.backgroundColor
+        lb_title.textColor = config.styleColor?.titleColor
+        tf_name.backgroundColor = UIColor.clear
+        tf_name.layer.borderWidth = 1.0
+        tf_name.layer.cornerRadius = 5
+        btn_confirm.setTitleColor(config.styleColor?.secondColor, for: .normal)
+        
         switch config.currentStyle.value {
         case .defaultStyle:
-            self.view.backgroundColor = config.styleColor?.backgroundColor
             img_icon.image = UIImage(named: "pandaB")
-            lb_title.textColor = config.styleColor?.titleColor
-            tf_name.backgroundColor = UIColor.clear
             tf_name.layer.borderColor = config.styleColor?.mainColor.cgColor
-            tf_name.layer.borderWidth = 1.0
-            tf_name.layer.cornerRadius = 5
             tf_name.textColor = config.styleColor?.mainColor
             btn_confirm.layer.borderWidth = 0.0
             btn_confirm.backgroundColor = config.styleColor?.mainColor
-            btn_confirm.setTitleColor(config.styleColor?.secondColor, for: .normal)
         case .xmasStyle:
-            self.view.backgroundColor = config.styleColor?.backgroundColor
             img_icon.image = UIImage(named: "christmas-wreath")
-            lb_title.textColor = config.styleColor?.titleColor
-            tf_name.backgroundColor = UIColor.clear
-            tf_name.layer.borderWidth = 1.0;
-            tf_name.layer.cornerRadius = 5
             tf_name.layer.borderColor = config.styleColor?.titleColor.cgColor
             tf_name.textColor = config.styleColor?.titleColor
             btn_confirm.backgroundColor = UIColor.clear
             btn_confirm.layer.borderWidth = 1.0
             btn_confirm.layer.borderColor = config.styleColor?.titleColor.cgColor
-            btn_confirm.setTitleColor(config.styleColor?.secondColor, for: .normal)
-            print("xmas")
+        case .birthdayStyle:
+            img_icon.image = UIImage(named: "minion13")
+            tf_name.layer.borderColor = config.styleColor?.titleColor.cgColor
+            tf_name.textColor = config.styleColor?.titleColor
+            btn_confirm.layer.borderWidth = 0.0
+            btn_confirm.backgroundColor = config.styleColor?.mainColor
         case .none:
             print("cannot set color")
         }

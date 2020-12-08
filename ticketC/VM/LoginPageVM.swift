@@ -28,7 +28,7 @@ class LoginPageVM: BaseVM {
     }
     
     func isDatabaseAlive(){
-        networkController.getFromDatabase(api: "getQuota", callBack: { [self] (jsonData) in
+        networkController.getFromDatabase(api: "getQuotaC", callBack: { [self] (jsonData) in
             if jsonData == nil || jsonData![0]["quota"].int == nil{
                 networkController.isDatabaseAlive = false
             }else{

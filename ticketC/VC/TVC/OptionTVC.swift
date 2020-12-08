@@ -24,6 +24,8 @@ class OptionTVC: BaseTVC {
             img_icon.image = UIImage(named: "pandaA")
         case .xmasStyle:
             img_icon.image = UIImage(named: "candy-cane")
+        case .birthdayStyle:
+            img_icon.image = UIImage(named: "minion4")
         case .none:
             break
         }

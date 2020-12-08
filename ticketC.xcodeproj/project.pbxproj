@@ -261,8 +261,8 @@
 		04EA7F1A2558F81800450DC7 /* M */ = {
 			isa = PBXGroup;
 			children = (
-				04EA7F152558F81500450DC7 /* ListPageM.swift */,
 				04EA7F1E2558F82400450DC7 /* BaseM.swift */,
+				04EA7F152558F81500450DC7 /* ListPageM.swift */,
 				04B443BC256D2CE8009C4B5B /* InstructionM.swift */,
 			);
 			path = M;

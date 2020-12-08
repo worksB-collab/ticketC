@@ -17,6 +17,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     private var newTicketName = ""
     private var secondCount = 0
     
+    @IBOutlet weak var sc_section: UISegmentedControl!
     @IBOutlet weak var label_ticket_quota: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
@@ -39,8 +40,11 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     override func setStyle(){
         view.backgroundColor = config.styleColor?.backgroundColor
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
+        sc_section.selectedSegmentTintColor = config.styleColor?.mainColor
+        sc_section.tintColor = config.styleColor?.btnTextColor
         label_ticket_quota.textColor = config.styleColor?.titleColor
         tableView.backgroundColor = config.styleColor?.backgroundColor
+        tableView.separatorColor = config.styleColor?.titleColor
         tabBarController?.tabBar.barTintColor = config.styleColor?.titleColor
         tabBarController?.tabBar.tintColor = config.styleColor?.secondColor
     }
@@ -60,13 +64,11 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         listPageVM.postTicketList.observe{ [self] (data) in
             postTicketList = data
             tableView.reloadData()
-            updateQuota()
             hideLoader()
         }
         listPageVM.upcomingTicketList.observe{ [self] (data) in
             upcomingTicketList = data
             tableView.reloadData()
-            updateQuota()
             hideLoader()
         }
         listPageVM.getDataSuccessful.observe{ [self] (isSuccessful) in
@@ -96,6 +98,22 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 break
             }
         }
+        listPageVM.quota.observe{ [self] (data) in
+            updateQuota(quota: data)
+        }
+        sc_section.addTarget(self, action: #selector(onChange), for: .valueChanged)
+    }
+    
+    @objc func onChange(sender: UISegmentedControl) {
+        // 印出選到哪個選項 從 0 開始算起
+        print(sender.selectedSegmentIndex)
+
+        // 印出這個選項的文字
+        print(
+            sender.titleForSegment(
+                at: sender.selectedSegmentIndex))
+        
+        getTicketData()
     }
     
     @objc override func secondTimerFunc(){
@@ -133,9 +151,8 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         refreshControl.endRefreshing()
     }
     
-    func updateQuota(){
-        let quota = listPageVM.getQuota()
-        if quota == 0{
+    func updateQuota(quota : Int){
+        if quota <= 0{
             label_ticket_quota.isHidden = true
         }else{
             label_ticket_quota.isHidden = false
@@ -145,7 +162,11 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     
     @objc func getTicketData(){
         loader.isHidden = false
-        listPageVM.getTicketData()
+        if sc_section.selectedSegmentIndex == 0{
+            listPageVM.getMyTicketData()
+        }else{
+            listPageVM.getBabyTicketData()
+        }
     }
     
     @objc func showAddDialog(_ sender : UIButton){
@@ -234,9 +255,12 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "等你兌換的好東西："+"\(upcomingTicketList.count)"
+            if sc_section.selectedSegmentIndex == 0{
+                return "等你兌換的好東西："+"\(upcomingTicketList.count)"
+            }
+            return "趕快兌換給寶貝的好東西："+"\(upcomingTicketList.count)"
         case 1:
-            return "已兌換的好東西："+"\(postTicketList.count)"
+            return "已兌換給寶貝的好東西："+"\(postTicketList.count)"
         default:
             print("header Out of Range")
             return ""
@@ -272,8 +296,10 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         //        print("numberOfRowsInSection")
         switch section {
         case 0:
-            if lessThanMaxTicketNum(){
-                return upcomingTicketList.count + 1
+            if sc_section.selectedSegmentIndex == 0{
+                if lessThanMaxTicketNum(){
+                    return upcomingTicketList.count + 1
+                }
             }
             return upcomingTicketList.count
         case 1:
@@ -287,33 +313,40 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         tableView.tableFooterView = UIView()
         switch indexPath.section {
         case 0:
-            if(indexPath.row == 0 && lessThanMaxTicketNum()){
-                let cell = tableView.dequeueReusableCell(withIdentifier: "NewTicketTVC", for: indexPath) as! NewTicketTVC
-                //                cell.delegate = self
-                cell.btn_confirm.addTarget(self, action: #selector(showAddDialog(_:)), for: .touchDown)
-                cell.tf_ticket_name.addTarget(self, action: #selector(newTicketNameChanged(_:)), for: .editingChanged)
-                cell.setStyle()
-                return cell
-            }else if indexPath.row != 0 && lessThanMaxTicketNum()
-            {
+            if sc_section.selectedSegmentIndex == 0{
+                if(indexPath.row == 0 && lessThanMaxTicketNum()){
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "NewTicketTVC", for: indexPath) as! NewTicketTVC
+                    //                cell.delegate = self
+                    cell.btn_confirm.addTarget(self, action: #selector(showAddDialog(_:)), for: .touchDown)
+                    cell.tf_ticket_name.addTarget(self, action: #selector(newTicketNameChanged(_:)), for: .editingChanged)
+                    cell.setStyle()
+                    return cell
+                }else if indexPath.row != 0 && lessThanMaxTicketNum(){
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingTVC", for: indexPath) as! UpcomingTVC
+                    //                cell.delegate = self
+                    cell.btn_check.tag = indexPath.row
+                    upcomingTicketList[indexPath.row-1].index = indexPath.row
+                    cell.ticket_name.text = upcomingTicketList[indexPath.row-1].name
+                    cell.added_date.text = upcomingTicketList[indexPath.row-1].date?.description
+                    cell.btn_check.addTarget(self, action: #selector(showCheckDialog(_:)), for: .touchDown)
+                    cell.setStyle()
+                    return cell
+                }else if upcomingTicketList.count + postTicketList.count >= listPageVM.getMaxTicketNum(){
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingTVC", for: indexPath) as! UpcomingTVC
+                    newTicketName = ""
+                    cell.btn_check.tag = indexPath.row
+                    upcomingTicketList[indexPath.row].index = indexPath.row
+                    cell.ticket_name.text = upcomingTicketList[indexPath.row].name
+                    cell.added_date.text = upcomingTicketList[indexPath.row].date?.description
+                    cell.btn_check.addTarget(self, action: #selector(showCheckDialog(_:)), for: .touchUpInside)
+                    cell.setStyle()
+                    return cell
+                }
+            }else if sc_section.selectedSegmentIndex == 1{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingTVC", for: indexPath) as! UpcomingTVC
-                //                cell.delegate = self
-                cell.btn_check.tag = indexPath.row
-                upcomingTicketList[indexPath.row-1].index = indexPath.row
-                cell.ticket_name.text = upcomingTicketList[indexPath.row-1].name
-                cell.added_date.text = upcomingTicketList[indexPath.row-1].date?.description
-                cell.btn_check.addTarget(self, action: #selector(showCheckDialog(_:)), for: .touchDown)
-                cell.setStyle()
-                return cell
-            }else if upcomingTicketList.count + postTicketList.count >= listPageVM.getMaxTicketNum(){
-                let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingTVC", for: indexPath) as! UpcomingTVC
-                //                cell.delegate = self
-                newTicketName = ""
-                cell.btn_check.tag = indexPath.row
-                upcomingTicketList[indexPath.row].index = indexPath.row
                 cell.ticket_name.text = upcomingTicketList[indexPath.row].name
                 cell.added_date.text = upcomingTicketList[indexPath.row].date?.description
-                cell.btn_check.addTarget(self, action: #selector(showCheckDialog(_:)), for: .touchUpInside)
+                cell.btn_check.isHidden = true
                 cell.setStyle()
                 return cell
             }
@@ -351,33 +384,41 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            switch indexPath.section {
-            case 0:
-                if lessThanMaxTicketNum(){
-                    if indexPath.row == 0 {
-                        let controller = UIAlertController(title: "ah?", message: "尼確定要刪掉新增兌換券的機會嗎？", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "偶按錯了！哇哈哈哈", style: .default, handler: nil)
-                        controller.addAction(okAction)
-                        controller.view.tintColor = config.styleColor?.mainColor
-                        present(controller, animated: true, completion: nil)
-                        break
+            if sc_section.selectedSegmentIndex == 0{
+                switch indexPath.section {
+                case 0:
+                    if lessThanMaxTicketNum(){
+                        if indexPath.row == 0 {
+                            let controller = UIAlertController(title: "ah?", message: "尼確定要刪掉新增兌換券的機會嗎？", preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "偶按錯了！哇哈哈哈", style: .default, handler: nil)
+                            controller.addAction(okAction)
+                            controller.view.tintColor = config.styleColor?.mainColor
+                            present(controller, animated: true, completion: nil)
+                            break
+                        }
+                        listPageVM.deleteTicket(ticketSerialNumber: "\(upcomingTicketList[indexPath.row-1].id!)", index: indexPath.row-1)
+                    }else{
+                        listPageVM.deleteTicket(ticketSerialNumber: "\(upcomingTicketList[indexPath.row].id!)", index: indexPath.row)
                     }
-                    listPageVM.deleteTicket(ticketSerialNumber: "\(upcomingTicketList[indexPath.row-1].id!)", index: indexPath.row-1)
-                }else{
-                    listPageVM.deleteTicket(ticketSerialNumber: "\(upcomingTicketList[indexPath.row].id!)", index: indexPath.row)
+                    loader.isHidden = false
+                case 1:
+                    let controller = UIAlertController(title: "尼要刪掉 " + newTicketName+"？", message: "這是我們的回憶阿尼怎麼忍心", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "偶錯了", style: .default, handler: nil)
+                    controller.addAction(okAction)
+                    controller.view.tintColor = config.styleColor?.mainColor
+                    present(controller, animated: true, completion: nil)
+                default:
+                    print("no such row")
                 }
-                loader.isHidden = false
-            case 1:
-                let controller = UIAlertController(title: "尼要刪掉 " + newTicketName+"？", message: "這是我們的回憶阿尼怎麼忍心", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "偶錯了", style: .default, handler: nil)
-                controller.addAction(okAction)
-                controller.view.tintColor = config.styleColor?.mainColor
-                present(controller, animated: true, completion: nil)
-            default:
-                print("no such row")
+            } else if editingStyle == .none{
+                print("???")
             }
-        } else if editingStyle == .none{
-            print("???")
+        }else if sc_section.selectedSegmentIndex == 1{
+            let controller = UIAlertController(title: "不可以！", message: "這是我們的回憶阿尼怎麼忍心", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "偶錯了", style: .default, handler: nil)
+            controller.addAction(okAction)
+            controller.view.tintColor = config.styleColor?.mainColor
+            present(controller, animated: true, completion: nil)
         }
     }
     
@@ -385,14 +426,28 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         return 80
     }
     
-//    func getDataFromUserDefault(){
-//        listPageVM.getDataFromUserDefault()
-//    }
-//
-//    func saveData(){
-//        listPageVM.saveData()
-//
-//    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.bounds.size.width, height: 80))
+        headerView.backgroundColor = config.styleColor?.mainColor
+        let titleLabel = UILabel.init(frame: CGRect.init(x: 20, y: 0, width: tableView.bounds.size.width, height: 80))
+        switch section {
+        case 0:
+            if sc_section.selectedSegmentIndex == 0{
+                titleLabel.text = "等你兌換的好東西："+"\(upcomingTicketList.count)"
+            }
+            titleLabel.text = "趕快兌換給寶貝的好東西："+"\(upcomingTicketList.count)"
+        case 1:
+            titleLabel.text = "已兌換給寶貝的好東西："+"\(postTicketList.count)"
+        default:
+            print("header Out of Range")
+            titleLabel.text = ""
+        }
+        titleLabel.font = UIFont.systemFont(ofSize: 17)
+        titleLabel.textColor = config.styleColor?.btnTextColor
+        titleLabel.backgroundColor = UIColor.clear
+        headerView.addSubview(titleLabel)
+        return headerView
+    }
     
     func lessThanMaxTicketNum() -> Bool{
         return upcomingTicketList.count + postTicketList.count < listPageVM.getMaxTicketNum()

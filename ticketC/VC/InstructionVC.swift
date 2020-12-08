@@ -32,7 +32,7 @@ class InstructionVC: BaseVC {
     }
     
     override func setStyle(){
-        view.backgroundColor = config.styleColor?.secondColor
+        view.backgroundColor = config.styleColor?.btnTextColor
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
         lb_about.textColor = config.styleColor?.infoTextColor
         lb_info.textColor = config.styleColor?.infoTextColor
@@ -41,6 +41,8 @@ class InstructionVC: BaseVC {
             img_icon.image = UIImage(named: "bamboo-sticks-spa-ornament")
         case .xmasStyle:
             img_icon.image = UIImage(named: "hohoho")
+        case .birthdayStyle:
+            img_icon.image = UIImage(named: "minion8")
         case .none:
             print("no such style for icon")
         }

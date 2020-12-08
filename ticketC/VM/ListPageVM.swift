@@ -14,6 +14,7 @@ class ListPageVM: BaseVM {
     public var postTicketList : LiveData<[PostTicket]> = LiveData([])
     public var upcomingTicketList : LiveData<[UpcomingTicket]> = LiveData([])
     public var getDataSuccessful : LiveData<Bool> = LiveData(true)
+    public var quota = LiveData(0)
     override init(){
         super.init()
         setObserver()
@@ -30,10 +31,9 @@ class ListPageVM: BaseVM {
         networkController.connectionError.observe{ [self] (error) in
             connectionError.value = error
         }
-    }
-    
-    func getQuota() -> Int{
-        return listPageM.getQuota()
+        listPageM.quota.observe{ [self] (data) in
+            quota.value = data
+        }
     }
     
     func getTicketSerialNumber() -> Int{
@@ -59,28 +59,43 @@ class ListPageVM: BaseVM {
         }
     }
     
-    func getTicketData(){
+    func getMyTicketData(){
         listPageM.removeTicktList()
         if isDatabaseAlive(){
-            networkController.getFromDatabase(api: "getQuota", callBack: {
+            networkController.getFromDatabase(api: "getQuotaC", callBack: {
                 [self] (jsonData) in
                 listPageM.maxTicketNum = jsonData![0]["quota"].int!
-            })
-            networkController.getFromDatabase(api: "getTickets", callBack: {
-                [self] (jsonData) in
-                structureTicketsFromDatabase(jsonData : jsonData)
+                networkController.getFromDatabase(api: "getTicketsC", callBack: {
+                    [self] (jsonData) in
+                    structureTicketsFromDatabase(jsonData : jsonData)
+                    listPageM.setQuota()
+                })
             })
         }else{
             networkController.postToSheet(params: ["command": "getTickets"], callBack: { [self]
                 (jsonData) in
                 if jsonData!["status"].int == 200{
                     structureTicketsFromSheet(jsonData : jsonData)
+                    listPageM.setQuota()
                 }else{
                     getDataSuccessful.value = false
                     print("error", jsonData?.debugDescription)
                 }
             })
         }
+    }
+    
+    func getBabyTicketData(){
+        listPageM.removeTicktList()
+        networkController.getFromDatabase(api: "getQuotaB", callBack: {
+            [self] (jsonData) in
+            listPageM.maxTicketNum = jsonData![0]["quota"].int!
+        })
+        networkController.getFromDatabase(api: "getTicketsB", callBack: {
+            [self] (jsonData) in
+            structureTicketsFromDatabase(jsonData : jsonData)
+            listPageM.setQuota()
+        })
     }
     
     func structureTicketsFromDatabase(jsonData : JSON?){
@@ -153,9 +168,9 @@ class ListPageVM: BaseVM {
     func postNewTicket(ticketName : String){
         if isDatabaseAlive(){
             postNewTicketToDatabase(ticketName : ticketName)
-        }else{
-            postNewTicketToSheet(ticketName : ticketName)
         }
+        postNewTicketToSheet(ticketName : ticketName)
+        
     }
     
     func postNewTicketToSheet(ticketName : String){
@@ -202,9 +217,8 @@ class ListPageVM: BaseVM {
     func checkTicket(index : Int, ticketSerialNumber : String){
         if isDatabaseAlive(){
             checkTicketFromDatabase(index : index, ticketSerialNumber : ticketSerialNumber)
-        }else{
-            checkTicketFromSheet(index : index, ticketSerialNumber : ticketSerialNumber)
         }
+        checkTicketFromSheet(index : index, ticketSerialNumber : ticketSerialNumber)
     }
     
     func checkTicketFromSheet(index : Int, ticketSerialNumber : String){
@@ -241,9 +255,9 @@ class ListPageVM: BaseVM {
     func deleteTicket(ticketSerialNumber : String, index : Int){
         if isDatabaseAlive(){
             deleteTicketFromDatabase(ticketSerialNumber : ticketSerialNumber, index : index)
-        }else{
-            deleteTicketFromSheet(ticketSerialNumber : ticketSerialNumber, index : index)
         }
+        deleteTicketFromSheet(ticketSerialNumber : ticketSerialNumber, index : index)
+        
     }
     
     func deleteTicketFromSheet(ticketSerialNumber : String, index : Int){

@@ -11,7 +11,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
     
     private let optionVM = OptionVM()
     private let optionArr : [String] = ["給寶貝的信", "更換主題", "關於", "登出"]
-    private let themeArr : [String] = ["寶貝熊貓", "聖誕節"]
+    private let themeArr : [String] = ["寶貝熊貓", "聖誕夜", "小小兵"]
     
     @IBOutlet weak var img_icon: UIImageView!
     @IBOutlet weak var tableView: UITableView!
@@ -37,6 +37,8 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
             img_icon.image = UIImage(named: "pandaB")
         case .xmasStyle:
             img_icon.image = UIImage(named: "christmas-tree")
+        case .birthdayStyle:
+            img_icon.image = UIImage(named: "minion11")
         case .none:
             print("no style to apply")
         }
@@ -52,7 +54,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
         pickerView.dataSource = self
         pickerView.delegate = self
         //设置选择框的默认值
-        pickerView.selectRow(0,inComponent:0,animated:true)
+        pickerView.selectRow(config.currentStyle.value.rawValue, inComponent: 0, animated: true)
         //把UIPickerView放到alert里面（也可以用datePick）
         let alertController:UIAlertController = UIAlertController(title: "選擇主題", message: "\n\n\n\n\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
         
@@ -60,14 +62,15 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
 //        let height = alertController.view.frame.height*2/3;
         pickerView.frame = CGRect(x: -10, y: 0, width: width, height: 250)
         alertController.view.addSubview(pickerView)
-        
         alertController.addAction(UIAlertAction(title: "確定", style: .default){
             [self]_ in
             switch themeArr[pickerView.selectedRow(inComponent: 0)]{
             case "寶貝熊貓":
                 config.setStyle(style: .defaultStyle)
-            case "聖誕節":
+            case "聖誕夜":
                 config.setStyle(style: .xmasStyle)
+            case "小小兵":
+                config.setStyle(style: .birthdayStyle)
             default:
                 print("selection error")
             }
@@ -167,6 +170,9 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if config.embargo{
+            return themeArr.count - 1
+        }
         return themeArr.count
     }
     

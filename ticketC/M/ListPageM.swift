@@ -9,7 +9,7 @@ import Foundation
 class ListPageM: BaseM {
     public var ticketSerialNumber = 0
     public var maxTicketNum = 3
-    private var quota = 0
+    public var quota = LiveData(0)
     public var postTicketList = [PostTicket](){
         didSet {
             postTicketListListener?(postTicketList)
@@ -35,9 +35,10 @@ class ListPageM: BaseM {
     }
     
     
-    func getQuota() -> Int{
-        quota = maxTicketNum - upcomingTicketList.count - postTicketList.count
-        return quota
+    func setQuota() -> Int{
+        quota.value = maxTicketNum - upcomingTicketList.count - postTicketList.count
+        print("???", quota.value , maxTicketNum , upcomingTicketList.count , postTicketList.count)
+        return quota.value
     }
     
     func removeTicktList(){

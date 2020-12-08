@@ -8,9 +8,10 @@
 import Foundation
 
 enum Style : Int, Codable{
-    case defaultStyle = 1
-    case xmasStyle = 2
-    case none = 0
+    case defaultStyle = 0
+    case xmasStyle = 1
+    case birthdayStyle = 2
+    case none = -1
 }
 
 class Config : NSObject{
@@ -39,6 +40,8 @@ class Config : NSObject{
             styleColor = DefaultStyleColor()
         case .xmasStyle:
             styleColor = XmasStyleColor()
+        case .birthdayStyle:
+            styleColor = BirthdayStyleColor()
         case .none:
             currentStyle.value = .defaultStyle
             styleColor = DefaultStyleColor()

@@ -27,6 +27,8 @@ class UpcomingTVC: BaseTVC {
             img_icon.image = UIImage(named: "bamboo-canes")
         case .xmasStyle:
             img_icon.image = UIImage(named: "christmas-sock")
+        case .birthdayStyle:
+            img_icon.image = UIImage(named: "minion2")
         case .none:
             break
         }
