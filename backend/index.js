@@ -66,8 +66,8 @@ app.post('/api3', jsonParser, (req, res) => {
     res.json(product);
 });
 
-app.get('/getQuota', (req, res) => {
-    conn.query('SELECT (quota) FROM settings LIMIT 1;', function(err, result, fields) {
+app.get('/getQuotaC', (req, res) => {
+    conn.query('SELECT (quota) FROM quota WHERE who = "Christina" LIMIT 1;', function(err, result, fields) {
             if (err) throw err;
             console.log(result);
             res.json(result);
@@ -77,8 +77,28 @@ app.get('/getQuota', (req, res) => {
     // });
 });
 
-app.get('/getTickets', (req, res) => {
-    conn.query('SELECT * FROM tickets;', function(err, result, fields) {
+app.get('/getQuotaB', (req, res) => {
+    conn.query('SELECT (quota) FROM quota WHERE who = "Billy" LIMIT 1;', function(err, result, fields) {
+            if (err) throw err;
+            console.log(result);
+            res.json(result);
+        })
+        // res.json(result);
+
+    // });
+});
+
+app.get('/getTicketsC', (req, res) => {
+    conn.query('SELECT * FROM tickets_C;', function(err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+    })
+});
+
+
+app.get('/getTicketsB', (req, res) => {
+    conn.query('SELECT * FROM tickets_B;', function(err, result, fields) {
         if (err) throw err;
         console.log(result);
         res.json(result);
