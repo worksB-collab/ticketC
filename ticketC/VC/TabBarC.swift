@@ -20,12 +20,20 @@ class TabBarC: UITabBarController {
         setSecondTimer()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if config.currentStyle.value == .xmasStyle{
+            return UIStatusBarStyle.lightContent
+        }
+        return UIStatusBarStyle.default
+    }
+    
+    override func viewWillLayoutSubviews() {
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
     func setObserver(){
         config.currentStyle.observe{ [self] (data) in
             setTabBarStyle()
-//            if data != .xmasStyle{
-//                stopSecondTimer()
-//            }
         }
     }
     

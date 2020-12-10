@@ -33,7 +33,6 @@ class Config : NSObject{
     }
     
     func initStyle(){
-        print("should init first")
         currentStyle.value = getStyle()
         switch currentStyle.value {
         case .defaultStyle:

@@ -18,7 +18,7 @@ class InstructionVC: BaseVC {
         setStyle()
         instructionVM.getInfoText()
         setObserver()
-        // Do any additional setup after loading the view.
+        setLocalizedStrings()
     }
     
     override func setObserver(){
@@ -29,6 +29,10 @@ class InstructionVC: BaseVC {
             [self] (data) in
             lb_info.text = data
         }
+    }
+    
+    func setLocalizedStrings(){
+        lb_about.text = "關於".localized
     }
     
     override func setStyle(){
@@ -42,7 +46,12 @@ class InstructionVC: BaseVC {
         case .xmasStyle:
             img_icon.image = UIImage(named: "hohoho")
         case .birthdayStyle:
-            img_icon.image = UIImage(named: "minion8")
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)); // set as you want
+            let image = UIImage(named: "minion7");
+            imageView.image = image;
+            self.view.insertSubview(imageView, at: 0);
+            img_icon.isHidden = true
+            lb_about.isHidden = true
         case .none:
             print("no such style for icon")
         }

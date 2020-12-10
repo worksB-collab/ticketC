@@ -1,0 +1,56 @@
+/* 
+  Localizable.strings
+  ticketC
+
+  Created by Billy W on 2020/12/9.
+  
+*/
+"寶貝的APP" = "TicketC";
+"尼是誰" = "Who is this?";
+"確定" = "Check";
+"我的兌換券" = "My Tickets";
+"寶貝的兌換券" = "Baby's Tickets";
+"兌換券" = "Tickets";
+"還有" = "Still ";
+"張可以填寫唷" = " tickets left";
+"確定新增" = "Are you sure to add ";
+"嗎？" = "?";
+"一但新增將無法修改，確定新增嗎？" = "You will not able to change, are you sure?";
+"新增" = "Add";
+"取消" = "Cancel";
+"錯誤" = "Error";
+"網路不穩定或無法獲取資料，建議重新載入，或重新開網路連線再嘗試喔！" = "The internet is not stable, please retry later :)";
+"好喔！" = "Sure!";
+"確認使用：" = "Are you sure you want to use ";
+"一張兌換券僅能使用一次，請謹慎使用唷！" = "A ticket can only be used once, think twice!";
+"我就要用！" = "Use it now!";
+"痾...算了" = "I will think about it";
+"沒有！開玩笑的啦" = "Nah, I am kidding";
+"\"正在等你兌換呢！" = "is waiting for you!";
+"\"已經對換過囉！" = "is already used!";
+"等你兌換的好東西：" = "Tickets Awaits: ";
+"趕快兌換給寶貝的好東西：" = "Tickets Awaits: ";
+"已兌換的好東西：" = "Tickets Used: ";
+"已兌換給寶貝的好東西：" = "Tickets Used: ";
+"咦？" = "eh?";
+"尼確定要刪掉新增兌換券的機會嗎？" = "Are you sure to delete this ticket?";
+"偶按錯了！哇哈哈哈" = "Misclicked :P";
+"尼要刪掉" = "Are you sure to delete";
+"這是我們的回憶阿尼怎麼忍心" = "This is our memory, where is your heart?";
+"偶錯了" = "I am wrong";
+"不可以！" = "Nooooo";
+"給寶貝的信" = "To Babe";
+"更換主題" = "Theme";
+"關於" = "About this App";
+"登出" = "Log out";
+"寶貝熊貓" = "Panda";
+"聖誕夜" = "Christmas";
+"小小兵" = "Minions";
+"選擇主題" = "Choose a theme";
+"沒錯" = "Yes!";
+"尼確定要登出嗎？" = "Do you want to log out?";
+"兌換" = "Use";
+"找不到資料" = "No data found :O";
+"已解鎖 1/27 DLC" = "DLC Unlucked!";
+"專屬於吳太太的更新已安裝完成" = "The special update \"Feb. 27\" has been installed";
+"太好啦！" = "Hooray!";

@@ -30,6 +30,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         initData()
         setObserver()
         dateFormatter.dateFormat = "YYYY/MM/dd"
+        setLocalizedStrings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +42,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         view.backgroundColor = config.styleColor?.backgroundColor
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
         sc_section.selectedSegmentTintColor = config.styleColor?.mainColor
-        sc_section.tintColor = config.styleColor?.btnTextColor
+        sc_section.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: config.styleColor?.btnTextColor] , for: .normal)
         label_ticket_quota.textColor = config.styleColor?.titleColor
         tableView.backgroundColor = config.styleColor?.backgroundColor
         tableView.separatorColor = config.styleColor?.titleColor
@@ -104,6 +105,14 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         sc_section.addTarget(self, action: #selector(onChange), for: .valueChanged)
     }
     
+    func setLocalizedStrings(){
+        sc_section.setTitle("我的兌換券".localized, forSegmentAt: 0)
+        sc_section.setTitle("寶貝的兌換券".localized, forSegmentAt: 1)
+        tabBarItem.title = "兌換券".localized
+        navigationController?.navigationItem.title = "兌換券".localized
+        navigationItem.title = "兌換券".localized
+    }
+    
     @objc func onChange(sender: UISegmentedControl) {
         // 印出選到哪個選項 從 0 開始算起
         print(sender.selectedSegmentIndex)
@@ -156,7 +165,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
             label_ticket_quota.isHidden = true
         }else{
             label_ticket_quota.isHidden = false
-            label_ticket_quota.text = "還有"+"\(quota)"+"張可以填寫唷"
+            label_ticket_quota.text = "還有".localized + "\(quota)" + "張可以填寫唷".localized
         }
     }
     
@@ -170,13 +179,13 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     }
     
     @objc func showAddDialog(_ sender : UIButton){
-        let controller = UIAlertController(title: "確定新增" + newTicketName + "嗎？", message: "一但新增將無法修改，確定新增嗎？", preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "新增", style: .default, handler: { [self] _ in
+        let controller = UIAlertController(title: "確定新增".localized + newTicketName + "嗎？".localized, message: "一但新增將無法修改，確定新增嗎？".localized, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "新增".localized, style: .default, handler: { [self] _ in
             loader.isHidden = false
             listPageVM.postNewTicket(ticketName: newTicketName)
         })
         
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "取消".localized, style: .cancel, handler: nil)
         controller.addAction(okAction)
         controller.addAction(cancelAction)
         controller.view.tintColor = config.styleColor?.mainColor
@@ -185,8 +194,8 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     }
     
     func errorDialog(){
-        let controller = UIAlertController(title: "錯誤", message: "網路不穩定或無法獲取資料，建議重新載入，或重新開網路連線再嘗試喔！", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "好喔！", style: .default, handler: nil)
+        let controller = UIAlertController(title: "錯誤".localized, message: "網路不穩定或無法獲取資料，建議重新載入，或重新開網路連線再嘗試喔！".localized, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "好喔！".localized, style: .default, handler: nil)
         controller.addAction(okAction)
         controller.view.tintColor = config.styleColor?.mainColor
         present(controller, animated: true, completion: nil)
@@ -194,8 +203,8 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     
     @objc func showCheckDialog(_ sender : UIButton){
         if lessThanMaxTicketNum(){
-            let controller = UIAlertController(title: "確認使用：" + upcomingTicketList[sender.tag-1].name! + "嗎？", message: "一張兌換券僅能使用一次，請謹慎使用唷！", preferredStyle: .actionSheet)
-            let okAction = UIAlertAction(title: "我就要用！", style: .default, handler: { [self] _ in
+            let controller = UIAlertController(title: "確認使用：".localized + upcomingTicketList[sender.tag-1].name! + "嗎？".localized, message: "一張兌換券僅能使用一次，請謹慎使用唷！".localized, preferredStyle: .actionSheet)
+            let okAction = UIAlertAction(title: "我就要用！".localized, style: .default, handler: { [self] _ in
                 
                 loader.isHidden = false
                 for i in 0 ..< upcomingTicketList.count{
@@ -205,14 +214,14 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                     }
                 }
             })
-            let cancelAction = UIAlertAction(title: "痾...算了", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "痾...算了".localized, style: .cancel, handler: nil)
             controller.addAction(okAction)
             controller.addAction(cancelAction)
             controller.view.tintColor = config.styleColor?.mainColor
             present(controller, animated: true, completion: nil)
         }else{
-            let controller = UIAlertController(title: "確認使用：" + upcomingTicketList[sender.tag].name! + "嗎？", message: "一張兌換券僅能使用一次，請謹慎使用唷！", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "就是要用！", style: .default, handler: { [self] _ in
+            let controller = UIAlertController(title: "確認使用：".localized + upcomingTicketList[sender.tag].name! + "嗎？".localized, message: "一張兌換券僅能使用一次，請謹慎使用唷！".localized, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "就是要用！".localized, style: .default, handler: { [self] _ in
                 loader.isHidden = false
                 for i in 0 ..< upcomingTicketList.count{
                     if upcomingTicketList[i].index == sender.tag{
@@ -223,7 +232,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 
             })
             
-            let cancelAction = UIAlertAction(title: "沒有！開玩笑的啦", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "沒有！開玩笑的啦".localized, style: .cancel, handler: nil)
             controller.addAction(okAction)
             controller.addAction(cancelAction)
             controller.view.tintColor = config.styleColor?.mainColor
@@ -235,13 +244,13 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         var controller = UIAlertController()
         switch section {
         case 0:
-            controller = UIAlertController(title: upcomingTicketList[index].name!, message: upcomingTicketList[index].date!+"新增的\""+upcomingTicketList[index].name!+"\"正在等你兌換呢！", preferredStyle: .alert)
+            controller = UIAlertController(title: upcomingTicketList[index].name!, message: upcomingTicketList[index].date!+"新增的\""+upcomingTicketList[index].name!+"\"正在等你兌換呢！".localized, preferredStyle: .alert)
         case 1:
-            controller = UIAlertController(title: postTicketList[index].name!, message: postTicketList[index].date!+"新增的\""+postTicketList[index].name!+"\"已經對換過囉！", preferredStyle: .alert)
+            controller = UIAlertController(title: postTicketList[index].name!, message: postTicketList[index].date!+"新增的\""+postTicketList[index].name!+"\"已經對換過囉！".localized, preferredStyle: .alert)
         default:
             break
         }
-        let okAction = UIAlertAction(title: "好喔！", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "好喔！".localized, style: .default, handler: nil)
         controller.addAction(okAction)
         controller.view.tintColor = config.styleColor?.mainColor
         present(controller, animated: true, completion: nil)
@@ -251,21 +260,24 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         newTicketName = sender.text!
     }
     
-    //tableView
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            if sc_section.selectedSegmentIndex == 0{
-                return "等你兌換的好東西："+"\(upcomingTicketList.count)"
-            }
-            return "趕快兌換給寶貝的好東西："+"\(upcomingTicketList.count)"
-        case 1:
-            return "已兌換給寶貝的好東西："+"\(postTicketList.count)"
-        default:
-            print("header Out of Range")
-            return ""
-        }
-    }
+//    //tableView
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        switch section {
+//        case 0:
+//            if sc_section.selectedSegmentIndex == 0{
+//                return "等你兌換的好東西：".localized + "\(upcomingTicketList.count)"
+//            }
+//            return "趕快兌換給寶貝的好東西：".localized + "\(upcomingTicketList.count)"
+//        case 1:
+//            if sc_section.selectedSegmentIndex == 0{
+//                return "已兌換的好東西：".localized + "\(postTicketList.count)"
+//            }
+//            return "已兌換給寶貝的好東西：".localized + "\(postTicketList.count)"
+//        default:
+//            print("header Out of Range")
+//            return ""
+//        }
+//    }
     
     //change the size of header section
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -389,8 +401,8 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 case 0:
                     if lessThanMaxTicketNum(){
                         if indexPath.row == 0 {
-                            let controller = UIAlertController(title: "ah?", message: "尼確定要刪掉新增兌換券的機會嗎？", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "偶按錯了！哇哈哈哈", style: .default, handler: nil)
+                            let controller = UIAlertController(title: "咦？".localized, message: "尼確定要刪掉新增兌換券的機會嗎？".localized, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "偶按錯了！哇哈哈哈".localized, style: .default, handler: nil)
                             controller.addAction(okAction)
                             controller.view.tintColor = config.styleColor?.mainColor
                             present(controller, animated: true, completion: nil)
@@ -402,8 +414,8 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                     }
                     loader.isHidden = false
                 case 1:
-                    let controller = UIAlertController(title: "尼要刪掉 " + newTicketName+"？", message: "這是我們的回憶阿尼怎麼忍心", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "偶錯了", style: .default, handler: nil)
+                    let controller = UIAlertController(title: "尼要刪掉".localized + newTicketName+"嗎？".localized, message: "這是我們的回憶阿尼怎麼忍心".localized, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "偶錯了".localized, style: .default, handler: nil)
                     controller.addAction(okAction)
                     controller.view.tintColor = config.styleColor?.mainColor
                     present(controller, animated: true, completion: nil)
@@ -414,8 +426,8 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 print("???")
             }
         }else if sc_section.selectedSegmentIndex == 1{
-            let controller = UIAlertController(title: "不可以！", message: "這是我們的回憶阿尼怎麼忍心", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "偶錯了", style: .default, handler: nil)
+            let controller = UIAlertController(title: "不可以！".localized, message: "這是我們的回憶阿尼怎麼忍心".localized, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "偶錯了".localized, style: .default, handler: nil)
             controller.addAction(okAction)
             controller.view.tintColor = config.styleColor?.mainColor
             present(controller, animated: true, completion: nil)
@@ -433,11 +445,16 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         switch section {
         case 0:
             if sc_section.selectedSegmentIndex == 0{
-                titleLabel.text = "等你兌換的好東西："+"\(upcomingTicketList.count)"
+                titleLabel.text = "等你兌換的好東西：".localized + "\(upcomingTicketList.count)"
+            }else if sc_section.selectedSegmentIndex == 1{
+                titleLabel.text = "趕快兌換給寶貝的好東西：".localized + "\(upcomingTicketList.count)"
             }
-            titleLabel.text = "趕快兌換給寶貝的好東西："+"\(upcomingTicketList.count)"
         case 1:
-            titleLabel.text = "已兌換給寶貝的好東西："+"\(postTicketList.count)"
+            if sc_section.selectedSegmentIndex == 0{
+                titleLabel.text = "已兌換的好東西：".localized + "\(postTicketList.count)"
+            }else if sc_section.selectedSegmentIndex == 1{
+                titleLabel.text = "已兌換給寶貝的好東西：".localized + "\(postTicketList.count)"
+            }
         default:
             print("header Out of Range")
             titleLabel.text = ""

@@ -1,0 +1,36 @@
+
+/* Class = "UISegmentedControl"; 90N-bl-mjU.segmentTitles[0] = "我的兌換券"; ObjectID = "90N-bl-mjU"; */
+"90N-bl-mjU.segmentTitles[0]" = "我的兌換券";
+
+/* Class = "UISegmentedControl"; 90N-bl-mjU.segmentTitles[1] = "寶貝的兌換券"; ObjectID = "90N-bl-mjU"; */
+"90N-bl-mjU.segmentTitles[1]" = "寶貝的兌換券";
+
+/* Class = "UITextField"; placeholder = "尼似誰"; ObjectID = "AMR-Ua-Dv6"; */
+"AMR-Ua-Dv6.placeholder" = "尼似誰";
+
+/* Class = "UINavigationItem"; title = "寶貝的兌換券"; ObjectID = "FqZ-5x-hkG"; */
+"FqZ-5x-hkG.title" = "寶貝的兌換券";
+
+/* Class = "UILabel"; text = "info"; ObjectID = "KcR-CD-nWf"; */
+"KcR-CD-nWf.text" = "info";
+
+/* Class = "UIButton"; normalTitle = "確定"; ObjectID = "Ner-O9-neb"; */
+"Ner-O9-neb.normalTitle" = "確定";
+
+/* Class = "UITabBarItem"; title = "選項"; ObjectID = "Pci-w2-sjz"; */
+"Pci-w2-sjz.title" = "選項";
+
+/* Class = "UILabel"; text = "寶貝的兌換券"; ObjectID = "cW4-R7-56c"; */
+"cW4-R7-56c.text" = "寶貝的兌換券";
+
+/* Class = "UITabBarItem"; title = "兌換券"; ObjectID = "icx-ZT-fDZ"; */
+"icx-ZT-fDZ.title" = "兌換券";
+
+/* Class = "UILabel"; text = "還有幾張呢"; ObjectID = "jC9-Y6-YUO"; */
+"jC9-Y6-YUO.text" = "還有幾張呢";
+
+/* Class = "UILabel"; text = "關於"; ObjectID = "pwm-UD-ybk"; */
+"pwm-UD-ybk.text" = "關於";
+
+/* Class = "UINavigationItem"; title = "選項"; ObjectID = "wA8-x4-cwD"; */
+"wA8-x4-cwD.title" = "選項";

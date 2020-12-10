@@ -8,8 +8,13 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SentyTEA.ttf">
+            <string>SentyTEA</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--寶貝的兌換券-->
+        <!--兌換券-->
         <scene sceneID="Nkq-So-xoO">
             <objects>
                 <viewController storyboardIdentifier="ListPageVC" id="HRf-df-6yC" customClass="ListPageVC" customModule="ticketC" customModuleProvider="target" sceneMemberID="viewController">
@@ -35,7 +40,7 @@
                                 </prototypes>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="90N-bl-mjU">
-                                <rect key="frame" x="108.66666666666669" y="119" width="197" height="51"/>
+                                <rect key="frame" x="20" y="119" width="374" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ppH-fb-s9g"/>
                                 </constraints>
@@ -46,7 +51,7 @@
                                 <color key="selectedSegmentTintColor" systemColor="systemIndigoColor"/>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="還有幾張呢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jC9-Y6-YUO">
-                                <rect key="frame" x="327.66666666666669" y="195" width="66.333333333333314" height="16"/>
+                                <rect key="frame" x="174" y="188" width="66.333333333333314" height="16"/>
                                 <color key="tintColor" systemColor="systemIndigoColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" systemColor="systemIndigoColor"/>
@@ -62,13 +67,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="f0o-dD-JK1" firstAttribute="trailing" secondItem="Yzx-nb-fFZ" secondAttribute="trailing" id="1zq-kN-maa"/>
+                            <constraint firstItem="90N-bl-mjU" firstAttribute="leading" secondItem="f0o-dD-JK1" secondAttribute="leading" constant="20" id="4DD-bS-puB"/>
+                            <constraint firstItem="jC9-Y6-YUO" firstAttribute="centerX" secondItem="f0o-dD-JK1" secondAttribute="centerX" id="6cM-wW-e97"/>
                             <constraint firstItem="Yzx-nb-fFZ" firstAttribute="centerY" secondItem="f0o-dD-JK1" secondAttribute="centerY" id="CMk-GG-IUa"/>
-                            <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="jC9-Y6-YUO" secondAttribute="bottom" constant="8" symbolic="YES" id="Iwo-pc-ir3"/>
+                            <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="jC9-Y6-YUO" secondAttribute="bottom" constant="15" id="Iwo-pc-ir3"/>
                             <constraint firstItem="cdt-ab-frf" firstAttribute="centerX" secondItem="f0o-dD-JK1" secondAttribute="centerX" id="KIc-G2-UHY"/>
                             <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="90N-bl-mjU" secondAttribute="bottom" constant="50" id="MA3-iM-bOa"/>
                             <constraint firstItem="f0o-dD-JK1" firstAttribute="trailing" secondItem="cdt-ab-frf" secondAttribute="trailing" id="OD9-fl-pjb"/>
-                            <constraint firstItem="90N-bl-mjU" firstAttribute="centerX" secondItem="f0o-dD-JK1" secondAttribute="centerX" id="S4g-Qn-GG0"/>
-                            <constraint firstItem="f0o-dD-JK1" firstAttribute="trailing" secondItem="jC9-Y6-YUO" secondAttribute="trailing" constant="20" id="T2i-Ws-oOs"/>
+                            <constraint firstItem="f0o-dD-JK1" firstAttribute="trailing" secondItem="90N-bl-mjU" secondAttribute="trailing" constant="20" id="QZC-F9-P1s"/>
                             <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="f0o-dD-JK1" secondAttribute="top" constant="131" id="VMU-dv-CGK"/>
                             <constraint firstItem="Yzx-nb-fFZ" firstAttribute="leading" secondItem="f0o-dD-JK1" secondAttribute="leading" id="b0P-YL-XP1"/>
                             <constraint firstItem="Yzx-nb-fFZ" firstAttribute="height" secondItem="cDx-xy-g1Q" secondAttribute="height" id="cTt-VX-40m"/>
@@ -79,7 +85,7 @@
                     <tabBarItem key="tabBarItem" title="兌換券" image="ticket" catalog="system" selectedImage="ticket.fill" id="icx-ZT-fDZ">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="3" vertical="3"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="寶貝的兌換券" largeTitleDisplayMode="always" id="FqZ-5x-hkG"/>
+                    <navigationItem key="navigationItem" title="兌換券" largeTitleDisplayMode="always" id="FqZ-5x-hkG"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="label_ticket_quota" destination="jC9-Y6-YUO" id="Luk-rQ-C9N"/>
@@ -154,25 +160,26 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="尼似誰" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AMR-Ua-Dv6">
-                                <rect key="frame" x="107" y="522" width="200" height="34"/>
+                                <rect key="frame" x="107" y="490" width="200" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="EJ0-3v-FhD"/>
+                                    <constraint firstAttribute="height" constant="40" id="dFI-lu-n1t"/>
                                 </constraints>
                                 <color key="textColor" systemColor="systemIndigoColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="name"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="寶貝的兌換券" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cW4-R7-56c">
-                                <rect key="frame" x="155" y="440" width="104" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="131" y="420" width="152" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ner-O9-neb">
-                                <rect key="frame" x="107" y="586" width="200" height="30"/>
+                                <rect key="frame" x="107" y="560" width="200" height="40"/>
                                 <color key="backgroundColor" systemColor="systemIndigoColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Cqo-Nq-l2x"/>
+                                    <constraint firstAttribute="height" constant="40" id="Cqo-Nq-l2x"/>
                                 </constraints>
                                 <state key="normal" title="確定">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -195,10 +202,10 @@
                             <constraint firstItem="aeP-e5-XlW" firstAttribute="centerX" secondItem="sce-Hh-Bhb" secondAttribute="centerX" id="Glu-4u-WPP"/>
                             <constraint firstItem="AMR-Ua-Dv6" firstAttribute="centerX" secondItem="aeP-e5-XlW" secondAttribute="centerX" id="HYB-rq-c6w"/>
                             <constraint firstItem="Ner-O9-neb" firstAttribute="width" secondItem="AMR-Ua-Dv6" secondAttribute="width" id="OIN-Dk-XNZ"/>
-                            <constraint firstItem="AMR-Ua-Dv6" firstAttribute="top" secondItem="cW4-R7-56c" secondAttribute="bottom" constant="61" id="XAx-Uk-cIi"/>
+                            <constraint firstItem="AMR-Ua-Dv6" firstAttribute="top" secondItem="cW4-R7-56c" secondAttribute="bottom" constant="40" id="XAx-Uk-cIi"/>
                             <constraint firstItem="cW4-R7-56c" firstAttribute="centerX" secondItem="aeP-e5-XlW" secondAttribute="centerX" id="aNi-nb-7FP"/>
                             <constraint firstItem="Ner-O9-neb" firstAttribute="centerX" secondItem="AMR-Ua-Dv6" secondAttribute="centerX" id="cho-pn-ksC"/>
-                            <constraint firstItem="cW4-R7-56c" firstAttribute="top" secondItem="aeP-e5-XlW" secondAttribute="bottom" constant="50" id="fWb-WQ-s5G"/>
+                            <constraint firstItem="cW4-R7-56c" firstAttribute="top" secondItem="aeP-e5-XlW" secondAttribute="bottom" constant="30" id="fWb-WQ-s5G"/>
                             <constraint firstItem="Ner-O9-neb" firstAttribute="top" secondItem="AMR-Ua-Dv6" secondAttribute="bottom" constant="30" id="q0r-iB-oNX"/>
                         </constraints>
                     </view>
@@ -266,10 +273,111 @@
             </objects>
             <point key="canvasLocation" x="2730" y="1496"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Birthday LetterVC-->
+        <scene sceneID="bhL-di-Ryi">
+            <objects>
+                <viewController storyboardIdentifier="BirthdayLetterVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Q5P-Q8-UTP" customClass="BirthdayLetterVC" customModule="ticketC" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vS1-LK-scg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OPI-Lz-oMf">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818.00000000000011"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sNy-Jm-GBF">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1602.3333333333333"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVA-ve-b0v">
+                                                <rect key="frame" x="20" y="19.999999999999996" width="76" height="43.666666666666657"/>
+                                                <fontDescription key="fontDescription" name="SentyTEA" family="SentyTEA ÂµÙ" pointSize="37"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDd-VJ-L8s">
+                                                <rect key="frame" x="20" y="78.666666666666629" width="374" height="1318.666666666667"/>
+                                                <mutableString key="text">我們知道現在的 CPU 至少都是兩個核心以上的多核心 CPU 了，但是 Intel 還有個很怪的東西，叫做 CPU 的超執行緒 (Hyper-Threading) 功能！ 那個是啥鬼東西？我們知道現在的 CPU 運算速度都太快了，因此運算核心經常處於閒置狀態下。而我們也知道現在的系統大多都是多工的系統， 同時間有很多的程序會讓 CPU 來執行。因此，若 CPU 可以假象的同時執行兩個程序，不就可以讓系統效能增加了嗎？反正 CPU 的運算能力還是沒有用完啊！
+
+那是怎麼達成的啊這個 HT 功能？強者鳥哥的同事蔡董大大用個簡單的說明來解釋。在每一個 CPU 內部將重要的暫存器 (register) 分成兩群， 而讓程序分別使用這兩群暫存器。也就是說，可以有兩個程序『同時競爭 CPU 的運算單元』，而非透過作業系統的多工切換！ 這一過程就會讓 CPU 好像『同時有兩個核心』的模樣！因此，雖然大部分 i7 等級的 CPU 其實只有四個實體核心，但透過 HT 的機制， 則作業系統可以抓到八個核心！並且讓每個核心邏輯上分離，就可以同時運作八個程序了。
+
+雖然很多研究與測試中，大多發現 HT 雖然可以提昇效能，不過，有些情況下卻可能導致效能降低喔！因為，實際上明明就僅有一個運算單元嘛！ 不過在鳥哥使用數值模式的情況下，因為鳥哥操作的數值模式主要為平行運算功能，且運算通常無法達到 100% 的 CPU 使用率，通常僅有大約60%運算量而已。 因此在鳥哥的實作過程中，這個 HT 確實提昇相當多的效能！至少應該可以節省鳥哥大約30%~50%的等待時間喔！不過網路上大家的研究中， 大多說這個是 case by case，而且使用的軟體影響很大！所以，在鳥哥的例子是啟用 HT 幫助很大！您的案例就得要自行研究囉！</mutableString>
+                                                <fontDescription key="fontDescription" name="SentyTEA" family="SentyTEA ÂµÙ" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgS-oR-BnD">
+                                                <rect key="frame" x="342.66666666666669" y="1447.3333333333333" width="51.333333333333314" height="29.333333333333258"/>
+                                                <fontDescription key="fontDescription" name="SentyTEA" family="SentyTEA ÂµÙ" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gre-jO-5Uu">
+                                                <rect key="frame" x="353" y="1476.6666666666667" width="41" height="23.666666666666742"/>
+                                                <fontDescription key="fontDescription" name="SentyTEA" family="SentyTEA ÂµÙ" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minion6" translatesAutoresizingMaskIntoConstraints="NO" id="Mzb-Y1-Wmw">
+                                                <rect key="frame" x="244" y="1500.3333333333333" width="150" height="82"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Mzb-Y1-Wmw" secondAttribute="height" multiplier="75:41" id="LJa-rr-PTk"/>
+                                                    <constraint firstAttribute="width" constant="150" id="mmo-gv-0JK"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Gre-jO-5Uu" firstAttribute="trailing" secondItem="QgS-oR-BnD" secondAttribute="trailing" id="4II-BZ-PSJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="Mzb-Y1-Wmw" secondAttribute="trailing" constant="20" id="4rR-g4-hPN"/>
+                                            <constraint firstItem="Mzb-Y1-Wmw" firstAttribute="top" secondItem="Gre-jO-5Uu" secondAttribute="bottom" id="5mn-3n-Bp9"/>
+                                            <constraint firstAttribute="bottom" secondItem="Mzb-Y1-Wmw" secondAttribute="bottom" constant="20" id="9B0-aX-Q9q"/>
+                                            <constraint firstItem="KVA-ve-b0v" firstAttribute="top" secondItem="sNy-Jm-GBF" secondAttribute="top" constant="20" id="EbT-Bl-RQg"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZDd-VJ-L8s" secondAttribute="trailing" constant="20" id="MAz-Yv-ijq"/>
+                                            <constraint firstItem="ZDd-VJ-L8s" firstAttribute="top" secondItem="KVA-ve-b0v" secondAttribute="bottom" constant="15" id="Muw-yf-I8A"/>
+                                            <constraint firstItem="KVA-ve-b0v" firstAttribute="leading" secondItem="sNy-Jm-GBF" secondAttribute="leading" constant="20" id="SIL-KQ-M6W"/>
+                                            <constraint firstAttribute="trailing" secondItem="QgS-oR-BnD" secondAttribute="trailing" constant="20" id="UPA-B6-nOB"/>
+                                            <constraint firstItem="QgS-oR-BnD" firstAttribute="top" secondItem="ZDd-VJ-L8s" secondAttribute="bottom" constant="50" id="cMt-X4-MWp"/>
+                                            <constraint firstItem="Gre-jO-5Uu" firstAttribute="top" secondItem="QgS-oR-BnD" secondAttribute="bottom" id="hw9-z1-K5g"/>
+                                            <constraint firstItem="ZDd-VJ-L8s" firstAttribute="leading" secondItem="sNy-Jm-GBF" secondAttribute="leading" constant="20" id="vlD-be-wBy"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="weG-eT-s1l" firstAttribute="trailing" secondItem="sNy-Jm-GBF" secondAttribute="trailing" id="8hw-SE-Icd"/>
+                                    <constraint firstItem="eyy-aq-dj4" firstAttribute="width" secondItem="sNy-Jm-GBF" secondAttribute="width" id="E88-aW-LkM"/>
+                                    <constraint firstItem="sNy-Jm-GBF" firstAttribute="top" secondItem="eyy-aq-dj4" secondAttribute="top" id="ErI-b4-t8h"/>
+                                    <constraint firstItem="eyy-aq-dj4" firstAttribute="height" secondItem="sNy-Jm-GBF" secondAttribute="height" id="RhH-tn-VJk"/>
+                                    <constraint firstItem="sNy-Jm-GBF" firstAttribute="leading" secondItem="weG-eT-s1l" secondAttribute="leading" id="nSP-8S-eEo"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="eyy-aq-dj4"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="weG-eT-s1l"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xFu-be-ZqC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="xFu-be-ZqC" firstAttribute="trailing" secondItem="OPI-Lz-oMf" secondAttribute="trailing" id="9FH-g0-BGc"/>
+                            <constraint firstItem="OPI-Lz-oMf" firstAttribute="top" secondItem="xFu-be-ZqC" secondAttribute="top" id="DOY-Go-Mya"/>
+                            <constraint firstItem="OPI-Lz-oMf" firstAttribute="width" secondItem="vS1-LK-scg" secondAttribute="width" id="LeM-h6-WhF"/>
+                            <constraint firstItem="xFu-be-ZqC" firstAttribute="bottom" secondItem="OPI-Lz-oMf" secondAttribute="bottom" id="oVo-BQ-kFq"/>
+                            <constraint firstItem="OPI-Lz-oMf" firstAttribute="leading" secondItem="xFu-be-ZqC" secondAttribute="leading" id="upH-l6-9nQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="sNy-Jm-GBF" id="TyO-eO-m7l"/>
+                        <outlet property="create_at" destination="Gre-jO-5Uu" id="tS0-xK-q2S"/>
+                        <outlet property="lb_body" destination="ZDd-VJ-L8s" id="M6M-r7-Nwl"/>
+                        <outlet property="lb_footer" destination="QgS-oR-BnD" id="Rmx-8G-vKE"/>
+                        <outlet property="lb_header" destination="KVA-ve-b0v" id="XAZ-MW-zwz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Isj-Gf-0hz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3537.68115942029" y="1495.9821428571429"/>
+        </scene>
+        <!--Base NavC-->
         <scene sceneID="up9-q7-FJD">
             <objects>
-                <navigationController storyboardIdentifier="navListPageVC" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="Rud-dq-rbi" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navListPageVC" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="Rud-dq-rbi" customClass="BaseNavC" customModule="ticketC" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="qcu-MY-I9h">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="1" vertical="1"/>
                     </tabBarItem>
@@ -291,10 +399,10 @@
             </objects>
             <point key="canvasLocation" x="1823.1884057971015" y="122.54464285714285"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Base NavC-->
         <scene sceneID="x5V-IP-XPP">
             <objects>
-                <navigationController storyboardIdentifier="navLoginPageVC" automaticallyAdjustsScrollViewInsets="NO" id="NNJ-WS-yLc" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navLoginPageVC" automaticallyAdjustsScrollViewInsets="NO" id="NNJ-WS-yLc" customClass="BaseNavC" customModule="ticketC" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="rC4-lt-9i5">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -337,10 +445,10 @@
             </objects>
             <point key="canvasLocation" x="913.04347826086962" y="122.54464285714285"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Base NavC-->
         <scene sceneID="36z-9S-cUQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a7v-po-qnc" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a7v-po-qnc" customClass="BaseNavC" customModule="ticketC" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="axd-OP-Oo1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="IW2-EY-3ag">
@@ -359,6 +467,7 @@
     </scenes>
     <resources>
         <image name="hohoho" width="512" height="512"/>
+        <image name="minion6" width="710" height="379"/>
         <image name="pandaB" width="252" height="252"/>
         <image name="star.circle" catalog="system" width="128" height="121"/>
         <image name="star.circle.fill" catalog="system" width="128" height="121"/>

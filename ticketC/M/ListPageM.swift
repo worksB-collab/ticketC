@@ -37,7 +37,6 @@ class ListPageM: BaseM {
     
     func setQuota() -> Int{
         quota.value = maxTicketNum - upcomingTicketList.count - postTicketList.count
-        print("???", quota.value , maxTicketNum , upcomingTicketList.count , postTicketList.count)
         return quota.value
     }
     

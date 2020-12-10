@@ -21,6 +21,10 @@ class UpcomingTVC: BaseTVC {
         // Configure the view for the selected state
     }
     
+    override func setLocalizedStrings(){
+        btn_check.setTitle("兌換".localized, for: .normal)
+    }
+    
     override func setStyle(){
         switch config.currentStyle.value{
         case .defaultStyle:

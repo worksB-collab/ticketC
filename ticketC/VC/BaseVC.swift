@@ -17,6 +17,17 @@ class BaseVC: UIViewController {
     private var snowArr : [CAShapeLayer] = []
     public var connectionError = Config.NO_ERROR
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if config.currentStyle.value == .xmasStyle{
+            return UIStatusBarStyle.lightContent
+        }
+        return UIStatusBarStyle.default
+    }
+    
+    override func viewWillLayoutSubviews() {
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
     func setObserver(){
         config.currentStyle.observe{ [self] _ in
             setStyle()
@@ -42,4 +53,10 @@ class BaseVC: UIViewController {
     }
     
     func setStyle(){}
+}
+
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
+    }
 }

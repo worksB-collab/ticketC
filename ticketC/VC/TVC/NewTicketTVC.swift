@@ -20,6 +20,7 @@ class NewTicketTVC: BaseTVC, UITextFieldDelegate {
         tf_ticket_name.delegate = self
         setStyle()
         setObserver()
+        setLocalizedStrings()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,6 +33,10 @@ class NewTicketTVC: BaseTVC, UITextFieldDelegate {
         config.currentStyle.observe{ [self] _ in
             setStyle()
         }
+    }
+    
+    override func setLocalizedStrings(){
+        btn_confirm.setTitle("確定".localized, for: .normal)
     }
     
     override func setStyle(){

@@ -28,7 +28,7 @@ class InstructionVM : BaseVM {
             if networkController.isDatabaseAlive!{
                 networkController.getFromDatabase(api: "getInfoText", callBack: {
                     [self] (jsonData) in
-                    let data = jsonData![0]["content"].string
+                    let data = jsonData![0]["body"].string
                     instructionM.infoText.value = data ?? "no info"
                 })
             }else{
@@ -38,7 +38,7 @@ class InstructionVM : BaseVM {
                         let data = jsonData!["data"]["infoText"].string
                         instructionM.infoText.value = data!
                     }else{
-                        instructionM.infoText.value = "找不到資料"
+                        instructionM.infoText.value = "找不到資料".localized
                     }
                 })
             }

@@ -41,18 +41,38 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         tf_name.delegate = self
+        setSecondTimer()
+        setObserver()
+        setIconPressTarget()
+        setKeyBoardDismissGesture()
+        setLocalizedStrings()
+        setFont()
+    }
+    
+    func setKeyBoardDismissGesture(){
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
             target: self,
             action: #selector(dismissMyKeyboard))
         view.addGestureRecognizer(tap)
-        setSecondTimer()
-        setObserver()
-        
-        
+    }
+    
+    func setIconPressTarget(){
         img_icon.isUserInteractionEnabled = true
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
-        longPressRecognizer.minimumPressDuration = 2.0
+        longPressRecognizer.minimumPressDuration = 5.0
         img_icon.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    func setLocalizedStrings(){
+        lb_title.text = "寶貝的APP".localized
+        tf_name.placeholder = "尼是誰".localized
+        btn_confirm.setTitle("確定".localized, for: .normal)
+    }
+    
+    func setFont(){
+        lb_title.font = lb_title.font.withSize(FontSize.TITLE_SIZE)
+        tf_name.font = tf_name.font!.withSize(FontSize.TEXT_SIZE)
+        btn_confirm.titleLabel?.font = btn_confirm.titleLabel?.font.withSize(FontSize.TEXT_SIZE)
     }
     
     func generateCircle(){
@@ -182,15 +202,12 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     }
     
     @objc func longPressed(sender: UILongPressGestureRecognizer) {
-        let controller = UIAlertController(title: "已解鎖 1/27 DLC", message: "專屬於吳太太的更新已安裝完成", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "太好啦！", style: .default, handler: nil)
+        loginPageVM.unlockEmbargo()
+        let controller = UIAlertController(title: "已解鎖 1/27 DLC".localized, message: "專屬於吳太太的更新已安裝完成".localized, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "太好啦！".localized, style: .default, handler: nil)
         controller.addAction(okAction)
         controller.view.tintColor = config.styleColor?.mainColor
         present(controller, animated: true, completion: nil)
-    }
-    
-    func unlockEmbargo(){
-        loginPageVM.unlockEmbargo()
     }
     
     func getCheckedLogin() -> Bool{
