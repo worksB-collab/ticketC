@@ -18,6 +18,9 @@
 		046147402581006800FE8E69 /* SentyTEA.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0461473F2581006800FE8E69 /* SentyTEA.ttf */; };
 		0461474F2581DB0A00FE8E69 /* BirthdayLetterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0461474E2581DB0A00FE8E69 /* BirthdayLetterVM.swift */; };
 		0461475425821EE600FE8E69 /* FontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0461475325821EE600FE8E69 /* FontSize.swift */; };
+		0461476F258374EB00FE8E69 /* That s Christmas to Me - Pentatonix.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0461476E258374EB00FE8E69 /* That s Christmas to Me - Pentatonix.mp3 */; };
+		04614774258376FE00FE8E69 /* minions-banana.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04614773258376FE00FE8E69 /* minions-banana.mp3 */; };
+		04614779258377BD00FE8E69 /* di-evantile_dancing-breeze.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04614778258377BD00FE8E69 /* di-evantile_dancing-breeze.mp3 */; };
 		04657B3E256A96DC00F583D3 /* OptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04657B3D256A96DC00F583D3 /* OptionVC.swift */; };
 		04657B43256A979300F583D3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04657B42256A979300F583D3 /* Config.swift */; };
 		046BC0962521885500D3959D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046BC0952521885500D3959D /* AppDelegate.swift */; };
@@ -88,6 +91,9 @@
 		0461473F2581006800FE8E69 /* SentyTEA.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SentyTEA.ttf; sourceTree = "<group>"; };
 		0461474E2581DB0A00FE8E69 /* BirthdayLetterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayLetterVM.swift; sourceTree = "<group>"; };
 		0461475325821EE600FE8E69 /* FontSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSize.swift; sourceTree = "<group>"; };
+		0461476E258374EB00FE8E69 /* That s Christmas to Me - Pentatonix.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "That s Christmas to Me - Pentatonix.mp3"; sourceTree = "<group>"; };
+		04614773258376FE00FE8E69 /* minions-banana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "minions-banana.mp3"; sourceTree = "<group>"; };
+		04614778258377BD00FE8E69 /* di-evantile_dancing-breeze.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "di-evantile_dancing-breeze.mp3"; sourceTree = "<group>"; };
 		04657B3D256A96DC00F583D3 /* OptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionVC.swift; sourceTree = "<group>"; };
 		04657B42256A979300F583D3 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		046BC0922521885500D3959D /* ticketC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ticketC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +204,9 @@
 		046BC0942521885500D3959D /* ticketC */ = {
 			isa = PBXGroup;
 			children = (
+				0461476E258374EB00FE8E69 /* That s Christmas to Me - Pentatonix.mp3 */,
+				04614778258377BD00FE8E69 /* di-evantile_dancing-breeze.mp3 */,
+				04614773258376FE00FE8E69 /* minions-banana.mp3 */,
 				046147372580FF8500FE8E69 /* YuNaFont.ttf */,
 				0461473F2581006800FE8E69 /* SentyTEA.ttf */,
 				046BC0952521885500D3959D /* AppDelegate.swift */,
@@ -449,7 +458,10 @@
 				046BC0DB252217EC00D3959D /* UpcomingTVC.xib in Resources */,
 				046BC0D42522167700D3959D /* NewTicketTVC.xib in Resources */,
 				04B443A0256BCCC6009C4B5B /* OptionTVC.xib in Resources */,
+				04614774258376FE00FE8E69 /* minions-banana.mp3 in Resources */,
 				04563E132580C4AF00BBE09F /* Localizable.strings in Resources */,
+				04614779258377BD00FE8E69 /* di-evantile_dancing-breeze.mp3 in Resources */,
+				0461476F258374EB00FE8E69 /* That s Christmas to Me - Pentatonix.mp3 in Resources */,
 				046BC09F2521885600D3959D /* Assets.xcassets in Resources */,
 				046BC09D2521885500D3959D /* Main.storyboard in Resources */,
 			);

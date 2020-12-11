@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cdt-ab-frf">
-                                <rect key="frame" x="0.0" y="219" width="414" height="594"/>
+                                <rect key="frame" x="0.0" y="228" width="414" height="585"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -40,7 +40,7 @@
                                 </prototypes>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="90N-bl-mjU">
-                                <rect key="frame" x="20" y="119" width="374" height="51"/>
+                                <rect key="frame" x="20" y="123" width="374" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ppH-fb-s9g"/>
                                 </constraints>
@@ -51,9 +51,9 @@
                                 <color key="selectedSegmentTintColor" systemColor="systemIndigoColor"/>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="還有幾張呢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jC9-Y6-YUO">
-                                <rect key="frame" x="174" y="188" width="66.333333333333314" height="16"/>
+                                <rect key="frame" x="163.66666666666666" y="191.66666666666666" width="86.666666666666657" height="19.333333333333343"/>
                                 <color key="tintColor" systemColor="systemIndigoColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemIndigoColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -70,12 +70,12 @@
                             <constraint firstItem="90N-bl-mjU" firstAttribute="leading" secondItem="f0o-dD-JK1" secondAttribute="leading" constant="20" id="4DD-bS-puB"/>
                             <constraint firstItem="jC9-Y6-YUO" firstAttribute="centerX" secondItem="f0o-dD-JK1" secondAttribute="centerX" id="6cM-wW-e97"/>
                             <constraint firstItem="Yzx-nb-fFZ" firstAttribute="centerY" secondItem="f0o-dD-JK1" secondAttribute="centerY" id="CMk-GG-IUa"/>
-                            <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="jC9-Y6-YUO" secondAttribute="bottom" constant="15" id="Iwo-pc-ir3"/>
+                            <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="jC9-Y6-YUO" secondAttribute="bottom" constant="17" id="Iwo-pc-ir3"/>
                             <constraint firstItem="cdt-ab-frf" firstAttribute="centerX" secondItem="f0o-dD-JK1" secondAttribute="centerX" id="KIc-G2-UHY"/>
-                            <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="90N-bl-mjU" secondAttribute="bottom" constant="50" id="MA3-iM-bOa"/>
+                            <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="90N-bl-mjU" secondAttribute="bottom" constant="55" id="MA3-iM-bOa"/>
                             <constraint firstItem="f0o-dD-JK1" firstAttribute="trailing" secondItem="cdt-ab-frf" secondAttribute="trailing" id="OD9-fl-pjb"/>
                             <constraint firstItem="f0o-dD-JK1" firstAttribute="trailing" secondItem="90N-bl-mjU" secondAttribute="trailing" constant="20" id="QZC-F9-P1s"/>
-                            <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="f0o-dD-JK1" secondAttribute="top" constant="131" id="VMU-dv-CGK"/>
+                            <constraint firstItem="cdt-ab-frf" firstAttribute="top" secondItem="f0o-dD-JK1" secondAttribute="top" constant="140" id="VMU-dv-CGK"/>
                             <constraint firstItem="Yzx-nb-fFZ" firstAttribute="leading" secondItem="f0o-dD-JK1" secondAttribute="leading" id="b0P-YL-XP1"/>
                             <constraint firstItem="Yzx-nb-fFZ" firstAttribute="height" secondItem="cDx-xy-g1Q" secondAttribute="height" id="cTt-VX-40m"/>
                             <constraint firstItem="Yzx-nb-fFZ" firstAttribute="centerX" secondItem="f0o-dD-JK1" secondAttribute="centerX" id="hzd-wa-jKG"/>
@@ -282,42 +282,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OPI-Lz-oMf">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818.00000000000011"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sNy-Jm-GBF">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1602.3333333333333"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1632.3333333333333"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVA-ve-b0v">
-                                                <rect key="frame" x="20" y="19.999999999999996" width="76" height="43.666666666666657"/>
+                                                <rect key="frame" x="20" y="50" width="76" height="43.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="SentyTEA" family="SentyTEA ÂµÙ" pointSize="37"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDd-VJ-L8s">
-                                                <rect key="frame" x="20" y="78.666666666666629" width="374" height="1318.666666666667"/>
-                                                <mutableString key="text">我們知道現在的 CPU 至少都是兩個核心以上的多核心 CPU 了，但是 Intel 還有個很怪的東西，叫做 CPU 的超執行緒 (Hyper-Threading) 功能！ 那個是啥鬼東西？我們知道現在的 CPU 運算速度都太快了，因此運算核心經常處於閒置狀態下。而我們也知道現在的系統大多都是多工的系統， 同時間有很多的程序會讓 CPU 來執行。因此，若 CPU 可以假象的同時執行兩個程序，不就可以讓系統效能增加了嗎？反正 CPU 的運算能力還是沒有用完啊！
+                                                <rect key="frame" x="20" y="108.66666666666663" width="374" height="1318.666666666667"/>
+                                                <string key="text">我們知道現在的 CPU 至少都是兩個核心以上的多核心 CPU 了，但是 Intel 還有個很怪的東西，叫做 CPU 的超執行緒 (Hyper-Threading) 功能！ 那個是啥鬼東西？我們知道現在的 CPU 運算速度都太快了，因此運算核心經常處於閒置狀態下。而我們也知道現在的系統大多都是多工的系統， 同時間有很多的程序會讓 CPU 來執行。因此，若 CPU 可以假象的同時執行兩個程序，不就可以讓系統效能增加了嗎？反正 CPU 的運算能力還是沒有用完啊！
 
 那是怎麼達成的啊這個 HT 功能？強者鳥哥的同事蔡董大大用個簡單的說明來解釋。在每一個 CPU 內部將重要的暫存器 (register) 分成兩群， 而讓程序分別使用這兩群暫存器。也就是說，可以有兩個程序『同時競爭 CPU 的運算單元』，而非透過作業系統的多工切換！ 這一過程就會讓 CPU 好像『同時有兩個核心』的模樣！因此，雖然大部分 i7 等級的 CPU 其實只有四個實體核心，但透過 HT 的機制， 則作業系統可以抓到八個核心！並且讓每個核心邏輯上分離，就可以同時運作八個程序了。
 
-雖然很多研究與測試中，大多發現 HT 雖然可以提昇效能，不過，有些情況下卻可能導致效能降低喔！因為，實際上明明就僅有一個運算單元嘛！ 不過在鳥哥使用數值模式的情況下，因為鳥哥操作的數值模式主要為平行運算功能，且運算通常無法達到 100% 的 CPU 使用率，通常僅有大約60%運算量而已。 因此在鳥哥的實作過程中，這個 HT 確實提昇相當多的效能！至少應該可以節省鳥哥大約30%~50%的等待時間喔！不過網路上大家的研究中， 大多說這個是 case by case，而且使用的軟體影響很大！所以，在鳥哥的例子是啟用 HT 幫助很大！您的案例就得要自行研究囉！</mutableString>
+雖然很多研究與測試中，大多發現 HT 雖然可以提昇效能，不過，有些情況下卻可能導致效能降低喔！因為，實際上明明就僅有一個運算單元嘛！ 不過在鳥哥使用數值模式的情況下，因為鳥哥操作的數值模式主要為平行運算功能，且運算通常無法達到 100% 的 CPU 使用率，通常僅有大約60%運算量而已。 因此在鳥哥的實作過程中，這個 HT 確實提昇相當多的效能！至少應該可以節省鳥哥大約30%~50%的等待時間喔！不過網路上大家的研究中， 大多說這個是 case by case，而且使用的軟體影響很大！所以，在鳥哥的例子是啟用 HT 幫助很大！您的案例就得要自行研究囉！</string>
                                                 <fontDescription key="fontDescription" name="SentyTEA" family="SentyTEA ÂµÙ" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgS-oR-BnD">
-                                                <rect key="frame" x="342.66666666666669" y="1447.3333333333333" width="51.333333333333314" height="29.333333333333258"/>
+                                                <rect key="frame" x="342.66666666666669" y="1477.3333333333333" width="51.333333333333314" height="29.333333333333258"/>
                                                 <fontDescription key="fontDescription" name="SentyTEA" family="SentyTEA ÂµÙ" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gre-jO-5Uu">
-                                                <rect key="frame" x="353" y="1476.6666666666667" width="41" height="23.666666666666742"/>
+                                                <rect key="frame" x="353" y="1506.6666666666667" width="41" height="23.666666666666742"/>
                                                 <fontDescription key="fontDescription" name="SentyTEA" family="SentyTEA ÂµÙ" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minion6" translatesAutoresizingMaskIntoConstraints="NO" id="Mzb-Y1-Wmw">
-                                                <rect key="frame" x="244" y="1500.3333333333333" width="150" height="82"/>
+                                                <rect key="frame" x="244" y="1530.3333333333333" width="150" height="82"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Mzb-Y1-Wmw" secondAttribute="height" multiplier="75:41" id="LJa-rr-PTk"/>
                                                     <constraint firstAttribute="width" constant="150" id="mmo-gv-0JK"/>
@@ -330,7 +330,7 @@
                                             <constraint firstAttribute="trailing" secondItem="Mzb-Y1-Wmw" secondAttribute="trailing" constant="20" id="4rR-g4-hPN"/>
                                             <constraint firstItem="Mzb-Y1-Wmw" firstAttribute="top" secondItem="Gre-jO-5Uu" secondAttribute="bottom" id="5mn-3n-Bp9"/>
                                             <constraint firstAttribute="bottom" secondItem="Mzb-Y1-Wmw" secondAttribute="bottom" constant="20" id="9B0-aX-Q9q"/>
-                                            <constraint firstItem="KVA-ve-b0v" firstAttribute="top" secondItem="sNy-Jm-GBF" secondAttribute="top" constant="20" id="EbT-Bl-RQg"/>
+                                            <constraint firstItem="KVA-ve-b0v" firstAttribute="top" secondItem="sNy-Jm-GBF" secondAttribute="top" constant="50" id="EbT-Bl-RQg"/>
                                             <constraint firstAttribute="trailing" secondItem="ZDd-VJ-L8s" secondAttribute="trailing" constant="20" id="MAz-Yv-ijq"/>
                                             <constraint firstItem="ZDd-VJ-L8s" firstAttribute="top" secondItem="KVA-ve-b0v" secondAttribute="bottom" constant="15" id="Muw-yf-I8A"/>
                                             <constraint firstItem="KVA-ve-b0v" firstAttribute="leading" secondItem="sNy-Jm-GBF" secondAttribute="leading" constant="20" id="SIL-KQ-M6W"/>

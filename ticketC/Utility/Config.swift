@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 enum Style : Int, Codable{
     case defaultStyle = 0
@@ -25,6 +26,7 @@ class Config : NSObject{
     public let tools = Tools.sharedInstance
     public var styleColor : BaseStyleColor? = nil
     public var embargo = true
+    public var audioPlayer = AVAudioPlayer()
     
     override init(){
         super.init()
@@ -54,6 +56,30 @@ class Config : NSObject{
         currentStyle.value = style
         saveStyle()
         initStyle()
+    }
+    
+    func setMusic(){
+        if audioPlayer.isPlaying{
+            audioPlayer.pause()
+            audioPlayer.stop()
+            print("should stop")
+        }
+        var AssortedMusics = NSURL()
+        switch currentStyle.value {
+        case .defaultStyle:
+            AssortedMusics = NSURL(fileURLWithPath: Bundle.main.path(forResource: "di-evantile_dancing-breeze", ofType: "mp3")!)
+        case .xmasStyle:
+            AssortedMusics = NSURL(fileURLWithPath: Bundle.main.path(forResource: "That s Christmas to Me - Pentatonix", ofType: "mp3")!)
+        case .birthdayStyle:
+            AssortedMusics = NSURL(fileURLWithPath: Bundle.main.path(forResource: "minions-banana", ofType: "mp3")!)
+        case .none:
+            print("no music?")
+        }
+
+        audioPlayer = try! AVAudioPlayer(contentsOf: AssortedMusics as URL)
+        audioPlayer.prepareToPlay()
+        audioPlayer.numberOfLoops = -1
+        audioPlayer.play()
     }
     
     func checkEmbargo(){

@@ -47,6 +47,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         setKeyBoardDismissGesture()
         setLocalizedStrings()
         setFont()
+        config.setMusic()
     }
     
     func setKeyBoardDismissGesture(){
@@ -113,7 +114,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     @objc override func secondTimerFunc(){
         secondCount += 1
         if config.currentStyle.value == .xmasStyle{
-            if getRandomNum(min: 0, max: 10) > 9{
+            if getRandomNum(min: 0, max: 10) > 8.5{
                 generateCircle()
             }
             for i in snowArr{
@@ -202,9 +203,16 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     }
     
     @objc func longPressed(sender: UILongPressGestureRecognizer) {
-        loginPageVM.unlockEmbargo()
-        let controller = UIAlertController(title: "已解鎖 1/27 DLC".localized, message: "專屬於吳太太的更新已安裝完成".localized, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "太好啦！".localized, style: .default, handler: nil)
+        var controller = UIAlertController()
+        var okAction = UIAlertAction()
+        if config.embargo{
+            loginPageVM.unlockEmbargo()
+            controller = UIAlertController(title: "已解鎖 1/27 DLC".localized, message: "專屬於吳太太的更新已安裝完成".localized, preferredStyle: .alert)
+            okAction = UIAlertAction(title: "太好啦！".localized, style: .default, handler: nil)
+        }else{
+            controller = UIAlertController(title: "1/27 DLC 已解鎖".localized, message: "請查看\"選擇主題\"中的\"小小兵\"主題".localized, preferredStyle: .alert)
+            okAction = UIAlertAction(title: "好哦！".localized, style: .default, handler: nil)
+        }
         controller.addAction(okAction)
         controller.view.tintColor = config.styleColor?.mainColor
         present(controller, animated: true, completion: nil)

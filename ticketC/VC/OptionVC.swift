@@ -23,6 +23,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
         registerNib()
         setStyle()
         setObserver()
+        setLocalizedStrings()
     }
     
     override func setStyle(){
@@ -71,6 +72,12 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
         }
     }
     
+    func setLocalizedStrings(){
+        tabBarItem.title = "選項".localized
+        navigationController?.navigationItem.title = "選項".localized
+        navigationItem.title = "選項".localized
+    }
+    
     func registerNib(){
         self.tableView.register(UINib(nibName: "OptionTVC", bundle: nil), forCellReuseIdentifier: "OptionTVC")
     }
@@ -92,11 +99,11 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
         alertController.addAction(UIAlertAction(title: "確定".localized, style: .default){
             [self]_ in
             switch themeArr[pickerView.selectedRow(inComponent: 0)]{
-            case "寶貝熊貓":
+            case "寶貝熊貓".localized:
                 config.setStyle(style: .defaultStyle)
-            case "聖誕夜":
+            case "聖誕夜".localized:
                 config.setStyle(style: .xmasStyle)
-            case "小小兵":
+            case "小小兵".localized:
                 config.setStyle(style: .birthdayStyle)
             default:
                 print("selection error")
@@ -104,6 +111,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
             let tbc = self.tabBarController as! TabBarC
             tbc.setSecondTimer()
             setStyle()
+            config.setMusic()
         })
         alertController.addAction(UIAlertAction(title: "取消".localized, style: .cancel,handler:nil))
         alertController.view.tintColor = config.styleColor?.mainColor

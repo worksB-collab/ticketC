@@ -65,7 +65,7 @@ class ListPageVM: BaseVM {
             networkController.getFromDatabase(api: "getQuotaC", callBack: {
                 [self] (jsonData) in
                 listPageM.maxTicketNum = jsonData![0]["quota"].int!
-                networkController.getFromDatabase(api: "getTicketsC", callBack: {
+                networkController.getFromDatabase(api: "getTicketsC", callBack: { 
                     [self] (jsonData) in
                     structureTicketsFromDatabase(jsonData : jsonData)
                     listPageM.setQuota()
@@ -99,6 +99,9 @@ class ListPageVM: BaseVM {
     }
     
     func structureTicketsFromDatabase(jsonData : JSON?){
+        if jsonData == nil{
+            connectionError.value = Config.ERROR_NO_DATA
+        }
         let data = jsonData?.array
         for i in data!{
             if i["deleted"].int! == 1{
@@ -203,6 +206,9 @@ class ListPageVM: BaseVM {
         networkController.postToDatabase(api: "postNewTicket",
                                          params: ["ticketName": ticketName],
                                          callBack: { [self] (jsonData) in
+                                            if jsonData == nil{
+                                                connectionError.value = Config.ERROR_NO_DATA
+                                            }
                                             let id = jsonData![0]["id"].int
                                             let name = jsonData![0]["content"].string
                                             let date = jsonData![0]["create_at"].string!.split(separator: "T")[0]
@@ -244,6 +250,9 @@ class ListPageVM: BaseVM {
         networkController.postToDatabase(api: "checkTicket",
                                          params: ["id" : ticketSerialNumber],
                                          callBack: { [self] (jsonData) in
+                                            if jsonData == nil{
+                                                connectionError.value = Config.ERROR_NO_DATA
+                                            }
                                             print("checked id", ticketSerialNumber)
                                             let name = jsonData![0]["content"].string
                                             let date = jsonData![0]["create_at"].string!.split(separator: "T")[0]
@@ -282,6 +291,9 @@ class ListPageVM: BaseVM {
         networkController.postToDatabase(api: "deleteTicket",
                                          params: ["id" : ticketSerialNumber],
                                          callBack: { [self] (jsonData) in
+                                            if jsonData == nil{
+                                                connectionError.value = Config.ERROR_NO_DATA
+                                            }
                                             upcomingTicketList.value.remove(at: index)
                                          })
     }

@@ -17,6 +17,7 @@ class BaseVC: UIViewController {
     private var snowArr : [CAShapeLayer] = []
     public var connectionError = Config.NO_ERROR
     
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if config.currentStyle.value == .xmasStyle{
             return UIStatusBarStyle.lightContent

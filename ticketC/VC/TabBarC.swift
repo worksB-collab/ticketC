@@ -80,7 +80,7 @@ class TabBarC: UITabBarController {
     @objc func secondTimerFunc(){
         secondCount += 1
         if config.currentStyle.value == .xmasStyle{
-            if getRandomNum(min: 0, max: 10) > 9{
+            if getRandomNum(min: 0, max: 10) > 8.5{
                 generateCircle()
             }
             for i in snowArr{
