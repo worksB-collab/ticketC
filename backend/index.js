@@ -89,7 +89,7 @@ app.get('/getQuotaB', (req, res) => {
 });
 
 app.get('/getTicketsC', (req, res) => {
-    conn.query('SELECT * FROM tickets_C;', function(err, result, fields) {
+    conn.query('SELECT * FROM tickets_C ORDER BY create_at;', function(err, result, fields) {
         if (err) throw err;
         console.log(result);
         res.json(result);
@@ -98,7 +98,31 @@ app.get('/getTicketsC', (req, res) => {
 
 
 app.get('/getTicketsB', (req, res) => {
-    conn.query('SELECT * FROM tickets_B;', function(err, result, fields) {
+    conn.query('SELECT * FROM tickets_B ORDER BY create_at;', function(err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+    })
+});
+
+app.get('/getTestA', (req, res) => {
+    conn.query('SELECT * FROM testA ORDER BY create_at;', function(err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+    })
+});
+
+app.get('/getTestA', (req, res) => {
+    conn.query('SELECT * FROM testA ORDER BY create_at;', function(err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+    })
+});
+
+app.get('/getTestB', (req, res) => {
+    conn.query('SELECT * FROM testB ORDER BY create_at;', function(err, result, fields) {
         if (err) throw err;
         console.log(result);
         res.json(result);
