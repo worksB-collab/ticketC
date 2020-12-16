@@ -36,7 +36,7 @@ class NewTicketTVC: BaseTVC, UITextFieldDelegate {
     }
     
     override func setLocalizedStrings(){
-        btn_confirm.setTitle("確定".localized, for: .normal)
+        btn_confirm.setTitle("新增".localized, for: .normal)
     }
     
     override func setStyle(){

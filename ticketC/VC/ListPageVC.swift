@@ -41,6 +41,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     override func setStyle(){
         view.backgroundColor = config.styleColor?.backgroundColor
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
         sc_section.selectedSegmentTintColor = config.styleColor?.mainColor
         sc_section.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: config.styleColor?.btnTextColor] , for: .normal)
         label_ticket_quota.textColor = config.styleColor?.titleColor
@@ -55,6 +56,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         tableView.dataSource = self
         tableView.refreshControl = refreshControl
         tableView.allowsSelection = true
+        tableView.allowsSelectionDuringEditing = true
         refreshControl.addTarget(self, action: #selector(getTicketData), for: UIControl.Event.valueChanged)
         
         registerNib()
@@ -145,8 +147,8 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
             target: self,
             action: #selector(dismissMyKeyboard))
         //Add this tap gesture recognizer to the parent view
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
-        
     }
     
     @objc func dismissMyKeyboard(){
@@ -172,9 +174,9 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     @objc func getTicketData(){
         loader.isHidden = false
         if sc_section.selectedSegmentIndex == 0{
-            listPageVM.getMyTicketData()
+            listPageVM.getTicketData(user: config.currentUser!)
         }else{
-            listPageVM.getBabyTicketData()
+            listPageVM.getTicketData(user: config.objectUser!)
         }
     }
     
@@ -182,7 +184,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         let controller = UIAlertController(title: "確定新增".localized + newTicketName + "嗎？".localized, message: "一但新增將無法修改，確定新增嗎？".localized, preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "新增".localized, style: .default, handler: { [self] _ in
             loader.isHidden = false
-            listPageVM.postNewTicket(ticketName: newTicketName)
+            listPageVM.postNewTicket(ticketName: newTicketName, user: config.currentUser!)
         })
         
         let cancelAction = UIAlertAction(title: "取消".localized, style: .cancel, handler: nil)
@@ -194,6 +196,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     }
     
     func errorDialog(){
+        loader.isHidden = true
         let controller = UIAlertController(title: "錯誤".localized, message: "網路不穩定或無法獲取資料，建議重新載入，或重新開網路連線再嘗試喔！".localized, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "好喔！".localized, style: .default, handler: nil)
         controller.addAction(okAction)
@@ -244,9 +247,9 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         var controller = UIAlertController()
         switch section {
         case 0:
-            controller = UIAlertController(title: upcomingTicketList[index].name!, message: upcomingTicketList[index].date!+"新增的\""+upcomingTicketList[index].name!+"\"正在等你兌換呢！".localized, preferredStyle: .alert)
+            controller = UIAlertController(title: upcomingTicketList[index].name!, message: upcomingTicketList[index].date!+"新增的\"".localized + upcomingTicketList[index].name!+"\"正在等你兌換呢！".localized, preferredStyle: .alert)
         case 1:
-            controller = UIAlertController(title: postTicketList[index].name!, message: postTicketList[index].date!+"新增的\""+postTicketList[index].name!+"\"已經對換過囉！".localized, preferredStyle: .alert)
+            controller = UIAlertController(title: postTicketList[index].name!, message: postTicketList[index].date!+"新增的\"".localized + postTicketList[index].name!+"\"已經對換過囉！".localized, preferredStyle: .alert)
         default:
             break
         }
@@ -285,17 +288,17 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     }
     
     //change the style of header section
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.textLabel?.textColor = config.styleColor?.secondColor
-        header.textLabel?.font = UIFont(name: "SFProDisplay-Medium", size: 25)
-        header.textLabel?.frame = header.frame
-        header.layer.borderWidth = 0.5
-        header.layer.borderColor = UIColor.white.cgColor
-        header.layer.borderColor = UIColor(named: "main tone")?.cgColor
-        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = config.styleColor?.titleColor
-        header.textLabel?.textAlignment = .left
-    }
+//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        guard let header = view as? UITableViewHeaderFooterView else { return }
+//        header.textLabel?.textColor = config.styleColor?.secondColor
+//        header.textLabel?.font = UIFont(name: "SFProDisplay-Medium", size: 25)
+//        header.textLabel?.frame = header.frame
+//        header.layer.borderWidth = 0.5
+//        header.layer.borderColor = UIColor.white.cgColor
+//        header.layer.borderColor = UIColor(named: "main tone")?.cgColor
+//        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = config.styleColor?.titleColor
+//        header.textLabel?.textAlignment = .left
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if postTicketList.count == 0{
@@ -341,6 +344,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                     cell.ticket_name.text = upcomingTicketList[indexPath.row-1].name
                     cell.added_date.text = upcomingTicketList[indexPath.row-1].date?.description
                     cell.btn_check.addTarget(self, action: #selector(showCheckDialog(_:)), for: .touchDown)
+                    cell.btn_check.isHidden = false
                     cell.setStyle()
                     return cell
                 }else if upcomingTicketList.count + postTicketList.count >= listPageVM.getMaxTicketNum(){
@@ -351,6 +355,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                     cell.ticket_name.text = upcomingTicketList[indexPath.row].name
                     cell.added_date.text = upcomingTicketList[indexPath.row].date?.description
                     cell.btn_check.addTarget(self, action: #selector(showCheckDialog(_:)), for: .touchUpInside)
+                    cell.btn_check.isHidden = false
                     cell.setStyle()
                     return cell
                 }
@@ -375,7 +380,8 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            print("selected")
+        print("selected")
+        if sc_section.selectedSegmentIndex == 0{
             switch indexPath.section {
             case 0:
                 if (indexPath.row != 0){
@@ -390,8 +396,12 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
             default:
                 print("no such device")
             }
-            // 取消 cell 的選取狀態
-            tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        }else if sc_section.selectedSegmentIndex == 1{
+            showDialog(section: indexPath.section, index: indexPath.row)
+        }
+        
+        // 取消 cell 的選取狀態
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -422,15 +432,13 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 default:
                     print("no such row")
                 }
-            } else if editingStyle == .none{
-                print("???")
+            }else if sc_section.selectedSegmentIndex == 1{
+                let controller = UIAlertController(title: "不可以！".localized, message: "這是我們的回憶阿尼怎麼忍心".localized, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "偶錯了".localized, style: .default, handler: nil)
+                controller.addAction(okAction)
+                controller.view.tintColor = config.styleColor?.mainColor
+                present(controller, animated: true, completion: nil)
             }
-        }else if sc_section.selectedSegmentIndex == 1{
-            let controller = UIAlertController(title: "不可以！".localized, message: "這是我們的回憶阿尼怎麼忍心".localized, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "偶錯了".localized, style: .default, handler: nil)
-            controller.addAction(okAction)
-            controller.view.tintColor = config.styleColor?.mainColor
-            present(controller, animated: true, completion: nil)
         }
     }
     

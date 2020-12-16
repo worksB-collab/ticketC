@@ -16,7 +16,7 @@ class InstructionVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setStyle()
-        instructionVM.getInfoText()
+        instructionVM.getInfoText(user: config.currentUser!)
         setObserver()
         setLocalizedStrings()
     }
@@ -45,7 +45,7 @@ class InstructionVC: BaseVC {
             img_icon.image = UIImage(named: "bamboo-sticks-spa-ornament")
         case .xmasStyle:
             img_icon.image = UIImage(named: "hohoho")
-        case .birthdayStyle:
+        case .minionStyle:
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)); // set as you want
             let image = UIImage(named: "minion7");
             imageView.image = image;

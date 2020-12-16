@@ -11,6 +11,7 @@ class BirthdayLetterVC: BaseVC {
     
     private let birthdayLetterVM = BirthdayLetterVM()
 
+    @IBOutlet weak var view_background: UIView!
     @IBOutlet weak var lb_header: UILabel!
     @IBOutlet weak var lb_body: UILabel!
     @IBOutlet weak var lb_footer: UILabel!
@@ -18,7 +19,7 @@ class BirthdayLetterVC: BaseVC {
     @IBOutlet weak var create_at: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        birthdayLetterVM.getLetter()
+        birthdayLetterVM.getLetter(user: config.currentUser!)
         setObserver()
         setStyle()
     }
@@ -42,11 +43,42 @@ class BirthdayLetterVC: BaseVC {
         view.backgroundColor = config.styleColor?.backgroundColor
         contentView.backgroundColor = config.styleColor?.backgroundColor
         lb_header.textColor = config.styleColor?.mainColor
-        lb_body.textColor = config.styleColor?.infoTextColor
         lb_footer.textColor = config.styleColor?.infoTextColor
-        create_at.textColor = config.styleColor?.mainColor
+        create_at.textColor = config.styleColor?.infoTextColor
         
+        let textColor: UIColor = config.styleColor!.infoTextColor
+        let underLineColor: UIColor = .lightGray
+        let underLineStyle = NSUnderlineStyle.single.rawValue
+        let labelAtributes:[NSAttributedString.Key : Any]  = [
+            NSAttributedString.Key.foregroundColor: textColor,
+            NSAttributedString.Key.underlineStyle: underLineStyle,
+            NSAttributedString.Key.underlineColor: underLineColor
+        ]
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 10
+
+        let attrString = NSMutableAttributedString(string: "Underline Label")
+        attrString.addAttributes(labelAtributes, range: NSMakeRange(0, attrString.length))
+        attrString.addAttribute(.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+        lb_body.attributedText = attrString
+        lb_body.textAlignment = .justified
     }
 
+}
 
+class UnderlinedLabel: UILabel {
+
+override var text: String? {
+    didSet {
+        guard let text = text else { return }
+        let textRange = NSMakeRange(0, text.count)
+        let attributedText = NSMutableAttributedString(string: text)
+        attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value: NSUnderlineStyle.single.rawValue, range: textRange)
+        // Add other attributes if needed
+        self.attributedText = attributedText
+        
+        
+        }
+    }
 }

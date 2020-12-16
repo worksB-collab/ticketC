@@ -24,22 +24,22 @@ class LoginPageVM: BaseVM {
     
     override init() {
         super.init()
-        isDatabaseAlive()
+//        isDatabaseAlive()
     }
     
-    func isDatabaseAlive(){
-        networkController.getFromDatabase(api: "getQuotaC", callBack: { [self] (jsonData) in
-            if jsonData == nil || jsonData![0]["quota"].int == nil{
-                networkController.isDatabaseAlive = false
-            }else{
-                networkController.isDatabaseAlive = true
-                print("success", jsonData![0]["quota"].int)
-            }
-        })
-    }
+//    func isDatabaseAlive(){
+//        networkController.getFromDatabase(api: "getQuota", callBack: { [self] (jsonData) in
+//            if jsonData == nil || jsonData![0]["quota"].int == nil{
+//                networkController.isDatabaseAlive = false
+//            }else{
+//                networkController.isDatabaseAlive = true
+//                print("success", jsonData![0]["quota"].int)
+//            }
+//        })
+//    }
     
-    func isDatabaseChecked() -> Bool?{
-        return networkController.isDatabaseAlive
-    }
+//    func isDatabaseChecked() -> Bool?{
+//        return networkController.isDatabaseAlive
+//    }
     
 }

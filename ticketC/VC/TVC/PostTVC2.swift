@@ -25,7 +25,7 @@ class PostTVC2: BaseTVC {
             img_icon.image = UIImage(named: "fat_panda")
         case .xmasStyle:
             img_icon.image = UIImage(named: "gift-box")
-        case .birthdayStyle:
+        case .minionStyle:
             img_icon.image = UIImage(named: "minion5")
         case .none:
             break

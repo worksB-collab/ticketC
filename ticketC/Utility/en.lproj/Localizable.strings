@@ -27,8 +27,9 @@
 "我就要用！" = "Use it now!";
 "痾...算了" = "I will think about it";
 "沒有！開玩笑的啦" = "Nah, I am kidding";
-"\"正在等你兌換呢！" = "is waiting for you!";
-"\"已經對換過囉！" = "is already used!";
+"新增的\"" = " added \"";
+"\"正在等你兌換呢！" = "\" is waiting for you!";
+"\"已經對換過囉！" = " is already used!";
 "等你兌換的好東西：" = "Tickets Awaits: ";
 "趕快兌換給寶貝的好東西：" = "Tickets Awaits: ";
 "已兌換的好東西：" = "Tickets Used: ";
@@ -37,7 +38,7 @@
 "尼確定要刪掉新增兌換券的機會嗎？" = "Are you sure to delete this ticket?";
 "偶按錯了！哇哈哈哈" = "Misclicked :P";
 "尼要刪掉" = "Are you sure to delete";
-"這是我們的回憶阿尼怎麼忍心" = "This is our memory, where is your heart?";
+"這是我們的回憶阿尼怎麼忍心" = "This is our memory, how would you even want to delete it?";
 "偶錯了" = "I am wrong";
 "不可以！" = "Nooooo";
 "給寶貝的信" = "To Babe";

@@ -13,8 +13,8 @@ class BirthdayLetterVM: BaseVM {
     public var footer = LiveData("")
     public var create_at = LiveData("")
     
-    func getLetter(){
-        networkController.getFromDatabase(api: "getBirthdayLetter", callBack: { [self] (jsonData) in
+    func getLetter(user : String){
+        networkController.getFromDatabase(api: "getBirthdayLetter" + "/\(user)", callBack: { [self] (jsonData) in
             header.value = jsonData![0]["header"].string!
             body.value = jsonData![0]["body"].string!
             footer.value = jsonData![0]["footer"].string!

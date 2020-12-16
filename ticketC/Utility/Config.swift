@@ -11,7 +11,7 @@ import AVFoundation
 enum Style : Int, Codable{
     case defaultStyle = 0
     case xmasStyle = 1
-    case birthdayStyle = 2
+    case minionStyle = 2
     case none = -1
 }
 
@@ -22,16 +22,33 @@ class Config : NSObject{
     public static let ERROR_NO_CONNECTION = 2
     public static let WAITING_FOR_CONNECTION = 3
     public static let sharedInstance = Config()
+    public var isTestMode = true
     public var currentStyle : LiveData<Style> = LiveData(.none)
     public let tools = Tools.sharedInstance
     public var styleColor : BaseStyleColor? = nil
     public var embargo = true
     public var audioPlayer = AVAudioPlayer()
+    public var currentUser : String?
+    public var objectUser : String?
+    public var currentArticles : String?
     
     override init(){
         super.init()
         initStyle()
         checkEmbargo()
+        setUsers()
+    }
+    
+    func setUsers(){
+        if isTestMode{
+            currentUser = "testA"
+            objectUser = "testB"
+            currentArticles = "test"
+        }else{
+            currentUser = "Christina"
+            objectUser = "Billy"
+            currentArticles = "real"
+        }
     }
     
     func initStyle(){
@@ -41,8 +58,8 @@ class Config : NSObject{
             styleColor = DefaultStyleColor()
         case .xmasStyle:
             styleColor = XmasStyleColor()
-        case .birthdayStyle:
-            styleColor = BirthdayStyleColor()
+        case .minionStyle:
+            styleColor = MinionStyleColor()
         case .none:
             currentStyle.value = .defaultStyle
             styleColor = DefaultStyleColor()
@@ -67,15 +84,14 @@ class Config : NSObject{
         var AssortedMusics = NSURL()
         switch currentStyle.value {
         case .defaultStyle:
-            AssortedMusics = NSURL(fileURLWithPath: Bundle.main.path(forResource: "di-evantile_dancing-breeze", ofType: "mp3")!)
+            AssortedMusics = NSURL(fileURLWithPath: Bundle.main.path(forResource: "October_time to love", ofType: "mp3")!)
         case .xmasStyle:
             AssortedMusics = NSURL(fileURLWithPath: Bundle.main.path(forResource: "That s Christmas to Me - Pentatonix", ofType: "mp3")!)
-        case .birthdayStyle:
+        case .minionStyle:
             AssortedMusics = NSURL(fileURLWithPath: Bundle.main.path(forResource: "minions-banana", ofType: "mp3")!)
         case .none:
             print("no music?")
         }
-
         audioPlayer = try! AVAudioPlayer(contentsOf: AssortedMusics as URL)
         audioPlayer.prepareToPlay()
         audioPlayer.numberOfLoops = -1

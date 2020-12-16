@@ -29,6 +29,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
     override func setStyle(){
         view.backgroundColor = config.styleColor?.backgroundColor
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
         tableView.backgroundColor = config.styleColor?.backgroundColor
         tableView.separatorColor = config.styleColor?.titleColor
         tableView.reloadData()
@@ -51,7 +52,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
                     i.isHidden = true
                 }
             }
-        case .birthdayStyle:
+        case .minionStyle:
             img_icon.isHidden = true
             var matched = false
             for i in view.subviews{
@@ -61,7 +62,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
                 }
             }
             if !matched{
-                imageView = UIImageView(frame: CGRect(x: (view.frame.width-207)/2, y: view.frame.height - 330, width: 207, height: 254)); // set as you want
+                imageView = UIImageView(frame: CGRect(x: (view.frame.width - 147.2)/2, y: view.frame.height - 280, width: 147.2, height: 187.6)); // set as you want
                 let image = UIImage(named: "minion12");
                 imageView.image = image;
                 imageView.tag = 1
@@ -90,11 +91,10 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
         //设置选择框的默认值
         pickerView.selectRow(config.currentStyle.value.rawValue, inComponent: 0, animated: true)
         //把UIPickerView放到alert里面（也可以用datePick）
-        let alertController:UIAlertController = UIAlertController(title: "選擇主題".localized, message: "\n\n\n\n\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
-        
-        let width = view.frame.width;
-//        let height = alertController.view.frame.height*2/3;
-        pickerView.frame = CGRect(x: -10, y: 0, width: width, height: 250)
+        let alertController:UIAlertController = UIAlertController(title: "選擇主題".localized, message: "\n\n\n\n", preferredStyle: .actionSheet)
+
+        let width = view.frame.width
+        pickerView.frame = CGRect(x: -10, y: 50, width: width, height: 90)
         alertController.view.addSubview(pickerView)
         alertController.addAction(UIAlertAction(title: "確定".localized, style: .default){
             [self]_ in
@@ -104,7 +104,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
             case "聖誕夜".localized:
                 config.setStyle(style: .xmasStyle)
             case "小小兵".localized:
-                config.setStyle(style: .birthdayStyle)
+                config.setStyle(style: .minionStyle)
             default:
                 print("selection error")
             }
@@ -151,7 +151,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !config.embargo && config.currentStyle.value == .birthdayStyle{
+        if !config.embargo && config.currentStyle.value == .minionStyle{
             return optionArr.count
         }
         return optionArr.count - 1
@@ -159,7 +159,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.tableFooterView = UIView()
-        if !config.embargo && config.currentStyle.value == .birthdayStyle{
+        if !config.embargo && config.currentStyle.value == .minionStyle{
             let cell = tableView.dequeueReusableCell(withIdentifier: "OptionTVC", for: indexPath) as! OptionTVC
             cell.lb_name.text = optionArr[indexPath.row]
             cell.setStyle()
@@ -168,11 +168,12 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "OptionTVC", for: indexPath) as! OptionTVC
         cell.lb_name.text = optionArr[indexPath.row + 1]
         cell.setStyle()
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !config.embargo && config.currentStyle.value == .birthdayStyle{
+        if !config.embargo && config.currentStyle.value == .minionStyle{
             switch indexPath.row {
             case 0:
                 showBirthdayText()
@@ -216,5 +217,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return themeArr[row]
     }
+    
+    
     
 }

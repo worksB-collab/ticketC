@@ -36,7 +36,7 @@ class XmasStyleColor : BaseStyleColor{
     var btnTextColor = UIColor(rgb: 0xFFFFFF)
 }
 
-class BirthdayStyleColor : BaseStyleColor{
+class MinionStyleColor : BaseStyleColor{
     //test
     var mainColor = UIColor(rgb: 0xF2CD5E)
     var secondColor = UIColor(rgb: 0x1B618C)

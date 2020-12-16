@@ -23,28 +23,12 @@ class InstructionVM : BaseVM {
         }
     }
     
-    func getInfoText(){
-        if let _ = networkController.isDatabaseAlive{
-            if networkController.isDatabaseAlive!{
-                networkController.getFromDatabase(api: "getInfoText", callBack: {
+    func getInfoText(user : String){
+                networkController.getFromDatabase(api: "getInfoText" + "/\(user)", callBack: {
                     [self] (jsonData) in
                     let data = jsonData![0]["body"].string
                     instructionM.infoText.value = data ?? "no info"
                 })
-            }else{
-                networkController.postToSheet(params: ["command" : "getInfoText"], callBack: {
-                    [self] (jsonData) in
-                    if jsonData!["status"].int == 200{
-                        let data = jsonData!["data"]["infoText"].string
-                        instructionM.infoText.value = data!
-                    }else{
-                        instructionM.infoText.value = "找不到資料".localized
-                    }
-                })
-            }
-        }else{
-            connectionError.value = Config.ERROR_NO_DATA
-        }
         print("info text: ", instructionM.infoText.value)
         
     }

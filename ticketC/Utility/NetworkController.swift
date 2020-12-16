@@ -32,7 +32,7 @@ class NetworkController : NSObject{
                 [self] (response) in
                 
                 var statusCode = response.response?.statusCode
-                if let error = response.error as? AFError {
+                if let error = response.error {
                     statusCode = error._code // statusCode private
                     switch error {
                     case .invalidURL(let url):
@@ -57,7 +57,7 @@ class NetworkController : NSObject{
                         case .unacceptableStatusCode(let code):
                             print("Response status code was unacceptable: \(code)")
                             statusCode = code
-                        case .customValidationFailed(error: let error):
+                        case .customValidationFailed(error: let _):
                             print("customValidationFailed")
                         }
                     case .responseSerializationFailed(let reason):
@@ -66,7 +66,6 @@ class NetworkController : NSObject{
                         // statusCode = 3840 ???? maybe..
                     default:break
                     }
-
                     print("Underlying error: \(error.underlyingError)")
                 } else if let error = response.error as? URLError {
                     print("URLError occurred: \(error)")
@@ -76,7 +75,6 @@ class NetworkController : NSObject{
 
                 print(statusCode) // the status code
                 
-                
                 switch response.result{
                 case .success(_):
                     if response.data!.isEmpty{
@@ -84,7 +82,7 @@ class NetworkController : NSObject{
                     }
                     let jsonData = try! JSON(data: response.data!)
                     print("connection successful", response.result)
-                    if jsonData != nil{
+                    if !jsonData.isEmpty{
                         callBack?(jsonData)
                     }else{
                         print("connection failed")
@@ -102,19 +100,72 @@ class NetworkController : NSObject{
         alamofireManager.request(urlDatabase + api, method: .post, parameters: params,headers: [:])
             .validate().validate(statusCode: 200 ..< 500).responseJSON{
                 [self] (response) in
+                
+                
+                
+                var statusCode = response.response?.statusCode
+                if let error = response.error {
+                    statusCode = error._code // statusCode private
+                    switch error {
+                    case .invalidURL(let url):
+                        print("Invalid URL: \(url) - \(error.localizedDescription)")
+                    case .parameterEncodingFailed(let reason):
+                        print("Parameter encoding failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+                    case .multipartEncodingFailed(let reason):
+                        print("Multipart encoding failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+                    case .responseValidationFailed(let reason):
+                        print("Response validation failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+
+                        switch reason {
+                        case .dataFileNil, .dataFileReadFailed:
+                            print("Downloaded file could not be read")
+                        case .missingContentType(let acceptableContentTypes):
+                            print("Content Type Missing: \(acceptableContentTypes)")
+                        case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
+                            print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
+                        case .unacceptableStatusCode(let code):
+                            print("Response status code was unacceptable: \(code)")
+                            statusCode = code
+                        case .customValidationFailed(error: let _):
+                            print("customValidationFailed")
+                        }
+                    case .responseSerializationFailed(let reason):
+                        print("Response serialization failed: \(error.localizedDescription)")
+                        print("Failure Reason: \(reason)")
+                        // statusCode = 3840 ???? maybe..
+                    default:break
+                    }
+                    print("Underlying error: \(error.underlyingError)")
+                } else if let error = response.error as? URLError {
+                    print("URLError occurred: \(error)")
+                } else {
+                    print("Unknown error: \(response.error)")
+                }
+
+                print(statusCode) // the status code
+                
                 switch response.result{
                 case .success(_):
                     if response.data!.isEmpty{
                         print("no data")
                     }
                     let jsonData = try! JSON(data: response.data!)
-                    callBack?(jsonData)
+                    print("connection successful", response.result)
+                    if !jsonData.isEmpty{
+                        callBack?(jsonData)
+                    }else{
+                        print("connection failed")
+                        connectionError.value = Config.ERROR_NO_CONNECTION
+                    }
                 case .failure(_):
-                    print(response.result)
-                    callBack?(nil)
-                    
+                    print("connection failure", response.result)
+                    connectionError.value = Config.ERROR_NO_CONNECTION
                 }
                 connectionError.value = Config.NO_ERROR
+                
             }
     }
     

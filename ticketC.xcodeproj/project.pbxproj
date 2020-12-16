@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02CFDB67EE7E5B77957BE2A5 /* libPods-ticketCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B74A6A5F1516E3381BBC2797 /* libPods-ticketCTests.a */; };
 		04563E022580C33100BBE09F /* BaseNavC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04563E012580C33100BBE09F /* BaseNavC.swift */; };
 		04563E132580C4AF00BBE09F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04563E152580C4AF00BBE09F /* Localizable.strings */; };
 		0459152725668CCB0086B3C8 /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459152625668CCB0086B3C8 /* LiveData.swift */; };
@@ -20,7 +21,8 @@
 		0461475425821EE600FE8E69 /* FontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0461475325821EE600FE8E69 /* FontSize.swift */; };
 		0461476F258374EB00FE8E69 /* That s Christmas to Me - Pentatonix.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0461476E258374EB00FE8E69 /* That s Christmas to Me - Pentatonix.mp3 */; };
 		04614774258376FE00FE8E69 /* minions-banana.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04614773258376FE00FE8E69 /* minions-banana.mp3 */; };
-		04614779258377BD00FE8E69 /* di-evantile_dancing-breeze.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04614778258377BD00FE8E69 /* di-evantile_dancing-breeze.mp3 */; };
+		0461478425886A8600FE8E69 /* October_time to love.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0461478325886A8600FE8E69 /* October_time to love.mp3 */; };
+		046147892588AFC200FE8E69 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 046147882588AFC200FE8E69 /* GoogleService-Info.plist */; };
 		04657B3E256A96DC00F583D3 /* OptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04657B3D256A96DC00F583D3 /* OptionVC.swift */; };
 		04657B43256A979300F583D3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04657B42256A979300F583D3 /* Config.swift */; };
 		046BC0962521885500D3959D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046BC0952521885500D3959D /* AppDelegate.swift */; };
@@ -54,9 +56,8 @@
 		04EA7F0D2558F52F00450DC7 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA7F0C2558F52F00450DC7 /* BaseVC.swift */; };
 		04EA7F162558F81500450DC7 /* ListPageM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA7F152558F81500450DC7 /* ListPageM.swift */; };
 		04EA7F1F2558F82400450DC7 /* BaseM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA7F1E2558F82400450DC7 /* BaseM.swift */; };
-		0C7C2A79D6453B4BDC381CDE /* libPods-ticketC-ticketCUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D447D88FC6C14EE826CA7C /* libPods-ticketC-ticketCUITests.a */; };
-		47DF49C1D71558A5A1482933 /* libPods-ticketC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED3067F33A09C93354D5839 /* libPods-ticketC.a */; };
-		8BD6A55328C78B3656C978F0 /* libPods-ticketCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B949B0ECA67D714EB10FC1 /* libPods-ticketCTests.a */; };
+		D795D9C230A99DC61B8E81E5 /* libPods-ticketC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E108250103BBC9236DEE1F43 /* libPods-ticketC.a */; };
+		F1A8924BE754E4A7DAB7EBA8 /* libPods-ticketC-ticketCUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D00CF4C261A09C9B651F86C /* libPods-ticketC-ticketCUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,7 +94,8 @@
 		0461475325821EE600FE8E69 /* FontSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSize.swift; sourceTree = "<group>"; };
 		0461476E258374EB00FE8E69 /* That s Christmas to Me - Pentatonix.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "That s Christmas to Me - Pentatonix.mp3"; sourceTree = "<group>"; };
 		04614773258376FE00FE8E69 /* minions-banana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "minions-banana.mp3"; sourceTree = "<group>"; };
-		04614778258377BD00FE8E69 /* di-evantile_dancing-breeze.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "di-evantile_dancing-breeze.mp3"; sourceTree = "<group>"; };
+		0461478325886A8600FE8E69 /* October_time to love.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "October_time to love.mp3"; sourceTree = "<group>"; };
+		046147882588AFC200FE8E69 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04657B3D256A96DC00F583D3 /* OptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionVC.swift; sourceTree = "<group>"; };
 		04657B42256A979300F583D3 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		046BC0922521885500D3959D /* ticketC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ticketC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,15 +135,15 @@
 		04EA7F0C2558F52F00450DC7 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		04EA7F152558F81500450DC7 /* ListPageM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPageM.swift; sourceTree = "<group>"; };
 		04EA7F1E2558F82400450DC7 /* BaseM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseM.swift; sourceTree = "<group>"; };
-		21664E39692103488E244B5C /* Pods-ticketC-ticketCUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketC-ticketCUITests.release.xcconfig"; path = "Target Support Files/Pods-ticketC-ticketCUITests/Pods-ticketC-ticketCUITests.release.xcconfig"; sourceTree = "<group>"; };
-		24B949B0ECA67D714EB10FC1 /* libPods-ticketCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ticketCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		28A2404E056901295C9326BF /* Pods-ticketC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketC.debug.xcconfig"; path = "Target Support Files/Pods-ticketC/Pods-ticketC.debug.xcconfig"; sourceTree = "<group>"; };
-		6244543BE6473283F57FB5CC /* Pods-ticketCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketCTests.release.xcconfig"; path = "Target Support Files/Pods-ticketCTests/Pods-ticketCTests.release.xcconfig"; sourceTree = "<group>"; };
-		7ED3067F33A09C93354D5839 /* libPods-ticketC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ticketC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C44FBF0B71321F6371DE1B64 /* Pods-ticketC-ticketCUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketC-ticketCUITests.debug.xcconfig"; path = "Target Support Files/Pods-ticketC-ticketCUITests/Pods-ticketC-ticketCUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		D21FD5C15AACCB821FB2C9F7 /* Pods-ticketCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketCTests.debug.xcconfig"; path = "Target Support Files/Pods-ticketCTests/Pods-ticketCTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D99BF98DAFF249130737849B /* Pods-ticketC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketC.release.xcconfig"; path = "Target Support Files/Pods-ticketC/Pods-ticketC.release.xcconfig"; sourceTree = "<group>"; };
-		F8D447D88FC6C14EE826CA7C /* libPods-ticketC-ticketCUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ticketC-ticketCUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D00CF4C261A09C9B651F86C /* libPods-ticketC-ticketCUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ticketC-ticketCUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		50056C5269B363E5C9B6744A /* Pods-ticketC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketC.release.xcconfig"; path = "Target Support Files/Pods-ticketC/Pods-ticketC.release.xcconfig"; sourceTree = "<group>"; };
+		516DF056F3D62687A4C01EA1 /* Pods-ticketCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketCTests.release.xcconfig"; path = "Target Support Files/Pods-ticketCTests/Pods-ticketCTests.release.xcconfig"; sourceTree = "<group>"; };
+		7170639E979742138352F771 /* Pods-ticketC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketC.debug.xcconfig"; path = "Target Support Files/Pods-ticketC/Pods-ticketC.debug.xcconfig"; sourceTree = "<group>"; };
+		75C839BC3DA4B7569BDB236C /* Pods-ticketC-ticketCUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketC-ticketCUITests.release.xcconfig"; path = "Target Support Files/Pods-ticketC-ticketCUITests/Pods-ticketC-ticketCUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B74A6A5F1516E3381BBC2797 /* libPods-ticketCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ticketCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E108250103BBC9236DEE1F43 /* libPods-ticketC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ticketC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2A5CD3C254F46F051ED9E20 /* Pods-ticketCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketCTests.debug.xcconfig"; path = "Target Support Files/Pods-ticketCTests/Pods-ticketCTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FA57C112652C255699F43AE3 /* Pods-ticketC-ticketCUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ticketC-ticketCUITests.debug.xcconfig"; path = "Target Support Files/Pods-ticketC-ticketCUITests/Pods-ticketC-ticketCUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47DF49C1D71558A5A1482933 /* libPods-ticketC.a in Frameworks */,
+				D795D9C230A99DC61B8E81E5 /* libPods-ticketC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BD6A55328C78B3656C978F0 /* libPods-ticketCTests.a in Frameworks */,
+				02CFDB67EE7E5B77957BE2A5 /* libPods-ticketCTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,20 +167,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C7C2A79D6453B4BDC381CDE /* libPods-ticketC-ticketCUITests.a in Frameworks */,
+				F1A8924BE754E4A7DAB7EBA8 /* libPods-ticketC-ticketCUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		046147472581D67000FE8E69 /* Font */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Font;
-			sourceTree = "<group>";
-		};
 		046BC0892521885500D3959D = {
 			isa = PBXGroup;
 			children = (
@@ -187,7 +182,7 @@
 				046BC0B62521885600D3959D /* ticketCUITests */,
 				046BC0932521885500D3959D /* Products */,
 				9962B85065D74429F5E5C7C6 /* Pods */,
-				646D67225964A047043B1ED5 /* Frameworks */,
+				6F6FDD4A21DC231F87211C3C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -204,8 +199,8 @@
 		046BC0942521885500D3959D /* ticketC */ = {
 			isa = PBXGroup;
 			children = (
+				0461478325886A8600FE8E69 /* October_time to love.mp3 */,
 				0461476E258374EB00FE8E69 /* That s Christmas to Me - Pentatonix.mp3 */,
-				04614778258377BD00FE8E69 /* di-evantile_dancing-breeze.mp3 */,
 				04614773258376FE00FE8E69 /* minions-banana.mp3 */,
 				046147372580FF8500FE8E69 /* YuNaFont.ttf */,
 				0461473F2581006800FE8E69 /* SentyTEA.ttf */,
@@ -215,11 +210,11 @@
 				046BC09E2521885600D3959D /* Assets.xcassets */,
 				046BC0A02521885600D3959D /* LaunchScreen.storyboard */,
 				046BC0A32521885600D3959D /* Info.plist */,
+				046147882588AFC200FE8E69 /* GoogleService-Info.plist */,
 				046BC10C252310D300D3959D /* VC */,
 				04EA7F112558F80400450DC7 /* VM */,
 				04EA7F1A2558F81800450DC7 /* M */,
 				04EA7F282559203D00450DC7 /* Utility */,
-				046147472581D67000FE8E69 /* Font */,
 			);
 			path = ticketC;
 			sourceTree = "<group>";
@@ -321,12 +316,12 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		646D67225964A047043B1ED5 /* Frameworks */ = {
+		6F6FDD4A21DC231F87211C3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7ED3067F33A09C93354D5839 /* libPods-ticketC.a */,
-				F8D447D88FC6C14EE826CA7C /* libPods-ticketC-ticketCUITests.a */,
-				24B949B0ECA67D714EB10FC1 /* libPods-ticketCTests.a */,
+				E108250103BBC9236DEE1F43 /* libPods-ticketC.a */,
+				0D00CF4C261A09C9B651F86C /* libPods-ticketC-ticketCUITests.a */,
+				B74A6A5F1516E3381BBC2797 /* libPods-ticketCTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -334,12 +329,12 @@
 		9962B85065D74429F5E5C7C6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				28A2404E056901295C9326BF /* Pods-ticketC.debug.xcconfig */,
-				D99BF98DAFF249130737849B /* Pods-ticketC.release.xcconfig */,
-				C44FBF0B71321F6371DE1B64 /* Pods-ticketC-ticketCUITests.debug.xcconfig */,
-				21664E39692103488E244B5C /* Pods-ticketC-ticketCUITests.release.xcconfig */,
-				D21FD5C15AACCB821FB2C9F7 /* Pods-ticketCTests.debug.xcconfig */,
-				6244543BE6473283F57FB5CC /* Pods-ticketCTests.release.xcconfig */,
+				7170639E979742138352F771 /* Pods-ticketC.debug.xcconfig */,
+				50056C5269B363E5C9B6744A /* Pods-ticketC.release.xcconfig */,
+				FA57C112652C255699F43AE3 /* Pods-ticketC-ticketCUITests.debug.xcconfig */,
+				75C839BC3DA4B7569BDB236C /* Pods-ticketC-ticketCUITests.release.xcconfig */,
+				E2A5CD3C254F46F051ED9E20 /* Pods-ticketCTests.debug.xcconfig */,
+				516DF056F3D62687A4C01EA1 /* Pods-ticketCTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -351,7 +346,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 046BC0BC2521885600D3959D /* Build configuration list for PBXNativeTarget "ticketC" */;
 			buildPhases = (
-				9467581EBE4AB0054FDE340E /* [CP] Check Pods Manifest.lock */,
+				C59176866033E678E878AA97 /* [CP] Check Pods Manifest.lock */,
 				046BC08E2521885500D3959D /* Sources */,
 				046BC08F2521885500D3959D /* Frameworks */,
 				046BC0902521885500D3959D /* Resources */,
@@ -369,7 +364,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 046BC0BF2521885600D3959D /* Build configuration list for PBXNativeTarget "ticketCTests" */;
 			buildPhases = (
-				1E00A640530BA2F8FA1DACD0 /* [CP] Check Pods Manifest.lock */,
+				C13635C8C003F856055B7A23 /* [CP] Check Pods Manifest.lock */,
 				046BC0A42521885600D3959D /* Sources */,
 				046BC0A52521885600D3959D /* Frameworks */,
 				046BC0A62521885600D3959D /* Resources */,
@@ -388,7 +383,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 046BC0C22521885600D3959D /* Build configuration list for PBXNativeTarget "ticketCUITests" */;
 			buildPhases = (
-				8C55469FDA9C0BE90CBF946D /* [CP] Check Pods Manifest.lock */,
+				7A92752F98304DDFB8B6F399 /* [CP] Check Pods Manifest.lock */,
 				046BC0AF2521885600D3959D /* Sources */,
 				046BC0B02521885600D3959D /* Frameworks */,
 				046BC0B12521885600D3959D /* Resources */,
@@ -452,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				045D7AB225283D5600152FBB /* PostTVC2.xib in Resources */,
+				0461478425886A8600FE8E69 /* October_time to love.mp3 in Resources */,
 				046147402581006800FE8E69 /* SentyTEA.ttf in Resources */,
 				046BC0A22521885600D3959D /* LaunchScreen.storyboard in Resources */,
 				046147382580FF8500FE8E69 /* YuNaFont.ttf in Resources */,
@@ -460,10 +456,10 @@
 				04B443A0256BCCC6009C4B5B /* OptionTVC.xib in Resources */,
 				04614774258376FE00FE8E69 /* minions-banana.mp3 in Resources */,
 				04563E132580C4AF00BBE09F /* Localizable.strings in Resources */,
-				04614779258377BD00FE8E69 /* di-evantile_dancing-breeze.mp3 in Resources */,
 				0461476F258374EB00FE8E69 /* That s Christmas to Me - Pentatonix.mp3 in Resources */,
 				046BC09F2521885600D3959D /* Assets.xcassets in Resources */,
 				046BC09D2521885500D3959D /* Main.storyboard in Resources */,
+				046147892588AFC200FE8E69 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,29 +480,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1E00A640530BA2F8FA1DACD0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ticketCTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8C55469FDA9C0BE90CBF946D /* [CP] Check Pods Manifest.lock */ = {
+		7A92752F98304DDFB8B6F399 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -528,7 +502,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9467581EBE4AB0054FDE340E /* [CP] Check Pods Manifest.lock */ = {
+		C13635C8C003F856055B7A23 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ticketCTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C59176866033E678E878AA97 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -774,7 +770,7 @@
 		};
 		046BC0BD2521885600D3959D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 28A2404E056901295C9326BF /* Pods-ticketC.debug.xcconfig */;
+			baseConfigurationReference = 7170639E979742138352F771 /* Pods-ticketC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -785,6 +781,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = billywork.ticket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -794,7 +791,7 @@
 		};
 		046BC0BE2521885600D3959D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D99BF98DAFF249130737849B /* Pods-ticketC.release.xcconfig */;
+			baseConfigurationReference = 50056C5269B363E5C9B6744A /* Pods-ticketC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -805,6 +802,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = billywork.ticket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -814,7 +812,7 @@
 		};
 		046BC0C02521885600D3959D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D21FD5C15AACCB821FB2C9F7 /* Pods-ticketCTests.debug.xcconfig */;
+			baseConfigurationReference = E2A5CD3C254F46F051ED9E20 /* Pods-ticketCTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -837,7 +835,7 @@
 		};
 		046BC0C12521885600D3959D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6244543BE6473283F57FB5CC /* Pods-ticketCTests.release.xcconfig */;
+			baseConfigurationReference = 516DF056F3D62687A4C01EA1 /* Pods-ticketCTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -860,7 +858,7 @@
 		};
 		046BC0C32521885600D3959D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C44FBF0B71321F6371DE1B64 /* Pods-ticketC-ticketCUITests.debug.xcconfig */;
+			baseConfigurationReference = FA57C112652C255699F43AE3 /* Pods-ticketC-ticketCUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -881,7 +879,7 @@
 		};
 		046BC0C42521885600D3959D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21664E39692103488E244B5C /* Pods-ticketC-ticketCUITests.release.xcconfig */;
+			baseConfigurationReference = 75C839BC3DA4B7569BDB236C /* Pods-ticketC-ticketCUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

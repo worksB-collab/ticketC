@@ -129,7 +129,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
             removeSnow()
         }
         
-        if loginPageVM.isDatabaseChecked() != nil{
+//        if loginPageVM.isDatabaseChecked() != nil{
             if initLoginCheck{
                 if getCheckedLogin(){
                     goToNextPage()
@@ -139,7 +139,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
                     initLoginCheck = false
                 }
             }
-        }
+//        }
     }
 
     override func stopSecondTimer(){
@@ -190,7 +190,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
             btn_confirm.backgroundColor = UIColor.clear
             btn_confirm.layer.borderWidth = 1.0
             btn_confirm.layer.borderColor = config.styleColor?.titleColor.cgColor
-        case .birthdayStyle:
+        case .minionStyle:
             img_icon.image = UIImage(named: "minion13")
             tf_name.layer.borderColor = config.styleColor?.titleColor.cgColor
             tf_name.textColor = config.styleColor?.titleColor
