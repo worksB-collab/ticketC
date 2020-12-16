@@ -148,16 +148,18 @@ app.post('/deleteTicket', jsonParser, (req, res) => {
     })
 });
 
-app.get('/getInfoText', (req, res) => {
-    conn.query('SELECT body, create_at FROM articles WHERE title = "info";', function(err, result, fields) {
+app.get(`/getInfoText/:user`, (req, res) => {
+    let user = req.params.user
+    conn.query('SELECT body, create_at FROM articles WHERE title = "info" AND user_id = (SELECT id FROM users WHERE name = "' + user + '");', function(err, result, fields) {
         if (err) throw err;
         console.log(result);
         res.json(result);
     })
 });
 
-app.get('/getBirthdayLetter', (req, res) => {
-    conn.query('SELECT header, body, footer, create_at FROM articles WHERE title = "birthdayLetter";', function(err, result, fields) {
+app.get('/getBirthdayLetter/:user', (req, res) => {
+    let user = req.params.user
+    conn.query('SELECT header, body, footer, create_at FROM articles WHERE title = "birthdayLetter" AND user_id = (SELECT id FROM users WHERE name = "' + user + '");', function(err, result, fields) {
         if (err) throw err;
         console.log(result);
         res.json(result);
