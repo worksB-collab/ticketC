@@ -7,7 +7,9 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node index.js",
         "linux": "sudo node index.js &",
-        "ssh": "ssh billy.wu@34.68.241.191 -p 22 -i ~/.ssh/billy.wu_rsa"
+        "ssh": "ssh billy.wu@34.68.241.191 -p 22 -i ~/.ssh/billy.wu_rsa",
+        "forever start": "forever start index.js",
+        "forever stop": "forever stop index.js"
     },
     "author": "",
     "license": "ISC",
