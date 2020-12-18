@@ -22,7 +22,7 @@ class BaseVC: UIViewController {
         if config.currentStyle.value == .xmasStyle{
             return UIStatusBarStyle.lightContent
         }
-        return UIStatusBarStyle.default
+        return UIStatusBarStyle.darkContent
     }
     
     override func viewWillLayoutSubviews() {
