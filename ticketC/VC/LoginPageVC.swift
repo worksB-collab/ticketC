@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class LoginPageVC: BaseVC, UITextFieldDelegate {
     
@@ -48,6 +49,10 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         setLocalizedStrings()
         setFont()
         config.setMusic()
+        
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: "login_page",
+        ])
     }
     
     func setKeyBoardDismissGesture(){
