@@ -113,6 +113,8 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         tabBarItem.title = "兌換券".localized
         navigationController?.navigationItem.title = "兌換券".localized
         navigationItem.title = "兌換券".localized
+        tabBarController?.tabBar.items?[0].title = "兌換券".localized
+        tabBarController?.tabBar.items?[1].title = "選項".localized
     }
     
     @objc func onChange(sender: UISegmentedControl) {
