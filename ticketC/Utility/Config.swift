@@ -22,21 +22,24 @@ class Config : NSObject{
     public static let ERROR_NO_CONNECTION = 2
     public static let WAITING_FOR_CONNECTION = 3
     public static let sharedInstance = Config()
-    public var isTestMode = true
-    public var currentStyle : LiveData<Style> = LiveData(.none)
     public let tools = Tools.sharedInstance
+    public var currentStyle : LiveData<Style> = LiveData(.none)
+    private var secondTimer : Timer?
     public var styleColor : BaseStyleColor? = nil
+    public var isTestMode = false
     public var embargo = true
     public var audioPlayer = AVAudioPlayer()
     public var currentUser : String?
     public var objectUser : String?
     public var currentArticles : String?
+    public var dateStr : String?
     
     override init(){
         super.init()
         initStyle()
         checkEmbargo()
         setUsers()
+        getDateStr()
     }
     
     func setUsers(){
@@ -96,6 +99,13 @@ class Config : NSObject{
         audioPlayer.prepareToPlay()
         audioPlayer.numberOfLoops = -1
         audioPlayer.play()
+    }
+    
+    func getDateStr(){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        let date = formatter.string(from: Date())
+        dateStr = date
     }
     
     func checkEmbargo(){

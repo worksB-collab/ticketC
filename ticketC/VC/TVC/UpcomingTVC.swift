@@ -40,7 +40,7 @@ class UpcomingTVC: BaseTVC {
         btn_check.setTitleColor(config.styleColor?.btnTextColor, for: .normal)
         btn_check.backgroundColor = config.styleColor?.mainColor
         added_date.textColor = config.styleColor?.infoTextColor
-        contentView.backgroundColor = config.styleColor?.backgroundColor
+        backgroundColor = UIColor.clear
     }
     
     class var nibName: String {

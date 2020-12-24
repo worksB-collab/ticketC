@@ -21,10 +21,7 @@ class InstructionVC: BaseVC {
         setLocalizedStrings()
     }
     
-    override func setObserver(){
-        config.currentStyle.observe{ [self] _ in
-            setStyle()
-        }
+    func setObserver(){
         instructionVM.infoText.observe{
             [self] (data) in
             lb_info.text = data

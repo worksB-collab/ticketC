@@ -22,7 +22,6 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
         tableView.dataSource = self
         registerNib()
         setStyle()
-        setObserver()
         setLocalizedStrings()
     }
     
@@ -30,7 +29,7 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
         view.backgroundColor = config.styleColor?.backgroundColor
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: config.styleColor?.titleColor]
-        tableView.backgroundColor = config.styleColor?.backgroundColor
+        tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = config.styleColor?.titleColor
         tableView.reloadData()
         tabBarController?.tabBar.barTintColor = config.styleColor?.titleColor
@@ -108,9 +107,9 @@ class OptionVC: BaseVC , UITableViewDelegate, UITableViewDataSource, UIPickerVie
             default:
                 print("selection error")
             }
-            let tbc = self.tabBarController as! TabBarC
-            tbc.setSecondTimer()
             setStyle()
+            setSnowSecondTimer()
+            setNeedsStatusBarAppearanceUpdate()
             config.setMusic()
         })
         alertController.addAction(UIAlertAction(title: "取消".localized, style: .cancel,handler:nil))

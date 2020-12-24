@@ -30,7 +30,7 @@ class OptionTVC: BaseTVC {
             break
         }
         lb_name.textColor = config.styleColor?.titleColor
-        contentView.backgroundColor = config.styleColor?.backgroundColor
+        backgroundColor = UIColor.clear
     }
     
     class var reuseIdentifier: String {

@@ -32,7 +32,7 @@ class PostTVC2: BaseTVC {
         }
         ticket_name.textColor = config.styleColor?.titleColor
         added_date.textColor = config.styleColor?.infoTextColor
-        contentView.backgroundColor = config.styleColor?.backgroundColor
+        backgroundColor = UIColor.clear
     }
     
     class var nibName: String {

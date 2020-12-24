@@ -45,7 +45,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         sc_section.selectedSegmentTintColor = config.styleColor?.mainColor
         sc_section.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: config.styleColor?.btnTextColor] , for: .normal)
         label_ticket_quota.textColor = config.styleColor?.titleColor
-        tableView.backgroundColor = config.styleColor?.backgroundColor
+        tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = config.styleColor?.titleColor
         tabBarController?.tabBar.barTintColor = config.styleColor?.titleColor
         tabBarController?.tabBar.tintColor = config.styleColor?.secondColor
@@ -63,7 +63,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         setDismissKeyboardListener()
     }
     
-    override func setObserver(){
+    func setObserver(){
         listPageVM.postTicketList.observe{ [self] (data) in
             postTicketList = data
             tableView.reloadData()
@@ -95,7 +95,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 errorDialog()
                 print("error2")
             case Config.WAITING_FOR_CONNECTION:
-                setSecondTimer()
+//                setSecondTimer()
                 print("error3")
             default:
                 break
@@ -129,13 +129,32 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         getTicketData()
     }
     
-    @objc override func secondTimerFunc(){
-        secondCount += 1
-        if connectionError == Config.WAITING_FOR_CONNECTION && secondCount == 50{
+    @objc func secondTimerFunc(){
+        
+        if connectionError == Config.WAITING_FOR_CONNECTION{
+            secondCount += 1
+            if secondCount == 50{
             errorDialog()
-            stopSecondTimer()
+//            stopSecondTimer()
             secondCount = 0
+            }
         }
+        
+//        secondCount += 1
+//        if config.currentStyle.value == .xmasStyle{
+//            if getRandomNum(min: 0, max: 10) > 8.5{
+//                generateCircle()
+//            }
+//            for i in snowArr{
+//                let horizontalMove = Int(getRandomNum(min: -3, max: 3))
+//                i.position = CGPoint(x: Int(i.position.x) - horizontalMove, y: (Int(i.position.y) + 4) + Int(i.lineWidth) - abs(horizontalMove))
+//                if i.position.y >= view.frame.height + 10 {
+//                    i.removeFromSuperlayer()
+//                }
+//            }
+//        }else{
+//            removeSnow()
+//        }
     }
     
     func registerNib(){

@@ -15,7 +15,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     private var loginPageVM = LoginPageVM()
     private var secondTimer : Timer?
     private var secondCount : Int = 0
-    private var snowArr : [CAShapeLayer] = []
+//    private var snowArr : [CAShapeLayer] = []
     private var initLoginCheck = true
     
     @IBOutlet weak var img_icon: UIImageView!
@@ -43,7 +43,6 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         super.viewDidLoad()
         tf_name.delegate = self
         setSecondTimer()
-        setObserver()
         setIconPressTarget()
         setKeyBoardDismissGesture()
         setLocalizedStrings()
@@ -80,85 +79,66 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         tf_name.font = tf_name.font!.withSize(FontSize.TEXT_SIZE)
         btn_confirm.titleLabel?.font = btn_confirm.titleLabel?.font.withSize(FontSize.TEXT_SIZE)
     }
-    
-    func generateCircle(){
-        let circleSize = getRandomNum(min: 0, max: 5)
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: Int(getRandomNum(min: 0, max: Float(view.frame.width))), y: -10),
-                                      radius: CGFloat(circleSize),
-                                      startAngle: CGFloat(0),
-                                      endAngle: CGFloat(Double.pi * 2),
-                                      clockwise: true)
-            
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = circlePath.cgPath
-            
-        // Change the fill color
-        shapeLayer.fillColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
-        // You can change the stroke color
-//        shapeLayer.strokeColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
-        // You can change the line width
-//        shapeLayer.lineWidth = CGFloat(circleSize/getRandomNum(min: 0, max: 1))
-            
-//        view.layer.addSublayer(shapeLayer)
-        let index = UInt32(getRandomNum(min: 0, max: 2))
-        view.layer.insertSublayer(shapeLayer, at: index)
-        snowArr.append(shapeLayer)
-    }
-
-    func getRandomNum(min : Float, max : Float) -> Float{
-        return Float.random(in: min...max)
-    }
+//
+//    func generateCircle(){
+//        let circleSize = getRandomNum(min: 0, max: 5)
+//        let circlePath = UIBezierPath(arcCenter: CGPoint(x: Int(getRandomNum(min: 0, max: Float(view.frame.width))), y: -10),
+//                                      radius: CGFloat(circleSize),
+//                                      startAngle: CGFloat(0),
+//                                      endAngle: CGFloat(Double.pi * 2),
+//                                      clockwise: true)
+//
+//        let shapeLayer = CAShapeLayer()
+//        shapeLayer.path = circlePath.cgPath
+//
+//        // Change the fill color
+//        shapeLayer.fillColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
+//        // You can change the stroke color
+////        shapeLayer.strokeColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
+//        // You can change the line width
+////        shapeLayer.lineWidth = CGFloat(circleSize/getRandomNum(min: 0, max: 1))
+//
+////        view.layer.addSublayer(shapeLayer)
+//        let index = UInt32(getRandomNum(min: 0, max: 2))
+//        view.layer.insertSublayer(shapeLayer, at: index)
+//        snowArr.append(shapeLayer)
+//    }
+//
+//    func getRandomNum(min : Float, max : Float) -> Float{
+//        return Float.random(in: min...max)
+//    }
 
     //timer
-    override func setSecondTimer(){
+    func setSecondTimer(){
         if secondTimer == nil {
             secondTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.secondTimerFunc), userInfo: nil, repeats: true)
         }
     }
 
-    @objc override func secondTimerFunc(){
-        secondCount += 1
-        if config.currentStyle.value == .xmasStyle{
-            if getRandomNum(min: 0, max: 10) > 8.5{
-                generateCircle()
+    @objc func secondTimerFunc(){
+        if initLoginCheck{
+            if getCheckedLogin(){
+                goToNextPage()
+                print("auto go to next page")
+                stopSecondTimer()
+            }else{
+                initLoginCheck = false
             }
-            for i in snowArr{
-                let horizontalMove = Int(getRandomNum(min: -3, max: 3))
-                i.position = CGPoint(x: Int(i.position.x) - horizontalMove, y: (Int(i.position.y) + 4) + Int(i.lineWidth) - abs(horizontalMove))
-                if i.position.y >= view.frame.height + 10 {
-                    i.removeFromSuperlayer()
-                }
-            }
-        }else{
-//            stopSecondTimer()
-            removeSnow()
         }
-        
-//        if loginPageVM.isDatabaseChecked() != nil{
-            if initLoginCheck{
-                if getCheckedLogin(){
-                    goToNextPage()
-                    print("auto go to next page")
-                    stopSecondTimer()
-                }else{
-                    initLoginCheck = false
-                }
-            }
-//        }
     }
 
-    override func stopSecondTimer(){
+    func stopSecondTimer(){
         if secondTimer != nil{
             secondTimer?.invalidate()
             secondTimer = nil
         }
     }
     
-    func removeSnow(){
-        for i in snowArr{
-            i.removeFromSuperlayer()
-        }
-    }
+//    func removeSnow(){
+//        for i in snowArr{
+//            i.removeFromSuperlayer()
+//        }
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -211,12 +191,12 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
         let someDateTime = formatter.date(from: "2021/01/14 00:00")
-        if today < someDateTime!{
-            print("not arrive")
-            return
-        }else{
-            print("arrived")
-        }
+//        if today < someDateTime!{
+//            print("not arrive")
+//            return
+//        }else{
+//            print("arrived")
+//        }
         var controller = UIAlertController()
         var okAction = UIAlertAction()
         if config.embargo{

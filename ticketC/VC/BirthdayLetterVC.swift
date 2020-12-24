@@ -10,7 +10,11 @@ import UIKit
 class BirthdayLetterVC: BaseVC {
     
     private let birthdayLetterVM = BirthdayLetterVM()
-
+    private var header = ""
+    private var body = ""
+    private var footer = ""
+    private var createAt = ""
+    
     @IBOutlet weak var view_background: UIView!
     @IBOutlet weak var lb_header: UILabel!
     @IBOutlet weak var lb_body: UILabel!
@@ -20,22 +24,28 @@ class BirthdayLetterVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         birthdayLetterVM.getLetter(user: config.currentUser!)
-        setObserver()
         setStyle()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        setObserver()
+    }
     
-    override func setObserver() {
+    func setObserver() {
         birthdayLetterVM.header.observe{ [self] (data) in
             lb_header.text = data
+            header = data
         }
         birthdayLetterVM.body.observe{ [self] (data) in
             lb_body.text = data
+            body = data
         }
         birthdayLetterVM.footer.observe{ [self] (data) in
             lb_footer.text = data
+            footer = data
         }
         birthdayLetterVM.create_at.observe{ [self] (data) in
             create_at.text = data
+            createAt = data
         }
     }
     
@@ -58,13 +68,12 @@ class BirthdayLetterVC: BaseVC {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
 
-        let attrString = NSMutableAttributedString(string: "Underline Label")
+        let attrString = NSMutableAttributedString(string: body)
         attrString.addAttributes(labelAtributes, range: NSMakeRange(0, attrString.length))
         attrString.addAttribute(.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         lb_body.attributedText = attrString
         lb_body.textAlignment = .justified
     }
-
 }
 
 class UnderlinedLabel: UILabel {

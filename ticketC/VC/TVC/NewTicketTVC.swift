@@ -43,8 +43,8 @@ class NewTicketTVC: BaseTVC, UITextFieldDelegate {
         tf_ticket_name.textColor = config.styleColor?.titleColor
         tf_ticket_name.tintColor = config.styleColor?.titleColor
         tf_ticket_name.backgroundColor = config.styleColor?.backgroundColor
+        backgroundColor = UIColor.clear
         btn_confirm.setTitleColor(config.styleColor?.titleColor, for: .normal)
-        contentView.backgroundColor = config.styleColor?.backgroundColor
         btn_confirm.backgroundColor = UIColor.clear
         btn_confirm.layer.borderWidth = 1.0
         btn_confirm.layer.cornerRadius = 5
