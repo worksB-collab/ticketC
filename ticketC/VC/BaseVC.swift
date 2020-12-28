@@ -30,8 +30,13 @@ class BaseVC: UIViewController {
         setSnowSecondTimer()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        stopSnowSecondTimer()
+    }
+    
     func setBaseObserver(){
         config.currentStyle.observe{ [self] _ in
+            removeSnow()
             setStyle()
             setSnowSecondTimer()
         }
@@ -43,29 +48,37 @@ class BaseVC: UIViewController {
     
     func setSnowSecondTimer(){
         if secondTimer == nil {
-            secondTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.baseSecondTimerFunc), userInfo: nil, repeats: true)
+            secondTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.baseSecondTimerFunc), userInfo: nil, repeats: true)
             RunLoop.current.add(secondTimer!, forMode: RunLoop.Mode.common)
         }
     }
 
     @objc func baseSecondTimerFunc(){
         if config.currentStyle.value == .xmasStyle{
-            if getRandomNum(min: 0, max: 10) > 8.5{
+            if getRandomNum(min: 0, max: 10) > 7{
                 generateCircle()
             }
-            for i in snowArr{
+            for i in 0..<snowArr.count{
                 var left : Float = 0
                 var right : Float = 0
                 if isEvenDate(){
-                    left = 2.0
+                    left = 3.0
                 }else{
-                    right = 2.0
+                    right = 3.0
                 }
                 let horizontalMove = Int(getRandomNum(min: 0 - left, max: 0 + right))
-                i.position = CGPoint(x: Int(i.position.x) + horizontalMove,
-                                     y: (Int(i.position.y) + 2) + Int(i.lineWidth) - abs(horizontalMove))
-                if i.position.y >= view.frame.height + 10 {
-                    i.removeFromSuperlayer()
+                snowArr[i].position = CGPoint(x: Int(snowArr[i].position.x) + horizontalMove,
+                                     y: (Int(snowArr[i].position.y) + 4) + Int(snowArr[i].lineWidth) - abs(horizontalMove))
+                
+//                if snowArr[i].position.y >= view.frame.height + 10 {
+//                    snowArr[i].removeFromSuperlayer()
+//                    print("snowArr removeFromSuperlayer", snowArr[i].position.y, view.frame.height)
+                //                }
+            }
+            if snowArr.count != 0{
+                if snowArr.first!.position.y >= view.frame.height + 10 {
+                    snowArr.first!.removeFromSuperlayer()
+                    snowArr.remove(at: 0)
                 }
             }
         }else{
@@ -73,7 +86,7 @@ class BaseVC: UIViewController {
         }
     }
     
-    func stopBaseSecondTimer(){
+    func stopSnowSecondTimer(){
         if secondTimer != nil{
             secondTimer?.invalidate()
             secondTimer = nil

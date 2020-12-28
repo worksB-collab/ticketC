@@ -191,12 +191,12 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
         let someDateTime = formatter.date(from: "2021/01/14 00:00")
-//        if today < someDateTime!{
-//            print("not arrive")
-//            return
-//        }else{
-//            print("arrived")
-//        }
+        if today < someDateTime!{
+            print("not arrive")
+            return
+        }else{
+            print("arrived")
+        }
         var controller = UIAlertController()
         var okAction = UIAlertAction()
         if config.embargo{
