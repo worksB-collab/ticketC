@@ -24,11 +24,13 @@ class OptionTVC: BaseTVC {
             img_icon.image = UIImage(named: "pandaA")
         case .xmasStyle:
             img_icon.image = UIImage(named: "candy-cane")
+        case .minionStyle:
+            img_icon.image = UIImage(named: "minion4")
         case .none:
             break
         }
         lb_name.textColor = config.styleColor?.titleColor
-        contentView.backgroundColor = config.styleColor?.backgroundColor
+        backgroundColor = UIColor.clear
     }
     
     class var reuseIdentifier: String {

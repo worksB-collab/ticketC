@@ -4,7 +4,7 @@
 target 'ticketC' do
 	pod 'SwiftyJSON', '~> 4.0'
 	pod 'Alamofire', '~> 5.2'
-
+  pod 'Firebase/Analytics'
   # Pods for ticketC
 
   target 'ticketCTests' do

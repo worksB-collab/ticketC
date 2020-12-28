@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 class ListPageVM: BaseVM {
     
     private let dateFormatter = DateFormatter()
@@ -13,6 +14,7 @@ class ListPageVM: BaseVM {
     public var postTicketList : LiveData<[PostTicket]> = LiveData([])
     public var upcomingTicketList : LiveData<[UpcomingTicket]> = LiveData([])
     public var getDataSuccessful : LiveData<Bool> = LiveData(true)
+    public var quota = LiveData(0)
     override init(){
         super.init()
         setObserver()
@@ -26,10 +28,12 @@ class ListPageVM: BaseVM {
         listPageM.observe_upcomingTicketList{ [self] (data) in
             upcomingTicketList.value = data
         }
-    }
-    
-    func getQuota() -> Int{
-        return listPageM.getQuota()
+        networkController.connectionError.observe{ [self] (error) in
+            connectionError.value = error
+        }
+        listPageM.quota.observe{ [self] (data) in
+            quota.value = data
+        }
     }
     
     func getTicketSerialNumber() -> Int{
@@ -40,196 +44,83 @@ class ListPageVM: BaseVM {
         return listPageM.maxTicketNum
     }
     
-    
-    func getTicketData(){
+    func getTicketData(user : String){
         listPageM.removeTicktList()
-        networkController.post(params: ["command": "getTickets"], callBack: { [self]
-            (jsonData) in
-            if jsonData!["status"].int == 200{
-            if jsonData != nil{
-                let data = jsonData!["data"]
-                if data["ticketNum"].string == nil{
-                    listPageM.maxTicketNum = data["ticketNum"].int!
+        networkController.postToDatabase(api: "getTickets", params: ["user": user], callBack: {
+            [self] (jsonData) in
+            listPageM.maxTicketNum = jsonData!["quota"].int!
+            if jsonData == nil{
+                connectionError.value = Config.ERROR_NO_DATA
+            }
+            let data = jsonData?["tickets"].array
+            for i in data!{
+                if i["deleted"].int! == 1{
+                    continue
+                }
+                let id = i["id"].int
+                let name = i["content"].string
+                let data = i["create_at"].string!.split(separator: "T")[0]
+                let checked = i["checked"].int
+                if checked! == 1{
+                    let ticket = PostTicket(name: name!, date: String(data))
+                    ticket.id = id!
+                    listPageM.postTicketList.insert(ticket, at: 0)
                 }else{
-                    listPageM.maxTicketNum = Int(data["ticketNum"].string!)!
-                }
-                let tickets = data["tickets"].array
-                if !tickets!.isEmpty{
-                    listPageM.ticketSerialNumber = tickets!.count
-                    for i in 0..<tickets!.count{
-                        let ticketDeleted = tickets![i]["ticketDeleted"].bool
-                        if ticketDeleted!{
-                            continue
-                        }
-                        var ticketSerialNumber = tickets![i]["ticketSerialNumber"].int
-                        if ticketSerialNumber == nil{
-                            ticketSerialNumber = Int(tickets![i]["ticketSerialNumber"].string!)
-                        }
-                        var ticketName : String?
-                        if tickets![i]["ticketName"].string == nil{
-                            ticketName = "\(tickets![i]["ticketName"].int)"
-                        }else{
-                            ticketName = tickets![i]["ticketName"].string
-                        }
-                        
-                        let ticketDateArr = tickets![i]["ticketDate"].string!.split(separator: "T")
-                        let ticketDate = ticketDateArr[0]
-                        let ticketChecked = tickets![i]["ticketChecked"].bool
-                        
-                        if ticketChecked!{
-                            let ticket = PostTicket(name: ticketName!, date: String(ticketDate))
-                            ticket.id = ticketSerialNumber!
-                            listPageM.postTicketList.append(ticket)
-                        }else{
-                            let ticket = UpcomingTicket(name: ticketName!, date: String(ticketDate))
-                            ticket.id = ticketSerialNumber!
-                            listPageM.upcomingTicketList.append(ticket)
-                        }
-                    }
+                    let ticket = UpcomingTicket(name: name!, date: String(data))
+                    ticket.id = id!
+                    listPageM.upcomingTicketList.insert(ticket, at: 0)
                 }
             }
-            }else{
-                getDataSuccessful.value = false
-                print("error", jsonData?.debugDescription)
-            }
+            connectionError.value = Config.NO_ERROR
+            listPageM.setQuota()
         })
     }
     
-    func postNewTicket(ticketName : String, ticketDate : String){
-        networkController.post(params: ["command": "postNewTicket",
-                                        "ticketSerialNumber" :"\(listPageM.ticketSerialNumber)",
-                                        "ticketName": ticketName,
-                                        "ticketDate": ticketDate],
-                               callBack: { [self]
-                                (jsonData) in
-                                if jsonData != nil{
-                                    if jsonData!["status"].int == 200{
-                                        print("added")
-                                        
-                                        let newTicket = UpcomingTicket(name: ticketName, date:dateFormatter.string(from: today))
-                                        newTicket.id = listPageM.ticketSerialNumber
-                                        listPageM.ticketSerialNumber += 1
-                                        upcomingTicketList.value.append(newTicket)
-                                        
-                                    }else{
-                                        getDataSuccessful.value = false
-                                        print("cannot add it", jsonData?.debugDescription)
-                                    }
-                                }else{
-                                    getDataSuccessful.value = false
-                                    print("cannot add it", jsonData?.debugDescription)
-                                }
-                               })
+    func postNewTicket(ticketName : String, user : String){
+        networkController.postToDatabase(api: "postNewTicket",
+                                         params: ["ticketName": ticketName,
+                                                  "user": user],
+                                         callBack: { [self] (jsonData) in
+                                            if jsonData == nil{
+                                                connectionError.value = Config.ERROR_NO_DATA
+                                            }
+                                            let id = jsonData![0]["id"].int
+                                            let name = jsonData![0]["content"].string
+                                            let date = jsonData![0]["create_at"].string!.split(separator: "T")[0]
+                                            print("added", ticketName)
+                                            let newTicket = UpcomingTicket(name: name!, date: String(date))
+                                            newTicket.id = id!
+                                            upcomingTicketList.value.insert(newTicket, at : 0)
+                                            connectionError.value = Config.NO_ERROR
+                                         })
     }
     
     func checkTicket(index : Int, ticketSerialNumber : String){
-        networkController.post(params: ["command" : "checkTicket",
-                                        "ticketSerialNumber" : ticketSerialNumber],
-                               callBack: { [self]
-                                (jsonData) in
-                                if jsonData != nil{
-                                    if jsonData!["status"].int == 200{
-                                        print("checked")
-                                        
-                                        postTicketList.value.append(PostTicket(name: upcomingTicketList.value[index].name!, date: dateFormatter.string(from: today)))
-                                        upcomingTicketList.value.remove(at: index)
-                                    }else{
-                                        getDataSuccessful.value = false
-                                        print("cannot check it", jsonData?.debugDescription)
-                                    }
-                                }else{
-                                    getDataSuccessful.value = false
-                                    print("cannot check it", jsonData?.debugDescription)
-                                }        })
+        networkController.postToDatabase(api: "checkTicket",
+        params: ["id" : ticketSerialNumber],
+        callBack: { [self] (jsonData) in
+           if jsonData == nil{
+               connectionError.value = Config.ERROR_NO_DATA
+           }
+           print("checked id", ticketSerialNumber)
+           let name = jsonData![0]["content"].string
+           let date = jsonData![0]["create_at"].string!.split(separator: "T")[0]
+           postTicketList.value.insert(PostTicket(name: name!, date: String(date)), at: 0)
+           upcomingTicketList.value.remove(at: index)
+           connectionError.value = Config.NO_ERROR
+        })
     }
     
     func deleteTicket(ticketSerialNumber : String, index : Int){
-        networkController.post(params: ["command" : "deleteTicket",
-                                        "ticketSerialNumber" : ticketSerialNumber],
-                               callBack: { [self]
-                                (jsonData) in
-                                if jsonData != nil{
-                                    if jsonData!["status"].int == 200{
-                                        print("deleted")
-                                        upcomingTicketList.value.remove(at: index)
-                                    }else{
-                                        getDataSuccessful.value = false
-                                        print("cannot delete it", jsonData?.debugDescription)
-                                    }
-                                }else{
-                                    getDataSuccessful.value = false
-                                    print("cannot delete it", jsonData?.debugDescription)
-                                }        })
+        networkController.postToDatabase(api: "deleteTicket",
+                                         params: ["id" : ticketSerialNumber],
+                                         callBack: { [self] (jsonData) in
+                                            if jsonData == nil{
+                                                connectionError.value = Config.ERROR_NO_DATA
+                                            }
+                                            upcomingTicketList.value.remove(at: index)
+                                            connectionError.value = Config.NO_ERROR
+                                         })
     }
     
-//    func getDataFromUserDefault(){
-//        do {
-//            if let data =  userDefaults.data(forKey:"postTicketList") {
-//                let res = try JSONDecoder().decode([PostTicket].self,from:data)
-//                postTicketList.value = res
-//            } else {
-//                print("No postTicketList")
-//            }
-//        }
-//        catch { print(error) }
-//
-//        do {
-//            if let data =  Config.userDefaults.data(forKey:"upcomingTicketList") {
-//                let res = try JSONDecoder().decode([UpcomingTicket].self,from:data)
-//                upcomingTicketList.value = res
-//            } else {
-//                print("No upcomingTicketList")
-//            }
-//        }
-//        catch { print(error) }
-//
-//        do {
-//            if let data =  Config.userDefaults.data(forKey:"maxTicketNum") {
-//                let res = try JSONDecoder().decode(Int.self,from:data)
-//                listPageM.maxTicketNum = res
-//            } else {
-//                print("No maxTicketNum")
-//            }
-//        }
-//        catch { print(error) }
-//
-//        do {
-//            if let data =  Config.userDefaults.data(forKey:"ticketSerialNumber") {
-//                let res = try JSONDecoder().decode(Int.self,from:data)
-//                listPageM.ticketSerialNumber = res
-//            } else {
-//                print("No ticketSerialNumber")
-//            }
-//        }
-//        catch { print(error) }
-//
-//    }
-//
-//    func saveData(){
-//        do {
-//            let res = try JSONEncoder().encode(listPageM.postTicketList)
-//            Config.userDefaults.set(res,forKey: "postTicketList")
-//        }
-//        catch { print(error) }
-//
-//        do {
-//            let res = try JSONEncoder().encode(listPageM.upcomingTicketList)
-//            Config.userDefaults.set(res,forKey: "upcomingTicketList")
-//        }
-//        catch { print(error) }
-//
-//        do {
-//            let res = try JSONEncoder().encode(listPageM.maxTicketNum)
-//            Config.userDefaults.set(res,forKey: "maxTicketNum")
-//        }
-//        catch { print(error) }
-//
-//
-//        do {
-//            let res = try JSONEncoder().encode(listPageM.ticketSerialNumber)
-//            Config.userDefaults.set(res,forKey: "ticketSerialNumber")
-//        }
-//        catch { print(error) }
-//
-//    }
 }

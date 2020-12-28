@@ -21,12 +21,18 @@ class UpcomingTVC: BaseTVC {
         // Configure the view for the selected state
     }
     
+    override func setLocalizedStrings(){
+        btn_check.setTitle("兌換".localized, for: .normal)
+    }
+    
     override func setStyle(){
         switch config.currentStyle.value{
         case .defaultStyle:
             img_icon.image = UIImage(named: "bamboo-canes")
         case .xmasStyle:
             img_icon.image = UIImage(named: "christmas-sock")
+        case .minionStyle:
+            img_icon.image = UIImage(named: "minion2")
         case .none:
             break
         }
@@ -34,7 +40,7 @@ class UpcomingTVC: BaseTVC {
         btn_check.setTitleColor(config.styleColor?.btnTextColor, for: .normal)
         btn_check.backgroundColor = config.styleColor?.mainColor
         added_date.textColor = config.styleColor?.infoTextColor
-        contentView.backgroundColor = config.styleColor?.backgroundColor
+        backgroundColor = UIColor.clear
     }
     
     class var nibName: String {

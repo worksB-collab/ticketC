@@ -26,6 +26,7 @@ class BaseTVC: UITableViewCell {
         super.awakeFromNib()
         setStyle()
         setObserver()
+        setLocalizedStrings()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,6 +39,9 @@ class BaseTVC: UITableViewCell {
         config.currentStyle.observe{ [self] _ in
             setStyle()
         }
+    }
+    
+    func setLocalizedStrings(){
     }
     
     func setStyle(){}

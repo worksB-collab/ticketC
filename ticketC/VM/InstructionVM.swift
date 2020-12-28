@@ -23,15 +23,13 @@ class InstructionVM : BaseVM {
         }
     }
     
-    func getInfoText(){
-        networkController.post(params: ["command" : "getInfoText"], callBack: {
-            [self] (jsonData) in
-            if jsonData!["status"].int == 200{
-                let data = jsonData!["data"]["infoText"].string
-                instructionM.infoText.value = data!
-            }else{
-                instructionM.infoText.value = "找不到資料"
-            }
-        })
+    func getInfoText(user : String){
+                networkController.getFromDatabase(api: "getInfoText" + "/\(user)", callBack: {
+                    [self] (jsonData) in
+                    let data = jsonData![0]["body"].string
+                    instructionM.infoText.value = data ?? "no info"
+                })
+        print("info text: ", instructionM.infoText.value)
+        
     }
 }

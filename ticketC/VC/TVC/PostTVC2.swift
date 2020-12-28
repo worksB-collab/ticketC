@@ -25,12 +25,14 @@ class PostTVC2: BaseTVC {
             img_icon.image = UIImage(named: "fat_panda")
         case .xmasStyle:
             img_icon.image = UIImage(named: "gift-box")
+        case .minionStyle:
+            img_icon.image = UIImage(named: "minion5")
         case .none:
             break
         }
         ticket_name.textColor = config.styleColor?.titleColor
         added_date.textColor = config.styleColor?.infoTextColor
-        contentView.backgroundColor = config.styleColor?.backgroundColor
+        backgroundColor = UIColor.clear
     }
     
     class var nibName: String {
