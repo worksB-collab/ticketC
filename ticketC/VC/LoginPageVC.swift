@@ -10,12 +10,11 @@ import FirebaseAnalytics
 
 class LoginPageVC: BaseVC, UITextFieldDelegate {
     
-    private var validName : String = "Christina"
+    private var validName : String = "Baby"
     private var checkedLogin : Bool = false
     private var loginPageVM = LoginPageVM()
     private var secondTimer : Timer?
     private var secondCount : Int = 0
-//    private var snowArr : [CAShapeLayer] = []
     private var initLoginCheck = true
     
     @IBOutlet weak var img_icon: UIImageView!
@@ -79,35 +78,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         tf_name.font = tf_name.font!.withSize(FontSize.TEXT_SIZE)
         btn_confirm.titleLabel?.font = btn_confirm.titleLabel?.font.withSize(FontSize.TEXT_SIZE)
     }
-//
-//    func generateCircle(){
-//        let circleSize = getRandomNum(min: 0, max: 5)
-//        let circlePath = UIBezierPath(arcCenter: CGPoint(x: Int(getRandomNum(min: 0, max: Float(view.frame.width))), y: -10),
-//                                      radius: CGFloat(circleSize),
-//                                      startAngle: CGFloat(0),
-//                                      endAngle: CGFloat(Double.pi * 2),
-//                                      clockwise: true)
-//
-//        let shapeLayer = CAShapeLayer()
-//        shapeLayer.path = circlePath.cgPath
-//
-//        // Change the fill color
-//        shapeLayer.fillColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
-//        // You can change the stroke color
-////        shapeLayer.strokeColor = UIColor(red: 255, green: 255, blue: 255, alpha: CGFloat(getRandomNum(min: 0, max: 1))).cgColor
-//        // You can change the line width
-////        shapeLayer.lineWidth = CGFloat(circleSize/getRandomNum(min: 0, max: 1))
-//
-////        view.layer.addSublayer(shapeLayer)
-//        let index = UInt32(getRandomNum(min: 0, max: 2))
-//        view.layer.insertSublayer(shapeLayer, at: index)
-//        snowArr.append(shapeLayer)
-//    }
-//
-//    func getRandomNum(min : Float, max : Float) -> Float{
-//        return Float.random(in: min...max)
-//    }
-
+    
     //timer
     func setSecondTimer(){
         if secondTimer == nil {
@@ -133,12 +104,6 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
             secondTimer = nil
         }
     }
-    
-//    func removeSnow(){
-//        for i in snowArr{
-//            i.removeFromSuperlayer()
-//        }
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -191,12 +156,12 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
         let someDateTime = formatter.date(from: "2021/01/14 00:00")
-        if today < someDateTime!{
-            print("not arrive")
-            return
-        }else{
-            print("arrived")
-        }
+//        if today < someDateTime!{
+//            print("not arrive")
+//            return
+//        }else{
+//            print("arrived")
+//        }
         var controller = UIAlertController()
         var okAction = UIAlertAction()
         if config.embargo{
@@ -246,24 +211,10 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     }
     
     func goToNextPage() {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "navListPageVC") as! UINavigationController
-//
-//        if navigationController != nil{
-//            let vc = storyboard.instantiateViewController(withIdentifier: "ListPageVC") as! UIViewController
-//            navigationController?.pushViewController(vc, animated: true)
-//        }else{
-//            present(vc,animated: true,completion: nil)
-//        }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TBC") as! UITabBarController
         
-//        if navigationController != nil{
-//            let vc = storyboard.instantiateViewController(withIdentifier: "ListPageVC") as! UIViewController
-//            navigationController?.pushViewController(vc, animated: true)
-//        }else{
         vc.modalPresentationStyle = .fullScreen
             present(vc,animated: true,completion: nil)
-//        }
     }
 }

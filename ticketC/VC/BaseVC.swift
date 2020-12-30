@@ -70,10 +70,6 @@ class BaseVC: UIViewController {
                 snowArr[i].position = CGPoint(x: Int(snowArr[i].position.x) + horizontalMove,
                                      y: (Int(snowArr[i].position.y) + 4) + Int(snowArr[i].lineWidth) - abs(horizontalMove))
                 
-//                if snowArr[i].position.y >= view.frame.height + 10 {
-//                    snowArr[i].removeFromSuperlayer()
-//                    print("snowArr removeFromSuperlayer", snowArr[i].position.y, view.frame.height)
-                //                }
             }
             if snowArr.count != 0{
                 if snowArr.first!.position.y >= view.frame.height + 10 {
