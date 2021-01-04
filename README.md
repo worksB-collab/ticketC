@@ -1,5 +1,5 @@
 # TicketC
-This is an customized app for my girlfriend to interact with our tickets.
+A personal tool app that indicates current tickets status, communicating with MySQL with MVVM structure.
 
 #### Main Function v2.0
 * Login Page: To give the user a special name to log in, otherwise, will show the info of this app.
