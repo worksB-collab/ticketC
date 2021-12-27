@@ -23,7 +23,7 @@ class BirthdayLetterVC: BaseVC {
     @IBOutlet weak var create_at: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        birthdayLetterVM.getLetter(user: config.currentUser!)
+        birthdayLetterVM.getLetterFromSheet()
         setStyle()
     }
     override func viewWillAppear(_ animated: Bool) {

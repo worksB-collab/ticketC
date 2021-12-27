@@ -16,7 +16,7 @@ class InstructionVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setStyle()
-        instructionVM.getInfoText(user: config.currentUser!)
+        instructionVM.getInfoTextFromSheet()
         setObserver()
         setLocalizedStrings()
     }
