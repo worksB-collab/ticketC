@@ -10,7 +10,7 @@ import FirebaseAnalytics
 
 class LoginPageVC: BaseVC, UITextFieldDelegate {
     
-    private var validName : String = "Baby"
+    private var validName : String = "crycrybaby"
     private var checkedLogin : Bool = false
     private var loginPageVM = LoginPageVM()
     private var secondTimer : Timer?
@@ -160,7 +160,7 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
 //            print("not arrive")
 //            return
 //        }else{
-//            print("arrived")
+//            print("arrived")pot
 //        }
         var controller = UIAlertController()
         var okAction = UIAlertAction()

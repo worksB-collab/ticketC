@@ -26,7 +26,7 @@ class Config : NSObject{
     public var currentStyle : LiveData<Style> = LiveData(.none)
     private var secondTimer : Timer?
     public var styleColor : BaseStyleColor? = nil
-    public var isTestMode = true
+    public var isTestMode = false
     public var embargo = true
     public var audioPlayer = AVAudioPlayer()
     public var currentUser : String?

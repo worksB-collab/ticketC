@@ -195,9 +195,9 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     @objc func getTicketData(){
         loader.isHidden = false
         if sc_section.selectedSegmentIndex == 0{
-            listPageVM.getTicketData(user: config.currentUser!)
+            listPageVM.getTicketDataFromSheet(user: config.currentUser!)
         }else{
-            listPageVM.getTicketData(user: config.objectUser!)
+            listPageVM.getTicketDataFromSheet(user: config.objectUser!)
         }
     }
     
@@ -205,7 +205,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         let controller = UIAlertController(title: "確定新增".localized + newTicketName + "嗎？".localized, message: "一但新增將無法修改，確定新增嗎？".localized, preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "新增".localized, style: .default, handler: { [self] _ in
             loader.isHidden = false
-            listPageVM.postNewTicket(ticketName: newTicketName, user: config.currentUser!)
+            listPageVM.postNewTicketToSheet(ticketName: newTicketName, user: config.currentUser!)
         })
         
         let cancelAction = UIAlertAction(title: "取消".localized, style: .cancel, handler: nil)
@@ -233,7 +233,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 loader.isHidden = false
                 for i in 0 ..< upcomingTicketList.count{
                     if self.upcomingTicketList[i].index == sender.tag{
-                        listPageVM.checkTicket(index: upcomingTicketList[i].index! - 1, ticketSerialNumber: "\(upcomingTicketList[i].id!)")
+                        listPageVM.checkTicketToSheet(index: upcomingTicketList[i].index! - 1, id: "\(upcomingTicketList[i].id!)", user: config.currentUser!)
                         break
                     }
                 }
@@ -249,7 +249,7 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 loader.isHidden = false
                 for i in 0 ..< upcomingTicketList.count{
                     if upcomingTicketList[i].index == sender.tag{
-                        listPageVM.checkTicket(index: upcomingTicketList[i].index!, ticketSerialNumber: "\(upcomingTicketList[i].id!)")
+                        listPageVM.checkTicketToSheet(index: upcomingTicketList[i].index!, id: "\(upcomingTicketList[i].id!)", user: config.currentUser!)
                         break
                     }
                 }
@@ -439,9 +439,9 @@ class ListPageVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                             present(controller, animated: true, completion: nil)
                             break
                         }
-                        listPageVM.deleteTicket(ticketSerialNumber: "\(upcomingTicketList[indexPath.row-1].id!)", index: indexPath.row-1)
+                        listPageVM.deleteTicketToSheet(id: "\(upcomingTicketList[indexPath.row-1].id!)", index: indexPath.row-1, user: config.currentUser!)
                     }else{
-                        listPageVM.deleteTicket(ticketSerialNumber: "\(upcomingTicketList[indexPath.row].id!)", index: indexPath.row)
+                        listPageVM.deleteTicketToSheet(id: "\(upcomingTicketList[indexPath.row].id!)", index: indexPath.row, user: config.currentUser!)
                     }
                     loader.isHidden = false
                 case 1:
