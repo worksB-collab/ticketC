@@ -12,7 +12,7 @@ import Alamofire
 class NetworkController : NSObject{
     
     static let sharedInstance = NetworkController()
-    let urlSheet = "https://script.google.com/macros/s/AKfycbxLEG42POXubj6ybP962WXhT3yjsoJI9_JCSDHD9iDMk5RDgB-5uvGMZ-RiWSdlKusK/exec"
+    let urlSheet = "https://script.google.com/macros/s/AKfycbx5S2fcgVwbFG2eRJNGu7j_UrSgKNcZT99kwlXj1j_LMtYlaMAavXv-uGRw3gCtkKWw/exec"
     let urlDatabase = "http://34.68.241.191:3000/"
     var isDatabaseAlive : Bool?
     var alamofireManager : Alamofire.Session!

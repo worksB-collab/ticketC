@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NNJ-WS-yLc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NNJ-WS-yLc">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,7 +30,7 @@
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6wC-Ha-9Gn">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6wC-Ha-9Gn" id="tCM-7E-cpB">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -193,6 +193,11 @@
                                     <action selector="btn_confirm:" destination="CJg-02-d4n" eventType="touchUpInside" id="0Zx-B9-FaV"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hj9-o8-Phr">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sce-Hh-Bhb"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -201,12 +206,16 @@
                             <constraint firstItem="aeP-e5-XlW" firstAttribute="top" secondItem="sce-Hh-Bhb" secondAttribute="top" constant="100" id="Dsw-tk-FOU"/>
                             <constraint firstItem="aeP-e5-XlW" firstAttribute="centerX" secondItem="sce-Hh-Bhb" secondAttribute="centerX" id="Glu-4u-WPP"/>
                             <constraint firstItem="AMR-Ua-Dv6" firstAttribute="centerX" secondItem="aeP-e5-XlW" secondAttribute="centerX" id="HYB-rq-c6w"/>
+                            <constraint firstItem="sce-Hh-Bhb" firstAttribute="top" secondItem="hj9-o8-Phr" secondAttribute="top" constant="140" id="ISl-vr-Tl0"/>
+                            <constraint firstItem="hj9-o8-Phr" firstAttribute="bottom" secondItem="sce-Hh-Bhb" secondAttribute="bottom" constant="34" id="KIs-gO-xem"/>
                             <constraint firstItem="Ner-O9-neb" firstAttribute="width" secondItem="AMR-Ua-Dv6" secondAttribute="width" id="OIN-Dk-XNZ"/>
                             <constraint firstItem="AMR-Ua-Dv6" firstAttribute="top" secondItem="cW4-R7-56c" secondAttribute="bottom" constant="40" id="XAx-Uk-cIi"/>
                             <constraint firstItem="cW4-R7-56c" firstAttribute="centerX" secondItem="aeP-e5-XlW" secondAttribute="centerX" id="aNi-nb-7FP"/>
+                            <constraint firstItem="hj9-o8-Phr" firstAttribute="leading" secondItem="sce-Hh-Bhb" secondAttribute="leading" id="cA8-5E-MRW"/>
                             <constraint firstItem="Ner-O9-neb" firstAttribute="centerX" secondItem="AMR-Ua-Dv6" secondAttribute="centerX" id="cho-pn-ksC"/>
                             <constraint firstItem="cW4-R7-56c" firstAttribute="top" secondItem="aeP-e5-XlW" secondAttribute="bottom" constant="30" id="fWb-WQ-s5G"/>
                             <constraint firstItem="Ner-O9-neb" firstAttribute="top" secondItem="AMR-Ua-Dv6" secondAttribute="bottom" constant="30" id="q0r-iB-oNX"/>
+                            <constraint firstItem="sce-Hh-Bhb" firstAttribute="trailing" secondItem="hj9-o8-Phr" secondAttribute="trailing" id="xpl-qz-coS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7Bk-GY-0Fu"/>
@@ -214,6 +223,7 @@
                         <outlet property="btn_confirm" destination="Ner-O9-neb" id="L3t-ZC-wGh"/>
                         <outlet property="img_icon" destination="aeP-e5-XlW" id="XXR-Pn-OTP"/>
                         <outlet property="lb_title" destination="cW4-R7-56c" id="Lyh-Uk-NTa"/>
+                        <outlet property="loader" destination="hj9-o8-Phr" id="IwE-hf-8BK"/>
                         <outlet property="tf_name" destination="AMR-Ua-Dv6" id="Zq1-Uh-aGt"/>
                     </connections>
                 </viewController>

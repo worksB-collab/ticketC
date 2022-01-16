@@ -23,20 +23,14 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
     @IBOutlet weak var btn_confirm: UIButton!
     @IBAction func btn_confirm(_ sender: UIButton) {
         if tf_name.text != "" {
-            if (tf_name.text! == validName || tf_name.text! == validName + " "){
-                checkedLogin = true
-                saveData(name: "checkedLogin", data: checkedLogin)
-                goToNextPage()
-                print("go to next page")
-            }else{
-                goToInstructionPage()
-                print("go to Instruction page")
-            }
+            loginPageVM.isLoginValid(username: tf_name.text!)
+            loader.isHidden = false;
         }else{
             goToInstructionPage()
             print("go to Instruction page")
         }
     }
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +41,26 @@ class LoginPageVC: BaseVC, UITextFieldDelegate {
         setLocalizedStrings()
         setFont()
         config.setMusic()
+        setObserver()
         
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: "login_page",
         ])
+    }
+    
+    func setObserver(){
+        loginPageVM.isLoginValid.observe{ [self] (data) in
+            if (data){
+                checkedLogin = true
+                saveData(name: "checkedLogin", data: checkedLogin)
+                goToNextPage()
+                print("go to next page")
+            }else{
+                goToInstructionPage()
+                print("go to Instruction page")
+            }
+            loader.isHidden = true
+        }
     }
     
     func setKeyBoardDismissGesture(){

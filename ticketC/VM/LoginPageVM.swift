@@ -9,6 +9,8 @@ import Foundation
 
 class LoginPageVM: BaseVM {
     
+    public var isLoginValid : LiveData<Bool> = LiveData(false)
+    
     func getCheckedLogin() -> Bool?{
         return tools.read(name: "checkedLogin")
     }
@@ -20,6 +22,18 @@ class LoginPageVM: BaseVM {
     func unlockEmbargo(){
         config.embargo = false
         tools.write(name: "embargo", data: false)
+    }
+    
+    func isLoginValid(username : String){
+        networkController.postToSheet(params: ["command": "login", "username": username], callBack: { [self] (jsonData) in
+            let status = jsonData!["status"].int
+            let data = jsonData!["data"].dictionary
+            if status != 200{
+                connectionError.value = Config.ERROR_NO_DATA
+            }
+            connectionError.value = Config.NO_ERROR
+            isLoginValid.value = data!["validLogin"]!.bool!
+         })
     }
     
     override init() {
