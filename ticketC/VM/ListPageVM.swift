@@ -46,7 +46,6 @@ class ListPageVM: BaseVM {
     
     
     func getTicketDataFromSheet(user: String){
-        listPageM.removeTicktList()
         networkController.postToSheet(params: [
             "command": "getTickets",
             "user": user
@@ -59,6 +58,7 @@ class ListPageVM: BaseVM {
             if status != 200{
                 connectionError.value = Config.ERROR_NO_DATA
             }
+            listPageM.removeTicktList()
             listPageM.maxTicketNum = Int(quota!)!
             for i in tickets!{
                 if i["ticketDeleted"].boolValue{

@@ -53,6 +53,7 @@ class BirthdayLetterVC: BaseVC {
         view.backgroundColor = config.styleColor?.backgroundColor
         contentView.backgroundColor = config.styleColor?.backgroundColor
         lb_header.textColor = config.styleColor?.mainColor
+        lb_body.textColor = config.styleColor?.infoTextColor
         lb_footer.textColor = config.styleColor?.infoTextColor
         create_at.textColor = config.styleColor?.infoTextColor
         
